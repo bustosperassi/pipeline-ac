@@ -1,11 +1,5 @@
 INFO:sim:172 - Generating IP...
-Applying current project options...
-Finished applying current project options.
-WARNING:sim - A core named 'mem' already exists in the project. Output products
-   for this core may be overwritten.
 Resolving generics for 'mem'...
-WARNING:sim - A core named 'mem' already exists in the project. Output products
-   for this core may be overwritten.
 Applying external generics to 'mem'...
 Delivering associated files for 'mem'...
 Delivering EJava files for 'mem'...
@@ -16,10 +10,10 @@ Running ngcbuild...
 Writing VEO instantiation template for 'mem'...
 Writing Verilog behavioral simulation model for 'mem'...
 WARNING:sim - Overwriting existing file
-   /home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem/doc/blk_mem_gen_v7_3_v
-   info.html with file from view xilinx_documentation
+   /home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem/doc/blk_mem_gen_v7_3
+   _vinfo.html with file from view xilinx_documentation
 Delivered 1 file into directory
-/home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem
+/home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem
 Generating ASY schematic symbol...
 INFO:sim:949 - Finished generation of ASY schematic symbol.
 Generating SYM schematic symbol for 'mem'...
@@ -28,23 +22,24 @@ Regenerating ISE project file for 'mem'...
 Generating ISE project...
 XCO file found: mem.xco
 XMDF file found: mem_xmdf.tcl
-Adding /home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.asy -view all
+Adding /home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.asy -view all
 -origin_type imported
-Adding /home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.ngc -view all
+Adding /home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.ngc -view all
 -origin_type created
 WARNING: es_AR:es is not supported as a language.  Using usenglish.
-Checking file "/home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.ngc" for
+Checking file "/home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.ngc" for
 project device match ...
-File "/home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.ngc" device
+File "/home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.ngc" device
 information matches project device.
-Adding /home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.sym -view all
+Adding /home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.sym -view all
 -origin_type imported
-Adding /home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.v -view all
+Adding /home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.v -view all
 -origin_type created
 INFO:HDLCompiler:1845 - Analyzing Verilog file
-   "/home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.v" into library work
+   "/home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.v" into library
+   work
 INFO:ProjectMgmt - Parsing design hierarchy completed successfully.
-Adding /home/nico/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.veo -view all
+Adding /home/marcos/pipeline-ac/pipeline/ipcore_dir/tmp/_cg/mem.veo -view all
 -origin_type imported
 INFO:TclTasksC:2116 - The automatic calculation of top has been turned-off.
    Please set the new top explicitly by running the "project set top" command.

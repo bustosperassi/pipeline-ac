@@ -7,15 +7,15 @@
 //								o lsb_7 si dec es 0
 //
 //////////////////////////////////////////////////////////////////////////////////
-module mux(
-    input [6:0] msb_7,
-    input [6:0] lsb_7,
-    output reg [6:0] out_7,
+module mux #(parameter nbits = 7)(
+    input [nbits-1:0] msb_7,
+    input [nbits-1:0] lsb_7,
+    output reg [nbits-1:0] out_7,
     input dec
     );
 	 
 	 
-	 always@(dec)
+	 always@(*)
 	 if (dec == 0)
 	 begin
 		out_7 = lsb_7;

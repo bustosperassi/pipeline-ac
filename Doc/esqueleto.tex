@@ -1,0 +1,205 @@
+\documentclass[a4paper,twoside,openright,titlepage]{report}
+
+%-------------------------------------------------------
+% Paquetes incluidos
+%-------------------------------------------------------
+%\usepackage[spanish]{babel} 	% Para el idioma.
+\usepackage[utf8]{inputenc}		% Para escribir con acentos
+\usepackage{graphicx} 			% Imagenes
+\usepackage{colortbl} 			% Color en tablas
+\usepackage{anysize} 			% Margenes
+%\usepackage{amsmath} 			% Simbolos matematicos
+\usepackage{fancyhdr} 			% Cabecera y pie de pagina
+\usepackage{emptypage}
+\usepackage{pdfpages}			% Para agregar pdf's externos
+\usepackage{float} 				% Para colocar las imagenes forzando.
+\usepackage{multirow, array} 	% Para las tablas
+\usepackage{listings}			% Para el codigo fuente
+\usepackage{caption}				% Personalizar los caption
+\usepackage[bookmarks]{hyperref} %hypervinculos del indice
+\usepackage[nohyperlinks,smaller,withpage]{acronym}
+%--------------------------------------------------------
+% Editor de hipervinculo
+%--------------------------------------------------------
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+%----
+%--------------------------------------------------------
+% listas con mayor profundidad
+%--------------------------------------------------------
+\usepackage{enumitem}
+\newlist{longenum}{enumerate}{6}
+\setlist[longenum,1]{label=\arabic*.}
+\setlist[longenum,2]{label=\textit{\alph*})}
+\setlist[longenum,3]{label=\arabic*)}
+\setlist[longenum,4]{label=\roman*.}
+\setlist[longenum,5]{label=(\Alph*)}
+\setlist[longenum,6]{label=\arabic*)}
+% -------------------------------------------------------
+% cabecera
+%--------------------------------------------------------
+\pagestyle{fancy} % seleccionamos un estilo cabecera
+\fancyhead[RO,LE]{Arquitectura de Computadoras - Pipeline}
+\fancyfoot[RO,LE] {\thepage}
+\renewcommand{\headrulewidth}{0.1pt}	% El ancho de las lineas de separacion arriba
+\renewcommand{\footrulewidth}{0.1pt}
+% -------------------------------------------------------
+% Establezco los margenes
+%--------------------------------------------------------
+\marginsize{2.5cm}{3cm}{2.5cm}{3cm}
+%--------------------------------------------------------
+% Para hacer el 4to nivel de subtitulo
+%--------------------------------------------------------
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+%--------------------------------------------------------
+% Personalizacion del codigo fuente
+%--------------------------------------------------------
+%\lstset{ %
+% backgroundcolor=\color{white},  Elige el color de fondo; Se debe agregar \usepackage{color} or \usepackage{xcolor}
+%  basicstyle=\footnotesize,        % El tamanio de la fuente usada para el codigo
+%  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+%  breaklines=true,                 % sets automatic line breaking
+%  captionpos=b,                    % sets the caption-position to bottom
+%  commentstyle=\color{mygreen},    % comment style
+%  deletekeywords={...},            % if you want to delete keywords from the given language
+%  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+%  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+%  frame=single,                    % adds a frame around the code
+%  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+%  keywordstyle=\color{blue},       % keyword style
+%  language=Octave,                 % the language of the code
+%  morekeywords={*,...},            % if you want to add more keywords to the set
+%  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+%  numbersep=5pt,                   % how far the line-numbers are from the code
+%  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+%  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+%  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+%  showstringspaces=false,          % underline spaces within strings only
+%  showtabs=false,                  % show tabs within strings adding particular underscores
+%  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+%  stringstyle=\color{mymauve},     % string literal style
+%  tabsize=2,                       % sets default tabsize to 2 spaces
+%  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+\usepackage{color}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+\definecolor{gray25}{gray}{.25}
+%------------------------------------------------------
+% Para codigo JAVA
+%------------------------------------------------------
+\lstset{ 
+language=Java,
+frame=single,
+framerule=0pt,
+aboveskip=0.5cm,
+framextopmargin=3pt,
+framexbottommargin=3pt,
+framexleftmargin=0.4cm,
+framesep=0pt,
+rulesep=.4pt,
+backgroundcolor=\color{gray97},
+rulesepcolor=\color{black},
+%
+stringstyle=\ttfamily,
+showstringspaces = false,
+basicstyle=\small\ttfamily,
+commentstyle=\color{gray45},
+keywordstyle=\bfseries,
+%
+numbers=left,
+numbersep=15pt,
+numberstyle=\tiny,
+numberfirstline = false,
+breaklines=true
+}
+%--------------------------------------------------------
+% Para codigo de C
+%--------------------------------------------------------
+\lstdefinestyle{customC}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+   captionpos=b,
+}
+%--------------------------------------------------------
+% Para consola
+%--------------------------------------------------------
+\lstdefinestyle{consola}
+{basicstyle=\scriptsize\bf\ttfamily,
+numbers=none,
+}
+%--------------------------------------------------------
+% Para codigo en asm
+%--------------------------------------------------------
+\lstdefinestyle{customasm}{
+  belowcaptionskip=1\baselineskip,
+  frame=L,
+  xleftmargin=\parindent,
+  language=[x86masm]Assembler,
+  basicstyle=\footnotesize\ttfamily,
+  commentstyle=\itshape\color{purple!40!black},
+}
+%--------------------------------------------------------
+% Personalizo el caption del listings
+%--------------------------------------------------------
+%\DeclareCaptionFont{white}{ \color{white} }
+%\DeclareCaptionFormat{listing}{
+%  \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{
+%    \parbox{\textwidth}{\hspace{15pt}#1#2#3}
+%  }
+%}
+%\captionsetup[lstlisting]{ format=listing, labelfont=white, textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize} }
+%--------------------------------------------------------
+% Comienzo del documento
+%--------------------------------------------------------
+\begin{document}
+	\renewcommand{\lstlistingname}{Código} %Listing x Codigo
+	\tableofcontents 	% Agrega el indice
+%--------------------------------------------------------
+% Contenido
+%--------------------------------------------------------
+	\input{Capitulo01/fetch_stage}	
+	\input{apendice/apendice}
+%--------------------------------------------------------
+% Apendice
+%--------------------------------------------------------
+	%\input{}
+
+%--------------------------------------------------------
+% Bibliografia
+%--------------------------------------------------------
+	\begin{thebibliography}{9}
+ 		 \bibitem{bib:Coad} Computer Organization and design - David A. Paterson, John L. Hennessy
+ 		 %\cite{ref} para referenciar en el texto
+	\end{thebibliography}
+	
+	\section*{Lista de Acrónimos}\medskip
+	\begin{acronym}[SIGCOMM]
+		\acro{pc}[PC] {contador de programa}
+		\acro{dr}[DR] {registro de datos}
+	\end{acronym}
+	
+%--------------------------------------------------------
+% Fin del documento
+%--------------------------------------------------------
+
+\end{document}

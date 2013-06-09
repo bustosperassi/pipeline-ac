@@ -5,7 +5,7 @@
 // Module Name:    sumador 
 // Description: Suma uno al PC
 //////////////////////////////////////////////////////////////////////////////////
-module sumador(
+module sumador (
 	 //input clk,
     input [6:0] pc,
     output[6:0] pc_inc

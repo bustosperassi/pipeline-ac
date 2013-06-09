@@ -1,22 +1,9 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
 // Create Date:    19:03:30 06/08/2013 
-// Design Name: 
 // Module Name:    register_bank 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
+// Description:    Dependiendo del tipo de instruccion
+//						 asigna los valores a los registros
 //////////////////////////////////////////////////////////////////////////////////
 module register_bank(
     input load_store,
@@ -27,6 +14,7 @@ module register_bank(
 	 input jump_rel,
 	 input shift_var,
 	 input shift,
+	 input wd,
 	 output [31:0] busA,
     output [31:0] busB
     );

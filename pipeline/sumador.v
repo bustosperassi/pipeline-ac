@@ -6,17 +6,8 @@
 // Description: Suma uno al PC
 //////////////////////////////////////////////////////////////////////////////////
 module sumador (
-	 //input clk,
     input [6:0] pc,
     output[6:0] pc_inc
     );
-	 
-//	 wire [6:0] incremento = 1;
-
 	assign pc_inc = pc+1;
-/*	
-always@(posedge clk)
-begin
-	pc_inc = pc+incremento;
-end*/
 endmodule

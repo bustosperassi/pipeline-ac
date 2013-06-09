@@ -11,7 +11,6 @@
 module sumador_test;
 
 	// Inputs
-	reg clk;
 	reg [6:0] pc;
 
 	// Outputs
@@ -19,33 +18,23 @@ module sumador_test;
 
 	// Instantiate the Unit Under Test (UUT)
 	sumador uut (
-		.clk(clk), 
 		.pc(pc), 
 		.pc_inc(pc_inc)
 	);
 
 	initial begin
-		clk = 0;
-		pc = 0;
-
+		pc=0;
 		#100;
-		clk=1;
-		
-		#100
-		clk=0;
 		pc=1;
-		
-		#100
-		clk=1;
-		
-		#100
-		clk=0;
-		pc=2;
 		#100;
-		clk=1;
-		
+		pc=2;		
 		#100;
-		clk=0;
+		pc=3;
+		#100;
+		pc=4;
+		#100;
+		pc=5;
+		#100;
 		$stop;
         
 	end

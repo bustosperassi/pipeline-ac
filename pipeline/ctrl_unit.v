@@ -5,7 +5,7 @@
 // Description: 
 //////////////////////////////////////////
 module ctrl_unit(
-    input [31:0] DR,
+    input [5:0] opcode,
 	 output jump,
 	 output branch,
 	 output MemRead,
@@ -17,17 +17,19 @@ module ctrl_unit(
 	 output [1:0] AluOp
 	);
 	
-	wire load_store;
-
-	assign load_store 	= DR[31];					//LB-LH-LW-LWU-LBU-LHU-SB-SH-SW
-	assign load = DR[31] && DR[29];
-	assign store = DR[31] && ~DR[29];
-	assign alu_inm			= DR[29]&&(~DR[31]);	//ADDI-ADDIU-ANDI-ORI-XORI-LUI-SLTI-SLTIU
-	assign branch			= DR[28]&&(~DR[29])&&(~DR[31]);	//BEQ-BNE
-	assign jump_abs		= DR[27]&&(~DR[28])&&(~DR[29])&&(~DR[31]);	//J-JAL
-	assign alu_reg			= DR[5]&&(~DR[27])&&(~DR[28])&&(~DR[29])&&(~DR[31]);	//ADD-SUB-SUBU-AND-OR-XOR-NOR-SLT-SLTU
-	assign jump_rel		= DR[3]&&(~DR[5])&&(~DR[27])&&(~DR[28])&&(~DR[29])&&(~DR[31]);		//JR-JALR
-	assign shift_var		= DR[2]&&(~DR[3])&&(~DR[5])&&(~DR[27])&&(~DR[28])&&(~DR[29])&&(~DR[31]);		//SLLV-SRLV
-	assign shift			= DR[1]&&(~DR[2])&&(~DR[3])&&(~DR[5])&&(~DR[27])&&(~DR[28])&&(~DR[29])&&(~DR[31]);		//SRL-SRA
-	assign sll					= 1 && (DR[1])&&(~DR[2])&&(~DR[3])&&(~DR[5])&&(~DR[27])&&(~DR[28])&&(~DR[29])&&(~DR[31]);
+	assign load		= opcode[5] && (~opcode[3]);
+	assign store	= opcode[5] && opcode[3];
+	assign b_type	= opcode[2] && (~load) && (~store);
+	assign r_type	= 1 && (~load) && (~store) && (~b_type);
+	
+	assign RegDst 		= (~load) && r_type;
+	assign ALUSrc 		= (load || store) && (~r_type) && (~b_type);
+	assign MemtoReg 	= load && (~r_type);
+	assign RegWrite 	= (load || r_type) &&(~store) && (~b_type);
+	assign MemRead 	= load && (~store) && (~r_type) && (~b_type);
+	assign MemWrite 	= (~load) && store && (~r_type) && (~b_type);
+	assign branch 		= (~load) && (~store) && (~r_type) && b_type;
+	assign AluOp[0] 	= (~load) && (~store) && (~r_type) && b_type;
+	assign AluOp[1] 	= (~load) && (~store) && r_type && (~b_type);
+	
 endmodule

@@ -14,22 +14,26 @@ module ctrl_unit(
 	 output ALUSrc,
 	 output RegWrite,
 	 output RegDst,
-	 output [1:0] AluOp
+	 output [4:0] AluOp
 	);
 	
-	assign load		= opcode[5] && (~opcode[3]);
-	assign store	= opcode[5] && opcode[3];
-	assign b_type	= opcode[2] && (~load) && (~store);
-	assign r_type	= 1 && (~load) && (~store) && (~b_type);
+	assign load		= (~opcode[3]) && (~opcode[4]) && opcode[5];
+	assign store	= opcode[3] && (~opcode[4]) && opcode[5];
+	assign i_type	= opcode[3] && (~opcode[4]) && (~opcode[5]);
+	assign b_type	= (~opcode[1])&&opcode[2]&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
+	assign r_type	= (~opcode[0])&&(~opcode[1])&&(~opcode[2])&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
 	
-	assign RegDst 		= (~load) && r_type;
-	assign ALUSrc 		= (load || store) && (~r_type) && (~b_type);
-	assign MemtoReg 	= load && (~r_type);
-	assign RegWrite 	= (load || r_type) &&(~store) && (~b_type);
+	assign RegDst 		= (~load) && r_type && (~i_type);
+	assign ALUSrc 		= (load || store || i_type) && (~r_type) && (~b_type);
+	assign MemtoReg 	= load && (~r_type) && (~i_type);
+	assign RegWrite 	= (load || r_type || i_type) &&(~store) && (~b_type);
 	assign MemRead 	= load && (~store) && (~r_type) && (~b_type);
-	assign MemWrite 	= (~load) && store && (~r_type) && (~b_type);
-	assign branch 		= (~load) && (~store) && (~r_type) && b_type;
-	assign AluOp[0] 	= (~load) && (~store) && (~r_type) && b_type;
-	assign AluOp[1] 	= (~load) && (~store) && r_type && (~b_type);
+	assign MemWrite 	= (~load) && store && (~r_type) && (~b_type) && (~i_type);
+	assign branch 		= (~load) && (~store) && (~r_type) && b_type && (~i_type);
+	assign AluOp[0] 	= (~load) && (~store) && (~r_type) && (b_type || i_type);
+	assign AluOp[1] 	= (~load) && (~store) && (r_type || i_type) && (~b_type);
+	assign AluOp[2]	= opcode[0];
+	assign AluOp[3]	= opcode[1];
+	assign AluOp[4]	= opcode[2];
 	
 endmodule

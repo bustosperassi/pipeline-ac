@@ -6,51 +6,26 @@
 //						 asigna los valores a los registros
 //////////////////////////////////////////////////////////////////////////////////
 module register_bank(
-    input load_store,
-	 input alu_inm,
-	 input branch,
-	 input jump_abs,
-	 input alu_reg,
-	 input jump_rel,
-	 input shift_var,
-	 input shift,
-	 input wd,
+	 input clk,
+    input [4:0]read_register1,
+	 input [4:0]read_register2,
+	 input write_register,
+	 input [31:0]write_data,
+	 input Reg_write,
 	 output [31:0] busA,
     output [31:0] busB
     );
 
 	reg [31:0] registros [31:0];
 	
-	always@(posedge load_store) begin
-		
-	end
 	
-	always@(posedge alu_inm) begin
-		
+	always@(posedge clk)
+	begin
+		if(Reg_write==1)
+		begin
+			registros[write_register] = write_data;
+		end
 	end
-	
-	always@(posedge branch) begin
-		
-	end
-	
-	always@(posedge jump_abs) begin
-		
-	end
-	
-	always@(posedge alu_reg) begin
-		
-	end
-	
-	always@(posedge jump_rel) begin
-		
-	end
-	
-	always@(posedge shift_var) begin
-		
-	end
-	
-	always@(posedge shift) begin
-		
-	end
-
+	assign busA = registros[read_register1];
+	assign busB = registros[read_register2];
 endmodule

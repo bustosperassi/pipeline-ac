@@ -1,24 +1,38 @@
 `timescale 1ns / 1ps
 
-///////////////////////////////////////
-// Create Date:   00:53:17 06/13/2013
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   18:32:50 06/17/2013
 // Design Name:   register_bank
-// Module Name:   register_bank_test.v
-// Project Name:  pipeline  
-// Description: 	Testbench del banco de registros
-///////////////////////////////////////
+// Module Name:   /home/nico/pipeline-ac/pipeline/register_bank_test.v
+// Project Name:  pipeline
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: register_bank
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
 
 module register_bank_test;
 
-	// Entradas
+	// Inputs
 	reg clk;
 	reg [4:0] read_register1;
 	reg [4:0] read_register2;
-	reg write_register;
+	reg [4:0] write_register;
 	reg [31:0] write_data;
 	reg Reg_write;
 
-	// Salidas
+	// Outputs
 	wire [31:0] busA;
 	wire [31:0] busB;
 
@@ -42,10 +56,32 @@ module register_bank_test;
 		write_register = 0;
 		write_data = 0;
 		Reg_write = 0;
-
+		// Wait 100 ns for global reset to finish
 		#100;
-      
+		
+		Reg_write = 1;
+		write_data = 10;
+		write_register = 31;
+      clk = 1;
+		#100;
+		
+		clk = 0;
+		#100;
+		
+		Reg_write = 1;
+		write_data = 31;
+		write_register = 16;
+      clk = 1;
+		#100
+		// Add stimulus here
 
+		clk = 0;
+		#100;
+		
+		read_register1 = 31;
+		read_register2 = 16;
+		#100;
+		
 	end
       
 endmodule

@@ -7,17 +7,19 @@
 //////////////////////////////////////////////////////////////////////////////////
 module register_bank(
 	 input clk,
-    input [4:0]read_register1,
-	 input [4:0]read_register2,
-	 input write_register,
-	 input [31:0]write_data,
-	 input Reg_write,
+    input [4:0]read_register1,	//Registro a leer 1. Sale por el busA.
+	 input [4:0]read_register2,	//Registro a leer 2. Sale por el busB.
+	 input [4:0]write_register,			//Registro que se va a escribir.
+	 input [31:0]write_data,		//Datos que se van a escribir sobre el anterior registro.
+	 input Reg_write,					//Señal para escribir en el registro.
 	 output [31:0] busA,
     output [31:0] busB
     );
 
 	reg [31:0] registros [31:0];
 	
+	assign busA = registros[read_register1];
+	assign busB = registros[read_register2];
 	
 	always@(posedge clk)
 	begin
@@ -26,6 +28,5 @@ module register_bank(
 			registros[write_register] = write_data;
 		end
 	end
-	assign busA = registros[read_register1];
-	assign busB = registros[read_register2];
+
 endmodule

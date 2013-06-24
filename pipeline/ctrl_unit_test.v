@@ -4,7 +4,7 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   19:31:57 06/10/2013
+// Create Date:   19:38:09 06/24/2013
 // Design Name:   ctrl_unit
 // Module Name:   /home/nico/pipeline-ac/pipeline/ctrl_unit_test.v
 // Project Name:  pipeline
@@ -28,34 +28,46 @@ module ctrl_unit_test;
 	reg [5:0] opcode;
 
 	// Outputs
-	wire jump;
-	wire branch;
+	wire Jump;
+	wire Jal;
+	wire Branch;
 	wire MemRead;
-	wire MemtoReg;
 	wire MemWrite;
-	wire ALUSrc;
-	wire RegWrite;
+	wire MemtoReg;
+	wire RegSrc;
 	wire RegDst;
+	wire RegWrite;
+	wire PCSrc;
+	wire ALUSrc;
 	wire [4:0] AluOp;
 
 	// Instantiate the Unit Under Test (UUT)
 	ctrl_unit uut (
 		.opcode(opcode), 
-		.jump(jump), 
-		.branch(branch), 
+		.Jump(Jump), 
+		.Jal(Jal), 
+		.Branch(Branch), 
 		.MemRead(MemRead), 
-		.MemtoReg(MemtoReg), 
 		.MemWrite(MemWrite), 
-		.ALUSrc(ALUSrc), 
-		.RegWrite(RegWrite), 
+		.MemtoReg(MemtoReg), 
+		.RegSrc(RegSrc), 
 		.RegDst(RegDst), 
+		.RegWrite(RegWrite), 
+		.PCSrc(PCSrc), 
+		.ALUSrc(ALUSrc), 
 		.AluOp(AluOp)
 	);
 
 	initial begin
 		// Initialize Inputs
+		opcode = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
 		
-		opcode = 6'b000000;
+				opcode = 6'b000000;
 		#100;
 		opcode = 6'b100000;
 		#100;
@@ -95,10 +107,16 @@ module ctrl_unit_test;
 		#100;
 		opcode = 6'b000101;
 		#100;
-		// Wait 100 ns for global reset to finish
+		opcode = 6'b000010;
 		#100;
-        
-		// Add stimulus here
+		opcode = 6'b000011;
+		#100;
+		opcode = 6'b000111;
+		#100;
+		opcode = 6'b010100;
+		#100;
+		
+
 	end
       
 endmodule

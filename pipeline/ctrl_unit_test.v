@@ -67,53 +67,53 @@ module ctrl_unit_test;
         
 		// Add stimulus here
 		
-				opcode = 6'b000000;
+		opcode = 6'b000000;  // tipo R
 		#100;
-		opcode = 6'b100000;
+		opcode = 6'b100000;  // LB
 		#100;
-		opcode = 6'b100001;
+		opcode = 6'b100001;  // LH
 		#100;
-		opcode = 6'b100011;
+		opcode = 6'b100011;  // LW
 		#100;
-		opcode = 6'b100111;
+		opcode = 6'b100111;  // LWU
 		#100;
-		opcode = 6'b100100;
+		opcode = 6'b100100;  // LBU
 		#100;
-		opcode = 6'b100101;
+		opcode = 6'b100101;  // LHU
 		#100;
-		opcode = 6'b101000;
+		opcode = 6'b101000;  // SB
 		#100;
-		opcode = 6'b101001;
+		opcode = 6'b101001;  // SH
 		#100;
-		opcode = 6'b101011;
+		opcode = 6'b101011;  // SLTU
 		#100;
-		opcode = 6'b001000;
+		opcode = 6'b001000;  // ADDI
 		#100;
-		opcode = 6'b001001;
+		opcode = 6'b001001;  // ADDIU
 		#100;
-		opcode = 6'b001100;
+		opcode = 6'b001100;  // ANDI
 		#100;
-		opcode = 6'b001101;
+		opcode = 6'b001101;  // ORI
 		#100;
-		opcode = 6'b001110;
+		opcode = 6'b001110;  // XORI
 		#100;
-		opcode = 6'b001111;
+		opcode = 6'b001111;  // LUI
 		#100;
-		opcode = 6'b001010;
+		opcode = 6'b001010;  // SLTI
 		#100;
-		opcode = 6'b001011;
+		opcode = 6'b001011;  // SLTIU
 		#100;
-		opcode = 6'b000100;
+		opcode = 6'b000100;  // BEQ
 		#100;
-		opcode = 6'b000101;
+		opcode = 6'b000101;  // BNE
 		#100;
-		opcode = 6'b000010;
+		opcode = 6'b000010;  // J
 		#100;
-		opcode = 6'b000011;
+		opcode = 6'b000011;  // JAL
 		#100;
-		opcode = 6'b000111;
+		opcode = 6'b000111;  // JR  (original: SRAV)
 		#100;
-		opcode = 6'b010100;
+		opcode = 6'b010100;  // JALR  (original: BEQL)
 		#100;
 		
 

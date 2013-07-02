@@ -42,7 +42,7 @@ module ctrl_unit(
 	assign PCSrc		= (jr || jalr) && (~load) && (~store) && (~r_type) && (~b_type) && (~i_type) && (~j) && (~jal);		//Multiplexor de 
 	assign ALUSrc 		= (load || store || i_type) && (~r_type) && (~b_type);															//Multiplexor de segunda entrada de la ALU
 	assign AluOp[0] 	= (~load) && (~store) && (~r_type) && (b_type || i_type);
-	assign AluOp[1] 	= (~load) && (~store) && (r_type || i_type) && (~b_type);
+	assign AluOp[1] 	= (r_type || i_type || load || store) && (~b_type);
 	assign AluOp[2]	= opcode[0];
 	assign AluOp[3]	= opcode[1];
 	assign AluOp[4]	= opcode[2];

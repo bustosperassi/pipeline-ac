@@ -29,31 +29,25 @@ module ctrl_unit_test;
 
 	// Outputs
 	wire Jump;
-	wire Jal;
 	wire Branch;
 	wire MemRead;
 	wire MemWrite;
 	wire MemtoReg;
-	wire RegSrc;
 	wire RegDst;
 	wire RegWrite;
-	wire PCSrc;
 	wire ALUSrc;
 	wire [4:0] AluOp;
 
 	// Instantiate the Unit Under Test (UUT)
 	ctrl_unit uut (
 		.opcode(opcode), 
-		.Jump(Jump), 
-		.Jal(Jal), 
+		.Jump(Jump),
 		.Branch(Branch), 
 		.MemRead(MemRead), 
 		.MemWrite(MemWrite), 
 		.MemtoReg(MemtoReg), 
-		.RegSrc(RegSrc), 
 		.RegDst(RegDst), 
 		.RegWrite(RegWrite), 
-		.PCSrc(PCSrc), 
 		.ALUSrc(ALUSrc), 
 		.AluOp(AluOp)
 	);
@@ -108,12 +102,6 @@ module ctrl_unit_test;
 		opcode = 6'b000101;  // BNE
 		#100;
 		opcode = 6'b000010;  // J
-		#100;
-		opcode = 6'b000011;  // JAL
-		#100;
-		opcode = 6'b000111;  // JR  (original: SRAV)
-		#100;
-		opcode = 6'b010100;  // JALR  (original: BEQL)
 		#100;
 		
 

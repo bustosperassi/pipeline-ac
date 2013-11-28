@@ -27,9 +27,9 @@ module fetch_stage(
 	
 	mux mux1(
 		.dec(dec),
-		.msb_7(pc_out),
-		.lsb_7(pc_mux),
-		.out_7(pc_in)
+		.msb(pc_out),
+		.lsb(pc_mux),
+		.out(pc_in)
 	);
 	
 	sumador sum ( 

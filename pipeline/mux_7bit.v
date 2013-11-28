@@ -8,9 +8,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module mux #(parameter nbits = 7)(
-    input [nbits-1:0] msb_7,
-    input [nbits-1:0] lsb_7,
-    output reg [nbits-1:0] out_7,
+    input [nbits-1:0] msb,
+    input [nbits-1:0] lsb,
+    output reg [nbits-1:0] out,
     input dec
     );
 	 
@@ -18,10 +18,10 @@ module mux #(parameter nbits = 7)(
 	 always@(*)
 	 if (dec == 0)
 	 begin
-		out_7 = lsb_7;
+		out = lsb;
 	 end
 	 else
 	 begin
-		out_7 = msb_7;
+		out = msb;
 	 end
 endmodule

@@ -23,12 +23,12 @@ module latch_wb(
     input reg_write,
     input mem_to_reg,
     output reg reg_write_reg,
-    output reg memto_reg_reg
+    output reg mem_to_reg_reg
     );
 	
 	 always @(posedge clk) begin
 			reg_write_reg <= reg_write;
-			memto_reg_reg <= mem_to_reg;
+			mem_to_reg_reg <= mem_to_reg;
 	 end
 
 endmodule

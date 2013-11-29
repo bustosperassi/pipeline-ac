@@ -75,7 +75,7 @@ module latch_id_ex(
 		.reg_write(reg_write), 
 		.mem_to_reg(mem_to_reg), 
 		.reg_write_reg(reg_write_reg), 
-		.memto_reg_reg(mem_to_reg_reg)
+		.mem_to_reg_reg(mem_to_reg_reg)
 	);
 	
 	always@(posedge clk)

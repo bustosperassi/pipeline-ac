@@ -13,25 +13,25 @@
 module mux_test;
 
 	// Inputs
-	reg [6:0] msb_7;
-	reg [6:0] lsb_7;
+	reg [5:0] msb;
+	reg [5:0] lsb;
 	reg dec;
 
 	// Salidas
-	wire [6:0] out_7;
+	wire [5:0] out;
 	
 	// Instancia del modulo a testear
-	mux uut (
-		.msb_7(msb_7), 
-		.lsb_7(lsb_7), 
-		.out_7(out_7), 
+	mux #(.nbits(6)) uut(
+		.msb(msb), 
+		.lsb(lsb), 
+		.out(out), 
 		.dec(dec)
 	);
 
 	initial begin
 		// Inicializacion de entradas
-		msb_7 = 10;
-		lsb_7 = 2;
+		msb = 7;
+		lsb = 2;
 		dec = 0;
 		// Comienzo de simulacion
 		#100;

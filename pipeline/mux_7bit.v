@@ -14,14 +14,12 @@ module mux #(parameter nbits = 7)(
     input dec
     );
 	 
-	 
-	 always@(*)
-	 if (dec == 0)
-	 begin
-		out = lsb;
-	 end
-	 else
-	 begin
-		out = msb;
+	 always@(*) begin
+		 if (dec == 0) begin
+			out = lsb;
+		 end
+		 else begin
+			out = msb;
+		 end
 	 end
 endmodule

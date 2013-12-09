@@ -20,7 +20,7 @@ module fetch_stage(
 	 reg [6:0] PC;
 	 
 	 mem instruction_mem (
-		.clka(clk), 
+		.clka(~clk), 
 		.addra(PC), 
 		.douta(DR)
 	);

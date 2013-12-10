@@ -19,28 +19,30 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module pipeline(
-		input clk
+		input clk,
+		input rst,
+		input enable
     );
 	 
-	 wire pc_out[6:0];
+	 wire [6:0] pc_out;
 	 wire pc_src;
-	 wire pc_branch_fetch [6:0];
-	 wire DR[31:0];
+	 wire [6:0] pc_branch_fetch ;
+	 wire [31:0] DR;
 	 
 	 /* Bloque de busqueda de instruccion */
 	fetch_stage ifetch (
 		.clk(~clk), // conectado
 		.dec(pc_src), // conectado
-		.rst(0), 
-		.enbl(1),
+		.rst(rst), 
+		.enbl(enable),
 		.pc_mux(pc_branch_fetch), // conectado
 		.pc_out(pc_out),  // conectado
 		.DR(DR) // conectado
 	); 
 	 
 	 /* Latch entre ifetch e idecode*/
-	 wire next_pc_reg[6:0];
-	 wire instruction_reg[31:0];
+	 wire [6:0] next_pc_reg;
+	 wire [31:0] instruction_reg;
 	 
 	 latch_if_id if_id (
 		.clk(clk), //conectado
@@ -52,11 +54,11 @@ module pipeline(
 	
 	/* bloque de etapa decode */
 	 wire reg_write_in;
-	 wire WR [4:0];
-	 wire WD [31:0];
-	 wire data1 [31:0];
-	 wire data2 [31:0];
-	 wire ext_sig [31:0];
+	 wire [4:0] WR;
+	 wire [31:0] WD;
+	 wire [31:0] data1;
+	 wire [31:0] data2;
+	 wire [31:0] ext_sig;
 	 wire branch;
 	 wire mem_read;
 	 wire mem_write;
@@ -64,7 +66,7 @@ module pipeline(
 	 wire reg_dst;
 	 wire reg_write_out;
 	 wire alu_src;
-	 wire alu_op [5:0];
+	 wire [5:0] alu_op;
 	 
 	 decode_stage decode (
 		.clk(~clk), 
@@ -86,9 +88,9 @@ module pipeline(
 	);
 	
 	/* Latch entre idecode e iexecute */
-	 wire data1_ex [31:0];
-	 wire data2_ex [31:0];
-	 wire sign_extend_ex [31:0];
+	 wire [31:0] data1_ex;
+	 wire [31:0] data2_ex;
+	 wire [31:0] sign_extend_ex;
 	 wire branch_ex;
 	 wire mem_read_ex;
 	 wire mem_write_ex;
@@ -96,10 +98,10 @@ module pipeline(
 	 wire reg_dst_ex;
 	 wire reg_write_ex;
 	 wire alu_src_ex;
-	 wire alu_op_ex [5:0];
-	 wire pc_next_ex [6:0];
-	 wire reg1_ex [4:0];
-	 wire reg2_ex [4:0];
+	 wire [5:0] alu_op_ex;
+	 wire [6:0] pc_next_ex;
+	 wire [4:0] reg1_ex;
+	 wire [4:0] reg2_ex;
 	
 	latch_id_ex id_ex (
 		.alu_op(alu_op), // Conectado
@@ -134,11 +136,11 @@ module pipeline(
 	);
 	
 	/* bloque de etapa execute */
-	wire branch_pc [6:0];
+	wire [6:0] branch_pc;
 	wire zero;
-	wire alu_result [31:0];
-	wire data2_out [31:0];
-	wire dst;
+	wire [31:0] alu_result;
+	wire [31:0] data2_out;
+	wire [4:0] dst;
 	
 	execute_stage execute (
 		.alu_src(alu_src_ex), //Conectado
@@ -164,9 +166,9 @@ module pipeline(
 	wire mem_write_m; 
 	wire mem_read_m; 
 	wire zero_m; 
-	wire alu_result_m [31:0]; 
-	wire data2_m [31:0]; 
-	wire dst_m;
+	wire [31:0] alu_result_m; 
+	wire [31:0] data2_m; 
+	wire [4:0] dst_m;
 	
 	latch_ex_m ex_m (
 		.mem_to_reg(mem_to_reg_ex), //Conectado
@@ -193,7 +195,7 @@ module pipeline(
 	);
 	
 	/* bloque de etapa memoria */
-	wire data_out;
+	wire [31:0] data_out;
 	
 	mem_stage mem (
 		.no_clk(~clk), //Conectado
@@ -208,8 +210,8 @@ module pipeline(
 	
 	/* Latch imem e iwb */
 	wire mem_to_reg_wb;
-	wire alu_result_wb [31:0];
-	wire data_load_wb [31:0];
+	wire [31:0] alu_result_wb;
+	wire [31:0] data_load_wb;
 	
 	latch_m_wb m_wb (
 		.reg_write(reg_write_m), //Conectado 

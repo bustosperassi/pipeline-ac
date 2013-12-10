@@ -28,7 +28,7 @@ module latch_ex_m(
     input zero,
     input [31:0] alu_result,
     input [31:0] data2,
-    input [31:0] dst,
+    input [4:0] dst,
 	 input clk,
 	 output mem_to_reg_reg,
     output reg_write_reg,
@@ -39,7 +39,7 @@ module latch_ex_m(
     output reg zero_reg,
     output reg [31:0] alu_result_reg,
     output reg [31:0] data2_reg,
-    output reg [31:0] dst_reg
+    output reg [4:0] dst_reg
     );
 
 	latch_m m (

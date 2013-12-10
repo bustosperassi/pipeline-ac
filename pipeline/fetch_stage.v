@@ -42,7 +42,7 @@ module fetch_stage(
 	always@(posedge clk)
 	begin
 		if (rst)
-			PC = 0;
+			PC = 7'b0000000;
 		else
 			if (enbl)
 				PC = pc_in;

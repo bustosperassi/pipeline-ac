@@ -27,9 +27,9 @@ module latch_m_wb(
     input clk,
 	 output reg_write_reg,
     output mem_to_reg_reg,
-    output reg [0:0] alu_result_reg,
-    output reg [0:0] data_load_reg,
-    output reg [0:0] dst_reg
+    output reg [31:0] alu_result_reg,
+    output reg [31:0] data_load_reg,
+    output reg [4:0] dst_reg
     );
 
 	latch_wb wb (

@@ -20,9 +20,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 module latch_if_id(
     input clk,
-	 input [7:0] next_pc,
+	 input [6:0] next_pc,
     input [31:0] instruction,
-    output reg [7:0] next_pc_reg,
+    output reg [6:0] next_pc_reg,
     output reg [31:0] instruction_reg
     );
 

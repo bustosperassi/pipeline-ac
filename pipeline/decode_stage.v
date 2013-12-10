@@ -10,7 +10,7 @@ module decode_stage(
 	 // Entradas al decode stage
 	 input reg_write_in,
 	 input [31:0] instruccion,
-    input [31:0] WR,
+    input [4:0] WR,
     input [31:0] WD,
 	 // Salidas desde el banco de registros
     output [31:0] data1,

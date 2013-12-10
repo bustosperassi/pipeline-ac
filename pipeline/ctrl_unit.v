@@ -14,7 +14,7 @@ module ctrl_unit(
 	 output RegDst,
 	 output RegWrite,
 	 output ALUSrc,
-	 output [4:0] AluOp
+	 output [5:0] AluOp
 	);
 	
 	assign load		= (~opcode[3]) && (~opcode[4]) && opcode[5];

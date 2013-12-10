@@ -38,25 +38,25 @@ module mem_stage_test;
 		no_clk = 0;
 		branch = 0;
 		zero = 0;
-		mem_write = 1;
-		address = 0;
-		write_data = 10;
+		mem_write = 0;
+		address = 1;
+		write_data = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
       no_clk = 1;
 		branch = 1;
 		zero = 1;
-		mem_write = 1;
-		address = 0;
-		write_data = 4; 
+		mem_write = 0;
+		address = 2;
+		write_data = 0; 
 		
 		#100;
       no_clk = 0;
 		branch = 1;
 		zero = 0;
 		mem_write = 0;
-		address = 0;
+		address = 1;
 		write_data = 0;
 		
 		#100;

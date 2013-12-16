@@ -7,7 +7,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 module sumador (
     input [6:0] pc,
-    output[6:0] pc_inc
+    output [6:0] pc_inc
     );
-	assign pc_inc = pc+1;
+	 
+	 assign pc_inc = pc+1;
+
 endmodule

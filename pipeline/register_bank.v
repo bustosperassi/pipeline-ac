@@ -12,21 +12,21 @@ module register_bank(
 	 input [4:0]write_register,			//Registro que se va a escribir.
 	 input [31:0]write_data,		//Datos que se van a escribir sobre el anterior registro.
 	 input Reg_write,					//Señal para escribir en el registro.
-	 output [31:0] busA,
-    output [31:0] busB
+	 output reg [31:0] busA,
+    output reg [31:0] busB
     );
 
 	reg [31:0] registros [31:0];
-	
-	assign busA = registros[read_register1];
-	assign busB = registros[read_register2];
-	
-	always@(posedge clk)
+	initial registros
+	always@(negedge clk)
 	begin
 		if(Reg_write==1)
 		begin
 			registros[write_register] = write_data;
 		end
 	end
-
+	always @(posedge clk) begin
+		busA <= registros[read_register1];
+		busB <= registros[read_register2];
+	end
 endmodule

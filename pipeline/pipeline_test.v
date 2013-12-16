@@ -40,13 +40,14 @@ module pipeline_test;
 		// Initialize Inputs
 		clk = 0;
 		rst = 1;
-		enable = 1;
+		enable = 0;
 		#100;
       clk = 1;  
 		#100;
       clk = 0;
-		#100;
 		rst = 0;
+		enable = 1;
+		#100;
       clk = 1;
 		#100;
       clk = 0;

@@ -19,8 +19,8 @@ module wb_stage(
     );
 	 
 	 mux #(.nbits(32)) wb_mux(
-		.msb(data_in), 
-		.lsb(dir), 
+		.msb(data_in),	//1 - data_load ---> memtoreg 1
+		.lsb(dir), 		//0 - alu_result---> memtoreg 0
 		.out(data_out), 
 		.dec(mem_to_reg)
 	);

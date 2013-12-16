@@ -12,27 +12,27 @@ module fetch_stage(
 	 input rst,
 	 input enbl,
     input [6:0] pc_mux,
-    output wire [6:0] pc_out,
-    output wire [31:0] DR
+    output [6:0] pc_out,
+    output [31:0] DR
     );
 	 // Declaracion de senales internas
 	 wire [6:0] pc_in;
 	 reg [6:0] PC;
 	 
 	 mem instruction_mem (
-		.clka(~clk), 
+		.clka(clk), 
 		.addra(PC), 
 		.douta(DR)
 	);
 	
 	mux mux1(
 		.dec(dec),
-		.msb(pc_out),
-		.lsb(pc_mux),
+		.msb(pc_mux),
+		.lsb(pc_out),
 		.out(pc_in)
 	);
 	
-	sumador sum ( 
+	sumador sum (
 		.pc(PC), 
 		.pc_inc(pc_out)
 	);
@@ -41,11 +41,12 @@ module fetch_stage(
 	// Cuerpo
 	always@(posedge clk)
 	begin
-		if (rst)
+		if (rst) begin
 			PC = 7'b0000000;
-		else
-			if (enbl)
-				PC = pc_in;
+		end
+		else if (enbl) begin
+			PC = pc_in;
+		end
 	end
 	
 endmodule

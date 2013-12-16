@@ -13,24 +13,25 @@ module decode_stage(
     input [4:0] WR,
     input [31:0] WD,
 	 // Salidas desde el banco de registros
-    output [31:0] data1,
-    output [31:0] data2,
+    output reg [31:0] data1,
+    output reg [31:0] data2,
 	 // Salida del modulo extension de signo
-    output [31:0] ext_sig,
+    output reg [31:0] ext_sig,
 	 // Salidas de la unidad de control
 	 //output Jump, 
-	 output branch,
-	 output mem_read,
-	 output mem_write,
-	 output mem_to_reg,
-	 output reg_dst,
-	 output reg_write_out,
-	 output alu_src,
-	 output [5:0] alu_op
+	 output reg branch,
+	 output reg mem_read,
+	 output reg mem_write,
+	 output reg mem_to_reg,
+	 output reg reg_dst,
+	 output reg reg_write_out,
+	 output reg alu_src,
+	 output reg [5:0] alu_op
     ); 
 	 
+	 
 	 register_bank banco (
-		.clk(clk), 
+		.clk(~clk), 
 		.read_register1(instruccion[25:21]), 
 		.read_register2(instruccion[20:16]), 
 		.write_register(WR), 
@@ -46,8 +47,7 @@ module decode_stage(
 	);
 	
 	ctrl_unit unidad_control (
-		.opcode(instruccion[31:26]), 
-		//.Jump(1'b0),
+		.opcode(instruccion[31:26]),
 		.Branch(branch), 
 		.MemRead(mem_read), 
 		.MemWrite(mem_write), 
@@ -57,5 +57,9 @@ module decode_stage(
 		.ALUSrc(alu_src), 
 		.AluOp(alu_op)
 	);
+	always @(negedge clk) 
+	 begin
+	 
+	end
 	
 endmodule

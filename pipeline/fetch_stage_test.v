@@ -50,16 +50,35 @@ module fetch_stage_test;
 		// Initialize Inputs
 		clk = 0;
 		dec = 0;
-		rst = 0;
+		rst = 1;
 		enbl = 0;
 		pc_mux = 0;
-
-		// Wait 100 ns for global reset to finish
 		#100;
-        
-		// Add stimulus here
-
+      
+		clk=1;
+		
+		#100;
+		clk=0;
+		rst=0;
+		enbl=1;
+		
+		#100;
+      clk=1;
+		
+		#100;
+		clk=0;
+		
+		#100;
+      clk=1;
+		
+		#100;
+      clk=0;
+		
+		#100;
+      clk=1;
+		
+		#100;
+		
 	end
       
 endmodule
-

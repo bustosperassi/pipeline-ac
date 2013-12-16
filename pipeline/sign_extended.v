@@ -6,8 +6,12 @@
 //					Un numero negativo inmediato
 ////////////////////////////////////////////
 module sign_extended(
+	 input clk,
     input [15:0] offset,
-    output [31:0] extension
+    output reg[31:0] extension
     );
-	 assign extension = {{16{offset[15]}},offset};
+	 always @(posedge clk)
+	 begin
+		extension = {{16{offset[15]}},offset};
+	 end
 endmodule

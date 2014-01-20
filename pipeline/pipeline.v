@@ -18,6 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+
 module pipeline(
 		input clk,
 		input rst,
@@ -70,6 +71,7 @@ module pipeline(
 	 
 	 decode_stage decode (
 		.clk(~clk), 
+		.rst(rst),
 		.reg_write_in(reg_write_in), // conectado
 		.instruccion(instruction_reg), //conectado
 		.WR(WR), // Conectado

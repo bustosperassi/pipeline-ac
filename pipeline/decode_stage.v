@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////
 module decode_stage(
 	 input clk,
+	 input rst,
 	 // Entradas al decode stage
 	 input reg_write_in,
 	 input [31:0] instruccion,
@@ -19,19 +20,20 @@ module decode_stage(
     output reg [31:0] ext_sig,
 	 // Salidas de la unidad de control
 	 //output Jump, 
-	 output reg branch,
-	 output reg mem_read,
-	 output reg mem_write,
-	 output reg mem_to_reg,
-	 output reg reg_dst,
-	 output reg reg_write_out,
-	 output reg alu_src,
-	 output reg [5:0] alu_op
+	 output branch,
+	 output mem_read,
+	 output mem_write,
+	 output mem_to_reg,
+	 output reg_dst,
+	 output reg_write_out,
+	 output alu_src,
+	 output [5:0] alu_op
     ); 
 	 
 	 
 	 register_bank banco (
-		.clk(~clk), 
+		.clk(~clk),
+		.rst(rst),
 		.read_register1(instruccion[25:21]), 
 		.read_register2(instruccion[20:16]), 
 		.write_register(WR), 
@@ -47,6 +49,7 @@ module decode_stage(
 	);
 	
 	ctrl_unit unidad_control (
+		.clk(clk),
 		.opcode(instruccion[31:26]),
 		.Branch(branch), 
 		.MemRead(mem_read), 

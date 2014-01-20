@@ -14,10 +14,10 @@ module decode_stage(
     input [4:0] WR,
     input [31:0] WD,
 	 // Salidas desde el banco de registros
-    output reg [31:0] data1,
-    output reg [31:0] data2,
+    output [31:0] data1,
+    output [31:0] data2,
 	 // Salida del modulo extension de signo
-    output reg [31:0] ext_sig,
+    output [31:0] ext_sig,
 	 // Salidas de la unidad de control
 	 //output Jump, 
 	 output branch,
@@ -32,7 +32,7 @@ module decode_stage(
 	 
 	 
 	 register_bank banco (
-		.clk(~clk),
+		.clk(clk),
 		.rst(rst),
 		.read_register1(instruccion[25:21]), 
 		.read_register2(instruccion[20:16]), 
@@ -44,6 +44,7 @@ module decode_stage(
 	);
 	
 	sign_extended extension_signo (
+		.clk(clk),
 		.offset(instruccion[15:0]), 
 		.extension(ext_sig)
 	);
@@ -60,9 +61,5 @@ module decode_stage(
 		.ALUSrc(alu_src), 
 		.AluOp(alu_op)
 	);
-	always @(negedge clk) 
-	 begin
-	 
-	end
 	
 endmodule

@@ -27,7 +27,7 @@ module alu_test;
 	// Inputs
 	reg [31:0] data1;
 	reg [31:0] data2;
-	reg [5:0] operation;
+	reg [3:0] operation;
 
 	// Outputs
 	wire [31:0] alu_result;

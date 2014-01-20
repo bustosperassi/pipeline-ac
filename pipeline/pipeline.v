@@ -118,8 +118,8 @@ module pipeline(
 		.data1(data1), // Conectado
 		.data2(data2), // Conectado
 		.sign_extend(ext_sig), // Conectado 
-		.reg1(instruction_reg[25:21]),  // Conectado
-		.reg2(instruction_reg[20:16]), // Conectado
+		.reg1(instruction_reg[20:16]),  // Conectado
+		.reg2(instruction_reg[15:11]), // Conectado
 		.clk(clk), // Conectado
 		.alu_op_reg(alu_op_ex), //Conectado 
 		.reg_dst_reg(reg_dst_ex), //Conectado

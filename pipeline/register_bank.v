@@ -19,7 +19,7 @@ module register_bank(
 
 	reg [31:0] registros [31:0];
 	//initial registros;
-	always@(negedge clk)
+	always@(posedge clk) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	begin
 		if(Reg_write==1)
 		begin
@@ -27,7 +27,7 @@ module register_bank(
 		end
 	end
 	
-	always @(negedge clk) 
+	always @(posedge clk) 
 	begin
 		busA <= registros[read_register1];
 		busB <= registros[read_register2];

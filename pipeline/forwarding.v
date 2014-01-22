@@ -33,11 +33,12 @@ module forwarding(
 	//					00 se elige el dato que viene del registro
 	//					01 se elige el dato que viene de la etapa MEM
 	//					10 se elige el dato que viene de la etapa WB
+	//					11 se elige el dato que viene de la etapa MEM
 
-	assign cortoA[0] = (~(rs & dst_mem)) & wb_mem;
-	assign cortoA[1] = (~(rs & dst_wb)) & wb_wb;
+	assign cortoA[0] = ((rs[0]~^dst_mem[0]) & (rs[1]~^dst_mem[1]) & (rs[2]~^dst_mem[2]) & (rs[3]~^dst_mem[3]) & (rs[4]~^dst_mem[4])) & wb_mem;
+	assign cortoA[1] = ((rs[0]~^dst_wb[0]) & (rs[1]~^dst_wb[1]) & (rs[2]~^dst_wb[2]) & (rs[3]~^dst_wb[3]) & (rs[4]~^dst_wb[4])) & wb_wb;
 	
-	assign cortoB[0] = (~(rt & dst_mem)) & wb_mem;
-	assign cortoB[1] = (~(rt & dst_wb)) & wb_wb;
+	assign cortoB[0] = ((rt[0]~^dst_mem[0]) & (rt[1]~^dst_mem[1]) & (rt[2]~^dst_mem[2]) & (rt[3]~^dst_mem[3]) & (rt[4]~^dst_mem[4])) & wb_mem;
+	assign cortoB[1] = ((rt[0]~^dst_wb[0]) & (rt[1]~^dst_wb[1]) & (rt[2]~^dst_wb[2]) & (rt[3]~^dst_wb[3]) & (rt[4]~^dst_wb[4])) & wb_wb;
 
 endmodule

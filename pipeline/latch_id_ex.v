@@ -34,6 +34,7 @@ module latch_id_ex(
     input [4:0] reg1,
     input [4:0] reg2,
     input clk,
+	 input rst,
 	 output [5:0] alu_op_reg,
     output reg_dst_reg,
     output alu_src_reg,
@@ -51,7 +52,8 @@ module latch_id_ex(
     );
 	 
 	 latch_ex ex (
-		.clk(clk), 
+		.clk(clk),
+		.rst(rst),		
 		.alu_src(alu_src), 
 		.alu_op(alu_op), 
 		.reg_dst(reg_dst), 
@@ -61,7 +63,8 @@ module latch_id_ex(
 	);
 	 
 	 latch_m m (
-		.clk(clk), 
+		.clk(clk),
+		.rst(rst),		
 		.mem_write(mem_write), 
 		.mem_read(mem_read), 
 		.branch(branch), 
@@ -71,12 +74,23 @@ module latch_id_ex(
 	);
 	 
 	 latch_wb wb (
-		.clk(clk), 
+		.clk(clk),
+		.rst(rst),		
 		.reg_write(reg_write), 
 		.mem_to_reg(mem_to_reg), 
 		.reg_write_reg(reg_write_reg), 
 		.mem_to_reg_reg(mem_to_reg_reg)
 	);
+	
+	always@(posedge rst)
+	begin
+		pc_next_reg <= 0;
+		data1_reg <= 0;
+		data2_reg <= 0;
+		sign_extend_reg <= 0;
+		reg1_reg <= 0;
+		reg2_reg <= 0;
+	end
 	
 	always@(posedge clk)
 	begin

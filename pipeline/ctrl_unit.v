@@ -6,6 +6,7 @@
 //////////////////////////////////////////
 module ctrl_unit(
 	 input clk,
+	 input rst,
     input [5:0] opcode,
 	 output reg Jump,
 	 output reg Branch,
@@ -24,6 +25,18 @@ module ctrl_unit(
 	assign b_type	= (~opcode[1])&&opcode[2]&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
 	assign r_type	= (~opcode[0])&&(~opcode[1])&&(~opcode[2])&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
 	assign j 		= (~opcode[0])&&(opcode[1])&&(~opcode[2])&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
+	
+	always @(posedge rst) begin
+		Jump		<= 0;
+		Branch 	<= 0;
+		MemRead 	<= 0;
+		MemWrite <= 0;
+		MemtoReg <= 0;
+		RegDst 	<= 0;
+		RegWrite <= 0;
+		ALUSrc 	<= 0;
+		AluOp 	<= 0;
+	end
 	
 	always @(posedge clk)
 	begin

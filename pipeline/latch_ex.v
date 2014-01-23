@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module latch_ex(
     input clk,
+	 input rst,
 	 input alu_src,
     input [5:0] alu_op,
     input reg_dst,
@@ -27,6 +28,12 @@ module latch_ex(
     output reg [5:0] alu_op_reg,
     output reg reg_dst_reg
     );
+
+	always @(posedge rst) begin
+		alu_src_reg	<= 0;
+		alu_op_reg 	<= 0;
+		reg_dst_reg <= 0;
+	end
 
 	always @(posedge clk) begin
 		alu_src_reg	<= alu_src;

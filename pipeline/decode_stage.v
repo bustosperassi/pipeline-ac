@@ -51,6 +51,7 @@ module decode_stage(
 	
 	ctrl_unit unidad_control (
 		.clk(clk),
+		.rst(rst),
 		.opcode(instruccion[31:26]),
 		.Branch(branch), 
 		.MemRead(mem_read), 

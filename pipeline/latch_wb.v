@@ -20,12 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 module latch_wb(
 	 input clk,
+	 input rst,
     input reg_write,
     input mem_to_reg,
     output reg reg_write_reg,
     output reg mem_to_reg_reg
     );
-	
+
+	 always @(posedge rst) begin
+			reg_write_reg <= 0;
+			mem_to_reg_reg <= 0;
+	 end
+	 
 	 always @(posedge clk) begin
 			reg_write_reg <= reg_write;
 			mem_to_reg_reg <= mem_to_reg;

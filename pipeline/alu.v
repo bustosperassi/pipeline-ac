@@ -20,13 +20,19 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module alu #(parameter ANCHO_BUS = 32)( 
-    input [ANCHO_BUS-1:0] data1,  		// Primera entrada de datos.
+    input rst,
+	 input [ANCHO_BUS-1:0] data1,  		// Primera entrada de datos.
 	 input [ANCHO_BUS-1:0] data2,
 	 input [3:0] operation,				// eleccion de la operacion 
     output reg[ANCHO_BUS-1:0] alu_result,	// Salida de la operacion de la ALU
     output reg zero
 	 );
-
+	
+	always @(posedge rst) begin
+		alu_result 	<= 0;
+		zero 			<= 0;
+	end
+	
 	 always @(operation, data1, data2) begin
 		case(operation)
 			4'b0000: begin

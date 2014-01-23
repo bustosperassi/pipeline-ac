@@ -38,11 +38,9 @@ module pipeline_test;
 
 	initial begin
 		// Initialize Inputs
-		clk = 0;
+		clk = 1;
 		rst = 1;
 		enable = 0;
-		#100;
-      clk = 1;  
 		#100;
       clk = 0;
 		rst = 0;

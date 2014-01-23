@@ -19,6 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module mux4(
+	 input rst,
     input [31:0] in00,
     input [31:0] in01,
     input [31:0] in02,
@@ -26,6 +27,10 @@ module mux4(
     input [1:0] signal,
     output reg [31:0] out_mux4
     );
+
+	always @(posedge rst) begin
+		out_mux4 <= 0;
+	end
 
 	always@(*) begin
 		 case(signal)

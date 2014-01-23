@@ -7,9 +7,15 @@
 ////////////////////////////////////////////
 module sign_extended(
 	 input clk,
+	 input rst,
     input [15:0] offset,
     output reg[31:0] extension
     );
+	 
+	 always @(posedge rst) begin
+		extension <= 0;
+	 end
+	 
 	 always @(posedge clk)
 	 begin
 		extension = {{16{offset[15]}},offset};

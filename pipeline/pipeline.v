@@ -47,6 +47,7 @@ module pipeline(
 	 
 	 latch_if_id if_id (
 		.clk(clk), //conectado
+		.rst(rst),
 		.next_pc(pc_out), // conectado
 		.instruction(DR), // conectado
 		.next_pc_reg(next_pc_reg), //conectado
@@ -121,6 +122,7 @@ module pipeline(
 		.reg1(instruction_reg[20:16]),  // Conectado
 		.reg2(instruction_reg[15:11]), // Conectado
 		.clk(clk), // Conectado
+		.rst(rst),
 		.alu_op_reg(alu_op_ex), //Conectado 
 		.reg_dst_reg(reg_dst_ex), //Conectado
 		.alu_src_reg(alu_src_ex), //Conectado 
@@ -136,6 +138,11 @@ module pipeline(
 		.reg1_reg(reg1_ex), //Conectado
 		.reg2_reg(reg2_ex) //Conectado
 	);
+	/* Wires de la unidad de cortocircuito */
+	wire [1:0] cortoA;
+	wire [1:0] cortoB;
+	wire [31:0] cortoA_out;
+	wire [31:0] cortoB_out;
 	
 	/* bloque de etapa execute */
 	wire [6:0] branch_pc;
@@ -143,14 +150,15 @@ module pipeline(
 	wire [31:0] alu_result;
 	wire [31:0] data2_out;
 	wire [4:0] dst;
-	
+
 	execute_stage execute (
+		.rst(rst),
 		.alu_src(alu_src_ex), //Conectado
 		.alu_op(alu_op_ex), //Conectado
 		.reg_dst(reg_dst_ex), //Conectado 
 		.pc_next(pc_next_ex), //Conectado
-		.data1(data1_ex), //Conectado 
-		.data2(data2_ex), //Conectado
+		.data1(cortoA_out), //Conectado 
+		.data2(cortoB_out), //Conectado
 		.sign_extend(sign_extend_ex), //Conectado 
 		.reg1(reg1_ex), //Conectado 
 		.reg2(reg2_ex), //Conectado
@@ -160,6 +168,7 @@ module pipeline(
 		.data2_out(data2_out), //Conectado
 		.dst(dst) //Conectado
 	);
+	
 
 	/* Latch etapa execute memory */
 	wire mem_to_reg_m; 
@@ -184,6 +193,7 @@ module pipeline(
 		.data2(data2_out), //Conectado 
 		.dst(dst), //Conectado
 		.clk(clk), //Conectado
+		.rst(rst),
 		.mem_to_reg_reg(mem_to_reg_m), //Conectado
 		.reg_write_reg(reg_write_m), //Conectado
 		.branch_reg(branch_m), //Conectado
@@ -222,6 +232,7 @@ module pipeline(
 		.data_load(data_out), //Conectado 
 		.dst(dst_m), //Conectado
 		.clk(clk), //Conectado 
+		.rst(rst),
 		.reg_write_reg(reg_write_in), // conectado 
 		.mem_to_reg_reg(mem_to_reg_wb), //Conectado
 		.alu_result_reg(alu_result_wb), //Conectado
@@ -232,10 +243,47 @@ module pipeline(
 	/* bloque de etapa write back */
 	
 	wb_stage wb (
+		.rst(rst),
 		.mem_to_reg(mem_to_reg_wb), //Conectado 
 		.data_in(data_load_wb), //Conectado 
 		.dir(alu_result_wb), //Conectado 
 		.data_out(WD) // Conectado
 	);
+	
+	//_-_-_-_-_-_-_Unidad de Cortocircuito_-_-_-_-_-_-_-_//
+	
+	forwarding unidadCorto(
+		.rs(instruction_reg[25:21]), 
+		.rt(instruction_reg[20:16]), 
+		.dst_mem(dst_m), 
+		.dst_wb(WR), 
+		.wb_mem(reg_write_m), 
+		.wb_wb(reg_write_in), 
+		.cortoA(cortoA), 
+		.cortoB(cortoB)
+	);
+	
+	mux4 rs_cortoA (
+		.rst(rst),
+		.in00(data1_ex), 
+		.in01(alu_result_m), 
+		.in02(WD), 
+		.in03(alu_result_m), 
+		.signal(cortoA), 
+		.out_mux4(cortoA_out)
+	);
+	
+	mux4 rt_cortoB (
+		.rst(rst),
+		.in00(data2_ex), 
+		.in01(alu_result_m), 
+		.in02(WD), 
+		.in03(alu_result_m), 
+		.signal(cortoB), 
+		.out_mux4(cortoB_out)
+	);
+
+	//_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_//
+
 
 endmodule

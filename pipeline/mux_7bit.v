@@ -8,13 +8,18 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module mux #(parameter nbits = 7)(
+	 input rst,
     input [nbits-1:0] msb,
     input [nbits-1:0] lsb,
     output reg [nbits-1:0] out,
     input dec
     );
 	 
-	 always@(*) begin
+	 always @(posedge rst) begin
+		out <= 0;
+	 end
+	 
+	 always@(msb, lsb, dec) begin
 		 if (dec == 0) begin
 			out = lsb;
 		 end
@@ -22,4 +27,5 @@ module mux #(parameter nbits = 7)(
 			out = msb;
 		 end
 	 end
+	 
 endmodule

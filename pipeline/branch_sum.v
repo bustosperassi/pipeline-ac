@@ -19,12 +19,17 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module branch_sum  #(parameter PC_WIDE = 7)(
-    input [PC_WIDE - 1:0] pc_next,
+    input rst,
+	 input [PC_WIDE - 1:0] pc_next,
     input [31:0] pc_branch,
     output reg [PC_WIDE - 1:0] branch_pc
     );
 	 
-	 always @(*) begin
+	 always @(posedge rst) begin
+		branch_pc <= 0;
+	 end
+	 
+	 always @(pc_next, pc_branch) begin
 		branch_pc = pc_next + pc_branch[PC_WIDE - 1:0];
 	 end
 	

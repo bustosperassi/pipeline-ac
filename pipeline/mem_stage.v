@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module mem_stage(
 	 input no_clk,
-    input branch,
+	 input branch,
     input zero,
 	 input mem_write,
     input [31:0] address,

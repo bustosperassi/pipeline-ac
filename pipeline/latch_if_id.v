@@ -20,12 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 module latch_if_id(
     input clk,
+	 input rst,
 	 input [6:0] next_pc,
     input [31:0] instruction,
     output reg [6:0] next_pc_reg,
     output reg [31:0] instruction_reg
     );
 
+	always @(posedge rst) begin
+		next_pc_reg <= 0;
+		instruction_reg <= 0;
+	end
+	
 	always @(posedge clk) begin
 		next_pc_reg 		<= next_pc;
 		instruction_reg 	<= instruction;

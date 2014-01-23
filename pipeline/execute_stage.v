@@ -19,7 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module execute_stage(
-    input alu_src,
+    input rst,
+	 input alu_src,
     input [5:0] alu_op,
     input reg_dst,
     input [6:0] pc_next,
@@ -41,6 +42,7 @@ module execute_stage(
 	 assign data2_out = data2;
 	 
 	 alu alu_instance (
+		.rst(rst),
 		.data1(data1), 
 		.data2(wire_data2), 
 		.operation(wire_operation), 
@@ -49,6 +51,7 @@ module execute_stage(
 	 );
 	 
 	 branch_sum sum_instance (
+		.rst(rst),
 		.pc_next(pc_next), 
 		.pc_branch(sign_extend), 
 		.branch_pc(branch_pc)
@@ -61,6 +64,7 @@ module execute_stage(
 	 );
 	 
 	 mux #(.nbits(32)) mux_data(
+		.rst(rst),
 		.msb(sign_extend), 
 		.lsb(data2), 
 		.out(wire_data2), 
@@ -68,6 +72,7 @@ module execute_stage(
 	 );
 	 
 	 mux #(.nbits(5)) mux_reg(
+		.rst(rst),
 		.msb(reg2), 
 		.lsb(reg1), 
 		.out(dst), 

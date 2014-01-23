@@ -26,6 +26,7 @@ module fetch_stage(
 	);
 	
 	mux mux1(
+		.rst(rst),
 		.dec(dec),
 		.msb(pc_mux),
 		.lsb(pc_out),
@@ -39,12 +40,14 @@ module fetch_stage(
 
 
 	// Cuerpo
+	
+	always @ (posedge rst) begin
+		PC <= 0;
+	end
+	
 	always@(posedge clk)
 	begin
-		if (rst) begin
-			PC = 7'b0000000;
-		end
-		else if (enbl) begin
+		if (enbl) begin
 			PC = pc_in;
 		end
 	end

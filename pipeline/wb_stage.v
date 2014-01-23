@@ -12,6 +12,7 @@
 //					 multiplexor de 32 bits.
 //////////////////////////////////////////////////////////////////////////////////
 module wb_stage(
+	 input rst,
     input mem_to_reg,
     input [31:0] data_in,
     input [31:0] dir,
@@ -19,6 +20,7 @@ module wb_stage(
     );
 	 
 	 mux #(.nbits(32)) wb_mux(
+		.rst(rst),
 		.msb(data_in),	//1 - data_load ---> memtoreg 1
 		.lsb(dir), 		//0 - alu_result---> memtoreg 0
 		.out(data_out), 

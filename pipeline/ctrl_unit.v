@@ -7,6 +7,7 @@
 module ctrl_unit(
 	 input clk,
 	 input rst,
+	 input ena,
     input [5:0] opcode,
 	 output reg Jump,
 	 output reg Branch,
@@ -40,19 +41,21 @@ module ctrl_unit(
 	
 	always @(posedge clk)
 	begin
-		Jump			<= (j) && (~load) && (~store) && (~r_type) && (~b_type) && (~i_type);		//Instruccion que realiza un salto
-		Branch 		<= (~load) && (~store) && (~r_type) && b_type && (~i_type) && (~j);	//Instruccion que realiza un branch
-		MemRead 	<= load && (~store) && (~r_type) && (~b_type);																		//La instruccion requiere una lectura de memoria
-		MemWrite 	<= (~load) && store && (~r_type) && (~b_type) && (~i_type) && (~j);	//La instruccion desencadena una escritura en memoria
-		MemtoReg 	<= load && (~r_type) && (~i_type);																						//La instruccion guarda un dato de memoria en un registro
-		RegDst 		<= (~load) && (r_type) && (~i_type);																			//Un dato se guardara en el registro
-		RegWrite 	<= (load || r_type || i_type) &&(~store) && (~b_type);											//Se escribira en un registro
-		ALUSrc 		<= (load || store || i_type) && (~r_type) && (~b_type);															//Multiplexor de segunda entrada de la ALU
-		AluOp[0] 	<= (~load) && (~store) && (~r_type) && (b_type || i_type);
-		AluOp[1] 	<= (r_type || i_type) && (~load) && (~store) && (~b_type);
-		AluOp[2] 	<= opcode[0];
-		AluOp[3] 	<= opcode[1];
-		AluOp[4] 	<= opcode[2];
+		if(ena) begin
+			Jump			<= (j) && (~load) && (~store) && (~r_type) && (~b_type) && (~i_type);		//Instruccion que realiza un salto
+			Branch 		<= (~load) && (~store) && (~r_type) && b_type && (~i_type) && (~j);	//Instruccion que realiza un branch
+			MemRead 	<= load && (~store) && (~r_type) && (~b_type);																		//La instruccion requiere una lectura de memoria
+			MemWrite 	<= (~load) && store && (~r_type) && (~b_type) && (~i_type) && (~j);	//La instruccion desencadena una escritura en memoria
+			MemtoReg 	<= load && (~r_type) && (~i_type);																						//La instruccion guarda un dato de memoria en un registro
+			RegDst 		<= (~load) && (r_type) && (~i_type);																			//Un dato se guardara en el registro
+			RegWrite 	<= (load || r_type || i_type) &&(~store) && (~b_type);											//Se escribira en un registro
+			ALUSrc 		<= (load || store || i_type) && (~r_type) && (~b_type);															//Multiplexor de segunda entrada de la ALU
+			AluOp[0] 	<= (~load) && (~store) && (~r_type) && (b_type || i_type);
+			AluOp[1] 	<= (r_type || i_type) && (~load) && (~store) && (~b_type);
+			AluOp[2] 	<= opcode[0];
+			AluOp[3] 	<= opcode[1];
+			AluOp[4] 	<= opcode[2];
+		end
 	end
 	
 endmodule

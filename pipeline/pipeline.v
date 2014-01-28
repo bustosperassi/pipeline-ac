@@ -42,14 +42,17 @@ module pipeline(
 	); 
 	 
 	 /* Latch entre ifetch e idecode*/
+	 wire ena_id;
 	 wire [6:0] next_pc_reg;
 	 wire [31:0] instruction_reg;
 	 
 	 latch_if_id if_id (
 		.clk(clk), //conectado
 		.rst(rst),
+		.ena(enable),
 		.next_pc(pc_out), // conectado
 		.instruction(DR), // conectado
+		.ena_if_id_reg(ena_id), //conectado
 		.next_pc_reg(next_pc_reg), //conectado
 		.instruction_reg(instruction_reg) //conectado
 	);
@@ -73,6 +76,7 @@ module pipeline(
 	 decode_stage decode (
 		.clk(~clk), 
 		.rst(rst),
+		.ena(ena_id),
 		.reg_write_in(reg_write_in), // conectado
 		.instruccion(instruction_reg), //conectado
 		.WR(WR), // Conectado
@@ -91,6 +95,8 @@ module pipeline(
 	);
 	
 	/* Latch entre idecode e iexecute */
+	 wire [4:0] rs;
+	 wire [4:0] rt;
 	 wire [31:0] data1_ex;
 	 wire [31:0] data2_ex;
 	 wire [31:0] sign_extend_ex;
@@ -121,6 +127,8 @@ module pipeline(
 		.sign_extend(ext_sig), // Conectado 
 		.reg1(instruction_reg[20:16]),  // Conectado
 		.reg2(instruction_reg[15:11]), // Conectado
+		.rs(instruction_reg[25:21]),
+		.rt(instruction_reg[20:16]),
 		.clk(clk), // Conectado
 		.rst(rst),
 		.alu_op_reg(alu_op_ex), //Conectado 
@@ -136,7 +144,9 @@ module pipeline(
 		.data2_reg(data2_ex), //Conectado
 		.sign_extend_reg(sign_extend_ex), //Conectado 
 		.reg1_reg(reg1_ex), //Conectado
-		.reg2_reg(reg2_ex) //Conectado
+		.reg2_reg(reg2_ex), //Conectado
+		.rs_reg(rs),
+		.rt_reg(rt)
 	);
 	/* Wires de la unidad de cortocircuito */
 	wire [1:0] cortoA;
@@ -253,8 +263,8 @@ module pipeline(
 	//_-_-_-_-_-_-_Unidad de Cortocircuito_-_-_-_-_-_-_-_//
 	
 	forwarding unidadCorto(
-		.rs(instruction_reg[25:21]), 
-		.rt(instruction_reg[20:16]), 
+		.rs(rs), 
+		.rt(rt), 
 		.dst_mem(dst_m), 
 		.dst_wb(WR), 
 		.wb_mem(reg_write_m), 

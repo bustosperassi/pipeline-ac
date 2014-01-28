@@ -21,20 +21,24 @@
 module latch_if_id(
     input clk,
 	 input rst,
+	 input ena,
 	 input [6:0] next_pc,
     input [31:0] instruction,
+	 output reg ena_if_id_reg,
     output reg [6:0] next_pc_reg,
     output reg [31:0] instruction_reg
     );
 
 	always @(posedge rst) begin
-		next_pc_reg <= 0;
-		instruction_reg <= 0;
+		next_pc_reg 		<= 0;
+		instruction_reg 	<= 0;
+		ena_if_id_reg		<= 0;
 	end
 	
 	always @(posedge clk) begin
 		next_pc_reg 		<= next_pc;
 		instruction_reg 	<= instruction;
+		ena_if_id_reg		<= ena;
 	end
 	
 endmodule

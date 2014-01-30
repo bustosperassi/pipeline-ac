@@ -105,6 +105,23 @@ module pipeline_test;
       clk = 1;
 		#100;
       clk = 0;
+		#100;
+		clk = 1;
+		#100;
+      clk = 0;
+		#100;
+      clk = 1;
+		#100;
+      clk = 0;
+		#100;
+      clk = 1;
+		#100;
+      clk = 0;
+		#100;
+      clk = 1;
+		#100;
+      clk = 0;
+
 	end
       
 endmodule

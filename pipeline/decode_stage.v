@@ -9,6 +9,7 @@ module decode_stage(
 	 input clk,
 	 input rst,
 	 input ena,
+	 input stop,
 	 // Entradas al decode stage
 	 input reg_write_in,
 	 input [31:0] instruccion,
@@ -31,6 +32,10 @@ module decode_stage(
 	 output [5:0] alu_op
     ); 
 	 
+	 wire rst_stop, ena_stop;
+	 
+	 assign rst_stop = (rst | stop);
+	 assign ena_stop = (ena & (~stop));
 	 
 	 register_bank banco (
 		.clk(clk),
@@ -52,8 +57,8 @@ module decode_stage(
 	
 	ctrl_unit unidad_control (
 		.clk(clk),
-		.rst(rst),
-		.ena(ena),
+		.rst(rst_stop),
+		.ena(ena_stop),
 		.opcode(instruccion[31:26]),
 		.Branch(branch), 
 		.MemRead(mem_read), 
@@ -64,5 +69,4 @@ module decode_stage(
 		.ALUSrc(alu_src), 
 		.AluOp(alu_op)
 	);
-	
 endmodule

@@ -25,17 +25,21 @@ module pipeline(
 		input enable
     );
 	 
+	 wire stop;
 	 wire [6:0] pc_out;
 	 wire pc_src;
 	 wire [6:0] pc_branch_fetch ;
 	 wire [31:0] DR;
+	 wire stop_enable;
+	 
+	 assign stop_enable = enable & (~stop);
 	 
 	 /* Bloque de busqueda de instruccion */
 	fetch_stage ifetch (
 		.clk(~clk), // conectado
 		.dec(pc_src), // conectado
 		.rst(rst), 
-		.enbl(enable),
+		.enbl(stop_enable),
 		.pc_mux(pc_branch_fetch), // conectado
 		.pc_out(pc_out),  // conectado
 		.DR(DR) // conectado
@@ -50,6 +54,7 @@ module pipeline(
 		.clk(clk), //conectado
 		.rst(rst),
 		.ena(enable),
+		.stop(stop),
 		.next_pc(pc_out), // conectado
 		.instruction(DR), // conectado
 		.ena_if_id_reg(ena_id), //conectado
@@ -76,6 +81,7 @@ module pipeline(
 	 decode_stage decode (
 		.clk(~clk), 
 		.rst(rst),
+		.stop(stop),
 		.ena(ena_id),
 		.reg_write_in(reg_write_in), // conectado
 		.instruccion(instruction_reg), //conectado
@@ -293,6 +299,17 @@ module pipeline(
 		.out_mux4(cortoB_out)
 	);
 
+	//_-_-_-_-_-_-_-_-Unidad de Detección de Riesgos de Datos-_-_-_-_-_-_-_-_-_//
+
+	hazard data_hazard (
+		.clk(clk),
+		.rst(rst),
+		.instruction(instruction_reg), 
+		.rt_ex(rt), 
+		.mem_to_reg_ex(mem_to_reg_ex), 
+		.stop(stop)
+	);
+	
 	//_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_//
 
 

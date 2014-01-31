@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 ##########################################
 #
 # 		PARSER v1.1
@@ -9,7 +11,9 @@
 # Materia: Arquitectura de Computadoras
 #
 ##########################################
+
 import os
+import sys
 # -------------------------------------------------------------
 # Instrucciones tipo R
 # -------------------------------------------------------------
@@ -54,6 +58,7 @@ I1 = {'LB':'100000'} # LB rt,offset(base)
                     # 100000basertoffset
 I1['LH']='100001'    # LH rt,offset(base)
                     # 100001basertoffset
+
 I1['LW']='100011'    # LW rt,offset(base)
                     # 100011basertoffset
 I1['LWU']='100111'   # LWU rt,offset(base)
@@ -108,158 +113,175 @@ J1={'JR':'001000'}   # JR rs
 J2={'JALR':'001001'}  # JALR rd,rs
                     # 000000rs00000rd00000001001
 # ------------------------------------------------------------------
-separadores=['\n','\t',',',' '] 
 
-print 'ingrese el nombre del archivo a compilar'
-archivo = raw_input()
-try:    
-    archivo = open(archivo,'r')
-    print 'archivo abierto correctamente'
-    
-except:
-    print 'Error: No se puede abrir el archivo'
-    exit
+# Manejo de entrada del archivo
 
-i = 1    
+if(len(sys.argv) == 2):
+	try:    
+    		archivo = open(sys.argv[1],'r')
+    		print '[Parser] Archivo abierto correctamente'
+	except:
+		print '[Parser] Error: No se puede abrir el archivo', sys.argv[1]
+		exit
+elif(len(sys.argv) == 1):
+	print 'ingrese el nombre del archivo a compilar'
+	archivo = raw_input()
+	try:    
+    		archivo = open(archivo,'r')
+    		print '[Parser] Archivo abierto correctamente'
+	except:
+		print '[Parser] Error: No se puede abrir el archivo', sys.argv[1]
+		exit
 
-compilado = open("a.coe","a")
+separadores=['\n','\t',' '] # Separadores de linea 
+
+i = 1    # Para obtener el numero de linea del error
+
+# Abro el archivo para sobreescribirlo si existe
+compilado = open("a.coe","w")
 compilado.write("memory_initialization_radix=2;\nmemory_initialization_vector=\n")
 compilado.close()
 
+# Comienzo el parseo.
 while True:
-    linea = archivo.readline()
-    if not linea: break
-    linea=linea.split(";")[0]  # Toma la linea y la divide en un array con ';' como delimitador, el primero siempre es el codigo.
-    while True:
-        try:
-            linea.remove('')
-        except:
-            break
-    linea=''.join(linea)
-    i = 0
-    linea=linea.replace(")"," ")
-    linea=linea.replace("("," ")
-    while True:
-        try:
-            linea.remove('')
-        except:
-            break   
-        
-    for sep in separadores:
-        linea = ''.join(linea)
-        linea=linea.split(sep)
-        while True:
-            try:
-                linea.remove('')
-            except:
-                break
-        #print linea
-    i+=1
+	linea = archivo.readline()
+    	if not linea: break
+    	linea=linea.split(";")[0]  # Toma la linea y la divide en un array con ';' como delimitador, el primero siempre es el codigo.
+   
+    	while True:
+        	try:
+            		linea.remove('')
+        	except:
+            		break
+    
+    	linea=''.join(linea)
+  
+    	i = 0
+    	linea=linea.replace(")"," ")
+    	linea=linea.replace("("," ")
+	linea=linea.replace(","," ")
+    	while True:
+        	try:
+            		linea.remove('')
+        	except:
+            		break
 
-    compilado = open("a.coe","a")
+        linea=linea.replace('$','')
+    	for sep in separadores:
+        	linea = ''.join(linea)
+        	linea=linea.split(sep)
+        	while True:
+        		try:
+                		linea.remove('')
+            		except:
+                		break
+		
+	i+=1
+
+    	compilado = open("a.coe","a")
     
-    if len(linea)!=0:
-        if(linea[0].upper() in RT):
-            if(len(linea)==4):
-                compilado.write("00000000000")
-                compilado.write(bin(int(linea[2]))[2:].zfill(5))
-                compilado.write(bin(int(linea[1]))[2:].zfill(5))
-                compilado.write(bin(int(linea[3]))[2:].zfill(5))
-                compilado.write(RS[linea[0]])
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-        elif(linea[0].upper() in RS):
-            if(len(linea)==4):
-                compilado.write("000000")
-                compilado.write(bin(int(linea[2]))[2:].zfill(5))
-		compilado.write(bin(int(linea[3]))[2:].zfill(5))                
-		compilado.write(bin(int(linea[1]))[2:].zfill(5))
-                compilado.write("00000")
-                compilado.write(RS[linea[0]])
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-        elif(linea[0].upper() in I1):
-            if(len(linea)==4):
-                compilado.write(I1[linea[0]])
-                compilado.write(bin(int(linea[3]))[2:].zfill(5))
-                compilado.write(bin(int(linea[1]))[2:].zfill(5))
-                compilado.write(bin(int(linea[2]))[2:].zfill(16))                
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-        elif(linea[0].upper() in I2):
-            if(len(linea)==4):
-                compilado.write(I2[linea[0]])
-                compilado.write(bin(int(linea[2]))[2:].zfill(5))
-                compilado.write(bin(int(linea[1]))[2:].zfill(5))
-                compilado.write(bin(int(linea[3]))[2:].zfill(16))                
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-                print linea
-        elif(linea[0].upper() in I3):
-            if(len(linea)==3):
-                compilado.write(I3[linea[0]])
-                compilado.write("00000")
-                compilado.write(bin(int(linea[1]))[2:].zfill(5))
-                compilado.write(bin(int(linea[2]))[2:].zfill(16))                
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-                print linea
-        elif(linea[0].upper() in I4):
-            if(len(linea)==4):
-                compilado.write(I4[linea[0]])
-                compilado.write(bin(int(linea[1]))[2:].zfill(5))
-                compilado.write(bin(int(linea[2]))[2:].zfill(5))
-                compilado.write(bin(int(linea[3]))[2:].zfill(16))
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-                print linea
-        elif(linea[0].upper() in I5):
-            if(len(linea)==2):
-                compilado.write(I5[linea[0]])
-                compilado.write(bin(int(linea[1]))[2:].zfill(26))
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-                print linea
-        elif(linea[0].upper() in J1):
-            if(len(linea)==2):
-                compilado.write("000000")
-                compilado.write(bin(int(linea[1]))[2:].zfill(5))
-                compilado.write("000000000000000")
-                compilado.write(J1[linea[0]])
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-                print linea
-        elif(linea[0].upper() in J2):
-            if(len(linea)==3):
-                compilado.write("000000")
-                compilado.write(bin(int(linea[2]))[2:].zfill(5))
-                compilado.write("00000")
-                compilado.write(bin(int(linea[1]))[2:].zfill(5))
-                compilado.write("00000")
-                compilado.write(J2[linea[0]])
-                compilado.write(",\n")
-            else:
-                print "Error linea", i
-                print linea        
-            
-    compilado.close()
-    
+    	if len(linea)!=0:
+        	if(linea[0].upper() in RT):
+            		if(len(linea)==4):
+                		compilado.write("00000000000")
+                		compilado.write(bin(int(linea[2]))[2:].zfill(5))
+                		compilado.write(bin(int(linea[1]))[2:].zfill(5))
+                		compilado.write(bin(int(linea[3]))[2:].zfill(5))
+                		compilado.write(RS[linea[0]])
+                		compilado.write(",\n")
+            		else:
+                		print "Error linea", i
+        	elif(linea[0].upper() in RS):
+            		if(len(linea)==4):
+               			compilado.write("000000")
+                		compilado.write(bin(int(linea[2]))[2:].zfill(5))
+				compilado.write(bin(int(linea[3]))[2:].zfill(5))                
+				compilado.write(bin(int(linea[1]))[2:].zfill(5))
+                		compilado.write("00000")
+                		compilado.write(RS[linea[0]])
+                		compilado.write(",\n")
+            		else:
+                		print "Error linea", i
+        	elif(linea[0].upper() in I1):
+            		if(len(linea)==4):
+                		compilado.write(I1[linea[0]])
+                		compilado.write(bin(int(linea[3]))[2:].zfill(5))
+                		compilado.write(bin(int(linea[1]))[2:].zfill(5))
+		       		compilado.write(bin(int(linea[2]))[2:].zfill(16))                
+		       		compilado.write(",\n")
+			else:
+		       		print "Error linea", i
+		elif(linea[0].upper() in I2):
+			if(len(linea)==4):
+				compilado.write(I2[linea[0]])
+			        compilado.write(bin(int(linea[2]))[2:].zfill(5))
+			        compilado.write(bin(int(linea[1]))[2:].zfill(5))
+			        compilado.write(bin(int(linea[3]))[2:].zfill(16))                
+			        compilado.write(",\n")
+			else:
+				print "Error linea", i
+			        print linea
+		elif(linea[0].upper() in I3):
+			if(len(linea)==3):
+				compilado.write(I3[linea[0]])
+			        compilado.write("00000")
+			        compilado.write(bin(int(linea[1]))[2:].zfill(5))
+			        compilado.write(bin(int(linea[2]))[2:].zfill(16))                
+			        compilado.write(",\n")
+			else:
+			        print "Error linea", i
+		        	print linea
+		elif(linea[0].upper() in I4):
+			if(len(linea)==4):
+			        compilado.write(I4[linea[0]])
+			        compilado.write(bin(int(linea[1]))[2:].zfill(5))
+			        compilado.write(bin(int(linea[2]))[2:].zfill(5))
+			        compilado.write(bin(int(linea[3]))[2:].zfill(16))
+			        compilado.write(",\n")
+			else:
+		        	print "Error linea", i
+		        	print linea
+		elif(linea[0].upper() in I5):
+			if(len(linea)==2):
+		        	compilado.write(I5[linea[0]])
+		        	compilado.write(bin(int(linea[1]))[2:].zfill(26))
+		        	compilado.write(",\n")
+		    	else:
+		        	print "Error linea", i
+		        	print linea
+		elif(linea[0].upper() in J1):
+			if(len(linea)==2):
+			        compilado.write("000000")
+			        compilado.write(bin(int(linea[1]))[2:].zfill(5))
+			        compilado.write("000000000000000")
+			        compilado.write(J1[linea[0]])
+			        compilado.write(",\n")
+			else:
+			        print "Error linea", i
+			        print linea
+		elif(linea[0].upper() in J2):
+			if(len(linea)==3):
+			        compilado.write("000000")
+			        compilado.write(bin(int(linea[2]))[2:].zfill(5))
+			        compilado.write("00000")
+			        compilado.write(bin(int(linea[1]))[2:].zfill(5))
+			        compilado.write("00000")
+			        compilado.write(J2[linea[0]])
+			        compilado.write(",\n")
+			else:
+			        print "Error linea", i
+			        print linea        
+		    
+	    	compilado.close()
+	    
 compilado = open("a.coe","r")
 a = compilado.read()
 l = len(a)
-print a[0:l-2]
 compilado.close()
 
 compilado = open("a.coe","w")
 compilado.write(a[0:l-2])
 compilado.write(";\n")
 compilado.close()
+
 

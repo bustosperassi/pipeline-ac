@@ -26,10 +26,10 @@ module alu_ctrl_test;
 
 	// Inputs
 	reg [5:0] ff;
-	reg [4:0] aluOp;
+	reg [5:0] aluOp;
 
 	// Outputs
-	wire [2:0] operation;
+	wire [3:0] operation;
 
 	// Instantiate the Unit Under Test (UUT)
 	alu_ctrl uut (
@@ -48,27 +48,42 @@ module alu_ctrl_test;
         
 		  
 		ff = 6'b000000;
-		aluOp = 5'b00000;
+		aluOp = 6'b000000;
 		#100;
 		ff = 6'b000000;
-		aluOp = 5'b00011;
+		aluOp = 6'b000011;
 		#100;
 		ff = 6'b010000;
-		aluOp = 5'b00010;
+		aluOp = 6'b000010;
 		#100;
 		ff = 6'b100010;
-		aluOp = 5'b00010;
+		aluOp = 6'b000010;
 		#100;
 		ff = 6'b000100;
-		aluOp = 5'b00010;
+		aluOp = 6'b000010;
 		#100;
 		ff = 6'b000101;
-		aluOp = 5'b00010;
+		aluOp = 6'b000010;
 		#100;
 		ff = 6'b001010;
-		aluOp = 5'b00010;
+		aluOp = 6'b000010;
 		#100;
 		
+		// Instrucciones tipo I
+		aluOp = 6'b100011;
+		#100;
+		aluOp = 6'b100111;
+		#100;
+		aluOp = 6'b101011;
+		#100;
+		aluOp = 6'b101111;
+		#100;
+		aluOp = 6'b110011;
+		#100;
+		aluOp = 6'b110111;
+		#100;
+		aluOp = 6'b111011;
+		#100;
 	end
       
 endmodule

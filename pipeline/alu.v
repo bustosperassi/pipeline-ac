@@ -51,7 +51,7 @@ module alu #(parameter ANCHO_BUS = 32)(
 						alu_result = data1 ^ data2;
 						end
 			4'b0111: begin
-							if(data1 > data2)
+							if(data1 < data2)
 								begin
 									alu_result = 0;
 								end

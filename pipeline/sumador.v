@@ -6,10 +6,21 @@
 // Description: Suma uno al PC
 //////////////////////////////////////////////////////////////////////////////////
 module sumador (
+	 input clk,
+	 input rst,
+	 input enable,
     input [6:0] pc,
-    output [6:0] pc_inc
+    output reg [6:0] pc_inc
     );
 	 
-	 assign pc_inc = pc+1;
+	always @ (posedge rst) begin
+		pc_inc = 0;
+	end
+	
+	always @ (negedge clk) begin
+		if(enable) begin
+			pc_inc = pc+1;
+		end
+	end
 
 endmodule

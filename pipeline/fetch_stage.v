@@ -13,10 +13,15 @@ module fetch_stage(
 	 input enbl,
     input [6:0] pc_mux,
     output [6:0] pc_out,
-    output [31:0] DR
+    output [31:0] DR,
+	 output bubble
     );
 	 // Declaracion de senales internas
+	 wire [6:0] pc_next;
 	 wire [6:0] pc_in;
+	 wire stop_branch;
+	 wire enable; // Es el enable que se le manda al sumador.
+	 assign enable = (enbl & (~stop_branch));
 	 reg [6:0] PC;
 	 
 	 mem instruction_mem (
@@ -25,31 +30,38 @@ module fetch_stage(
 		.douta(DR)
 	);
 	
-	mux mux1(
+	mux_program_counter mux1(
 		.rst(rst),
 		.dec(dec),
 		.msb(pc_mux),
-		.lsb(pc_out),
+		.lsb(pc_next),
 		.out(pc_in)
 	);
 	
 	sumador sum (
+		.clk(clk),
+		.rst(rst),
+		.enable(enable),
 		.pc(PC), 
-		.pc_inc(pc_out)
+		.pc_inc(pc_next)
+	);
+	
+	branch_detection branches (
+		.clk(~clk), 
+		.rst(rst),
+		.instruccion(DR),
+		.stop(stop_branch),
+		.bubble(bubble)
 	);
 
-
-	// Cuerpo
+	assign pc_out = PC; // El pc que se va a guardar en el latch para saltos.
 	
 	always @ (posedge rst) begin
 		PC <= 0;
 	end
 	
-	always@(posedge clk)
-	begin
-		if (enbl) begin
+	always @(pc_in) begin
 			PC = pc_in;
-		end
 	end
 	
 endmodule

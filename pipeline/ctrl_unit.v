@@ -44,7 +44,7 @@ module ctrl_unit(
 		if(ena) begin
 			Jump			<= (j) && (~load) && (~store) && (~r_type) && (~b_type) && (~i_type);		//Instruccion que realiza un salto
 			Branch 		<= (~load) && (~store) && (~r_type) && b_type && (~i_type) && (~j);	//Instruccion que realiza un branch
-			MemRead 	<= load && (~store) && (~r_type) && (~b_type);																		//La instruccion requiere una lectura de memoria
+			MemRead 		<= load && (~store) && (~r_type) && (~b_type);																		//La instruccion requiere una lectura de memoria
 			MemWrite 	<= (~load) && store && (~r_type) && (~b_type) && (~i_type) && (~j);	//La instruccion desencadena una escritura en memoria
 			MemtoReg 	<= load && (~r_type) && (~i_type);																						//La instruccion guarda un dato de memoria en un registro
 			RegDst 		<= (~load) && (r_type) && (~i_type);																			//Un dato se guardara en el registro
@@ -55,6 +55,7 @@ module ctrl_unit(
 			AluOp[2] 	<= opcode[0];
 			AluOp[3] 	<= opcode[1];
 			AluOp[4] 	<= opcode[2];
+			AluOp[5] 	<= opcode[3] & (~opcode[5]); // Con este bit en alto, la instruccion es tipo I
 		end
 	end
 	

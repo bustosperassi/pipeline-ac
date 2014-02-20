@@ -31,7 +31,7 @@ module pipeline(
 	 wire [6:0] pc_branch_fetch ;
 	 wire [31:0] DR;
 	 wire stop_enable;
-	 
+	 wire bubble_wire;
 	 assign stop_enable = enable & (~stop);
 	 
 	 /* Bloque de busqueda de instruccion */
@@ -42,24 +42,28 @@ module pipeline(
 		.enbl(stop_enable),
 		.pc_mux(pc_branch_fetch), // conectado
 		.pc_out(pc_out),  // conectado
-		.DR(DR) // conectado
+		.DR(DR), // conectado
+		.bubble(bubble_wire)
 	); 
 	 
 	 /* Latch entre ifetch e idecode*/
 	 wire ena_id;
 	 wire [6:0] next_pc_reg;
 	 wire [31:0] instruction_reg;
+	 wire bubble_out;
 	 
 	 latch_if_id if_id (
 		.clk(clk), //conectado
 		.rst(rst),
 		.ena(enable),
 		.stop(stop),
+		.bubble(bubble_wire),
 		.next_pc(pc_out), // conectado
 		.instruction(DR), // conectado
 		.ena_if_id_reg(ena_id), //conectado
 		.next_pc_reg(next_pc_reg), //conectado
-		.instruction_reg(instruction_reg) //conectado
+		.instruction_reg(instruction_reg), //conectado
+		.bubble_reg(bubble_out)
 	);
 	
 	/* bloque de etapa decode */
@@ -77,11 +81,14 @@ module pipeline(
 	 wire reg_write_out;
 	 wire alu_src;
 	 wire [5:0] alu_op;
+	 wire stop_bubble;
+	 
+	 assign stop_bubble = stop | bubble_out;
 	 
 	 decode_stage decode (
 		.clk(~clk), 
 		.rst(rst),
-		.stop(stop),
+		.stop(stop_bubble),
 		.ena(ena_id),
 		.reg_write_in(reg_write_in), // conectado
 		.instruccion(instruction_reg), //conectado

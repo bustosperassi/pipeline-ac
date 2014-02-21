@@ -28,47 +28,49 @@ module alu #(parameter ANCHO_BUS = 32)(
     output reg zero
 	 );
 	
-	always @(posedge rst) begin
-		alu_result 	<= 0;
-		zero 			<= 0;
-	end
-	
 	 always @(operation, data1, data2) begin
-		case(operation)
-			4'b0000: begin
-						alu_result = data1 & data2;
-						end
-			4'b0001: begin
-						alu_result = data1 | data2;
-						end
-			4'b0010: begin
-						alu_result = data1 + data2; // load or store
-						end
-			4'b0110: begin
-						alu_result = data1 - data2; // branch equal
-						end
-			4'b1001: begin
-						alu_result = data1 ^ data2;
-						end
-			4'b0111: begin
-							if(data1 < data2)
-								begin
-									alu_result = 0;
-								end
-							else
-								begin
-									alu_result = 1;
-								end
-						end
-			default :begin 
-							alu_result = 8'b11001100;
-						end
-		endcase
-		if(alu_result == 0)begin
-			zero = 1;
+		if (rst == 1) begin
+			alu_result 	= 0;
+			zero 			= 0;
 		end
 		else begin
-			zero = 0;
+			case(operation)
+				4'b0000: begin
+							alu_result = data1 & data2;
+							end
+				4'b0001: begin
+							alu_result = data1 | data2;
+							end
+				4'b0010: begin
+							alu_result = data1 + data2; // load or store
+							end
+				4'b0110: begin
+							alu_result = data1 - data2; // branch equal
+							end
+				4'b1001: begin
+							alu_result = data1 ^ data2;
+							end
+				4'b0111: begin
+								if(data1 < data2)
+									begin
+										alu_result = 0;
+									end
+								else
+									begin
+										alu_result = 1;
+									end
+							end
+				default :begin 
+								alu_result = 8'b11001100;
+							end
+			endcase
+			if(alu_result == 0)begin
+				zero = 1;
+			end
+			else begin
+				zero = 0;
+			end
 		end
 	end
+	
 endmodule

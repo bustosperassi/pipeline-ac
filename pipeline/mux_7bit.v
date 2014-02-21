@@ -15,17 +15,16 @@ module mux #(parameter nbits = 7)(
     input dec
     );
 	 
-	 always @(posedge rst) begin
-		out <= 0;
-	 end
-	 
 	 always@(msb, lsb, dec) begin
-		 if (dec == 0) begin
-			out = lsb;
-		 end
-		 else begin
-			out = msb;
-		 end
+		if (rst == 1) out <= 0;
+		else begin
+			 if (dec == 0) begin
+				out <= lsb;
+			 end
+			 else begin
+				out <= msb;
+			 end
+		end	
 	 end
 	 
 endmodule

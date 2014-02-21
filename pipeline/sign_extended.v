@@ -12,12 +12,9 @@ module sign_extended(
     output reg[31:0] extension
     );
 	 
-	 always @(posedge rst) begin
-		extension <= 0;
+	 always @(posedge clk) begin
+		if (rst == 1) extension <= 0;
+		else extension <= {{16{offset[15]}},offset};
 	 end
 	 
-	 always @(posedge clk)
-	 begin
-		extension = {{16{offset[15]}},offset};
-	 end
 endmodule

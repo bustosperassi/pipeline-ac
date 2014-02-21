@@ -12,14 +12,13 @@ module sumador (
     input [6:0] pc,
     output reg [6:0] pc_inc
     );
-	 
-	always @ (posedge rst) begin
-		pc_inc = 0;
-	end
 	
 	always @ (negedge clk) begin
-		if(enable) begin
-			pc_inc = pc+1;
+		if(rst == 1) pc_inc <= 0;
+		else begin
+			if(enable) begin
+				pc_inc <= pc+1;
+			end
 		end
 	end
 

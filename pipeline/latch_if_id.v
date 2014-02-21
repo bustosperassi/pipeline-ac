@@ -31,20 +31,21 @@ module latch_if_id(
     output reg [31:0] instruction_reg,
 	 output reg bubble_reg
     );
-
-	always @(posedge rst) begin
-		next_pc_reg 		<= 0;
-		instruction_reg 	<= 0;
-		ena_if_id_reg		<= 0;
-		bubble_reg 			<= 0;
-	end
 	
 	always @(posedge clk) begin
-		if(~stop) begin
-			next_pc_reg 		<= next_pc;
-			instruction_reg 	<= instruction;
-			ena_if_id_reg		<= ena;
-			bubble_reg			<= bubble;
+		if (rst == 1) begin
+			next_pc_reg 		<= 0;
+			instruction_reg 	<= 0;
+			ena_if_id_reg		<= 0;
+			bubble_reg 			<= 0;
+		end
+		else begin
+			if(~stop) begin
+				next_pc_reg 		<= next_pc;
+				instruction_reg 	<= instruction;
+				ena_if_id_reg		<= ena;
+				bubble_reg			<= bubble;
+			end
 		end
 	end
 	

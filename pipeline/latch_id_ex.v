@@ -86,28 +86,27 @@ module latch_id_ex(
 		.mem_to_reg_reg(mem_to_reg_reg)
 	);
 	
-	always@(posedge rst)
-	begin
-		pc_next_reg <= 0;
-		data1_reg <= 0;
-		data2_reg <= 0;
-		sign_extend_reg <= 0;
-		reg1_reg <= 0;
-		reg2_reg <= 0;
-		rs_reg <= 0;
-		rt_reg <= 0;
-	end
-	
-	always@(posedge clk)
-	begin
-		pc_next_reg <= pc_next;
-		data1_reg <= data1;
-		data2_reg <= data2;
-		sign_extend_reg <= sign_extend;
-		reg1_reg <= reg1;
-		reg2_reg <= reg2;
-		rs_reg <= rs;
-		rt_reg <= rt;
+	always@(posedge clk) begin
+		if (rst == 1) 	begin
+			pc_next_reg <= 0;
+			data1_reg <= 0;
+			data2_reg <= 0;
+			sign_extend_reg <= 0;
+			reg1_reg <= 0;
+			reg2_reg <= 0;
+			rs_reg <= 0;
+			rt_reg <= 0;
+		end
+		else begin
+			pc_next_reg <= pc_next;
+			data1_reg <= data1;
+			data2_reg <= data2;
+			sign_extend_reg <= sign_extend;
+			reg1_reg <= reg1;
+			reg2_reg <= reg2;
+			rs_reg <= rs;
+			rt_reg <= rt;
+		end
 	end
 
 endmodule

@@ -29,24 +29,27 @@ module mux4(
     );
 
 	always @(posedge rst) begin
-		out_mux4 <= 0;
+		
 	end
 
 	always@(*) begin
-		 case(signal)
-			2'b00: begin
-						out_mux4 = in00;
-						end
-			2'b01: begin
-						out_mux4 = in01;
-						end
-			2'b10: begin
-						out_mux4 = in02;
-						end
-			2'b11: begin
-						out_mux4 = in03;
-						end
+		if (rst == 1) out_mux4 <= 0;
+		else begin	
+			 case(signal)
+				2'b00: begin
+							out_mux4 <= in00;
+							end
+				2'b01: begin
+							out_mux4 <= in01;
+							end
+				2'b10: begin
+							out_mux4 <= in02;
+							end
+				2'b11: begin
+							out_mux4 <= in03;
+							end
 			endcase
-	 end
+		end
+	end
 
 endmodule

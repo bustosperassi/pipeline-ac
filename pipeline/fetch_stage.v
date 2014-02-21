@@ -7,8 +7,8 @@
 //								Tiene de salida la propia instruccion
 //////////////////////////////////////////////////////////////////////////////////
 module fetch_stage(
-	 input wire clk,
-	 input wire dec,
+	 input clk,
+	 input dec,
 	 input rst,
 	 input enbl,
     input [6:0] pc_mux,
@@ -16,9 +16,11 @@ module fetch_stage(
     output [31:0] DR,
 	 output bubble
     );
+	 
 	 // Declaracion de senales internas
 	 wire [6:0] pc_next;
 	 wire [6:0] pc_in;
+	 wire [1:0] flag;
 	 wire stop_branch;
 	 wire enable; // Es el enable que se le manda al sumador.
 	 assign enable = (enbl & (~stop_branch));
@@ -51,17 +53,18 @@ module fetch_stage(
 		.rst(rst),
 		.instruccion(DR),
 		.stop(stop_branch),
-		.bubble(bubble)
+		.bubble(bubble),
+		.flag_reg(flag)
 	);
 
 	assign pc_out = PC; // El pc que se va a guardar en el latch para saltos.
 	
-	always @ (posedge rst) begin
-		PC <= 0;
-	end
-	
 	always @(pc_in) begin
-			PC = pc_in;
+		if (rst == 1) PC <= 0;
+		else begin
+			if (enable)PC <= pc_in;
+			else if (flag == 1) PC <= PC - 1;
+		end
 	end
 	
 endmodule

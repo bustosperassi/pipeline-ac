@@ -63,22 +63,21 @@ module latch_ex_m(
 		.mem_to_reg_reg(mem_to_reg_reg)
 	);
 	
-	always@(posedge rst)
-	begin
-		data2_reg <= 0;
-		pc_branch_reg <= 0;
-		zero_reg <= 0;
-		alu_result_reg <= 0;
-		dst_reg <= 0;
+	always@(posedge clk) begin
+		if (rst == 1) begin
+			data2_reg <= 0;
+			pc_branch_reg <= 0;
+			zero_reg <= 0;
+			alu_result_reg <= 0;
+			dst_reg <= 0;
+		end
+		else begin
+				data2_reg <= data2;
+				pc_branch_reg <= pc_branch;
+				zero_reg <= zero;
+				alu_result_reg <= alu_result;
+				dst_reg <= dst;
+		end
 	end
 	
-	always@(posedge clk)
-	begin
-		data2_reg <= data2;
-		pc_branch_reg <= pc_branch;
-		zero_reg <= zero;
-		alu_result_reg <= alu_result;
-		dst_reg <= dst;
-	end
-
 endmodule

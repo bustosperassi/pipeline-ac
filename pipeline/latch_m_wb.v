@@ -42,18 +42,17 @@ module latch_m_wb(
 		.mem_to_reg_reg(mem_to_reg_reg)
 	);
 	
-	always@(posedge rst)
-	begin
-		alu_result_reg <= 0;
-		data_load_reg <= 0;
-    	dst_reg <= 0;
-	end
-	
-	always@(posedge clk)
-	begin
-		alu_result_reg <= alu_result;
-		data_load_reg <= data_load;
-    	dst_reg <= dst;
+	always@(posedge clk) begin
+		if (rst == 1) begin
+			alu_result_reg <= 0;
+			data_load_reg <= 0;
+			dst_reg <= 0;
+		end
+		else begin
+			alu_result_reg <= alu_result;
+			data_load_reg <= data_load;
+			dst_reg <= dst;
+		end
 	end
 	
 endmodule

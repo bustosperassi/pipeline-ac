@@ -29,15 +29,17 @@ module latch_m(
     output reg branch_reg
     );
 
-	always @(posedge rst) begin
-		mem_write_reg	<= 0;
-		mem_read_reg 	<= 0;
-		branch_reg 		<= 0;
-	end	
-
 	always @(posedge clk) begin
-		mem_write_reg	<= mem_write;
-		mem_read_reg 	<= mem_read;
-		branch_reg 		<= branch;
+		if (rst == 1) begin
+			mem_write_reg	<= 0;
+			mem_read_reg 	<= 0;
+			branch_reg 		<= 0;
+		end
+		else begin
+			mem_write_reg	<= mem_write;
+			mem_read_reg 	<= mem_read;
+			branch_reg 		<= branch;
+		end
 	end	
+	
 endmodule

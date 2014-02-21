@@ -31,11 +31,7 @@ module hazard(
 	
 	assign cond1 = ((instruction[25]~^rt_ex[4]) & (instruction[24]~^rt_ex[3]) & (instruction[23]~^rt_ex[2]) & (instruction[22]~^rt_ex[1]) & (instruction[21]~^rt_ex[0]));
 	assign cond2 = ((instruction[20]~^rt_ex[4]) & (instruction[19]~^rt_ex[3]) & (instruction[18]~^rt_ex[2]) & (instruction[17]~^rt_ex[1]) & (instruction[16]~^rt_ex[0]));	
-	
-	always @(posedge rst) begin
-		stop 	<= 0;
-	end
-	
+		
 	always @ (mem_to_reg_ex) begin
 		stop = (cond1 | cond2) & mem_to_reg_ex;
 	end

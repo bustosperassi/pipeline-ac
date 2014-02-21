@@ -26,17 +26,16 @@ module mux_program_counter #(parameter nbits = 7)(
     input dec
     );
 	 
-	 always @(posedge rst) begin
-		out <= 0;
-	 end
-	 
-	 always@(msb, lsb, posedge dec) begin
-		 if (dec == 0) begin
-			out = lsb;
-		 end
-		 else begin
-			out = msb;
-		 end
+	 always@(msb, lsb, dec, rst) begin
+		if(rst == 1) out <= 0;
+		else begin
+			 if (dec == 0) begin
+				out <= lsb;
+			 end
+			 else begin
+				out <= msb;
+			 end
+		end
 	 end
 	 
 endmodule

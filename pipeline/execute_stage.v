@@ -53,12 +53,12 @@ module execute_stage(
 	 branch_sum sum_instance (
 		.rst(rst),
 		.pc_next(pc_next), 
-		.pc_branch(sign_extend), 
+		.pc_branch(sign_extend[6:0]), 
 		.branch_pc(branch_pc)
 	 );
 	 
 	 alu_ctrl alu_ctrl_instance (
-		.ff(sign_extend[5:0]), 
+		.ff(sign_extend[3:0]), 
 		.aluOp(alu_op), 
 		.operation(wire_operation)
 	 );

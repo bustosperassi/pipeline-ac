@@ -74,7 +74,6 @@ module pipeline(
 	 wire [31:0] data2;
 	 wire [31:0] ext_sig;
 	 wire branch;
-	 wire mem_read;
 	 wire mem_write;
 	 wire mem_to_reg;
 	 wire reg_dst;
@@ -98,7 +97,6 @@ module pipeline(
 		.data2(data2), // Conectado
 		.ext_sig(ext_sig), // Conectado
 		.branch(branch), // Conectado
-		.mem_read(mem_read), // Conectado
 		.mem_write(mem_write), // Conectado
 		.mem_to_reg(mem_to_reg), // Conectado
 		.reg_dst(reg_dst), // Conectado
@@ -114,7 +112,6 @@ module pipeline(
 	 wire [31:0] data2_ex;
 	 wire [31:0] sign_extend_ex;
 	 wire branch_ex;
-	 wire mem_read_ex;
 	 wire mem_write_ex;
 	 wire mem_to_reg_ex;
 	 wire reg_dst_ex;
@@ -131,7 +128,6 @@ module pipeline(
 		.alu_src(alu_src), // Conectado
 		.branch(branch), // Conectado
 		.mem_write(mem_write), // Conectado
-		.mem_read(mem_read), // Conectado
 		.reg_write(reg_write_out), // Conectado 
 		.mem_to_reg(mem_to_reg), // Conectado
 		.pc_next(next_pc_reg), // conectado 
@@ -149,7 +145,6 @@ module pipeline(
 		.alu_src_reg(alu_src_ex), //Conectado 
 		.branch_reg(branch_ex), //Conectado
 		.mem_write_reg(mem_write_ex), //Conectado
-		.mem_read_reg(mem_read_ex), //Conectado
 		.reg_write_reg(reg_write_ex), //Conectado
 		.mem_to_reg_reg(mem_to_reg_ex), //Conectado
 		.pc_next_reg(pc_next_ex), //Conectado
@@ -198,7 +193,6 @@ module pipeline(
    wire reg_write_m; 
 	wire branch_m; 
 	wire mem_write_m; 
-	wire mem_read_m; 
 	wire zero_m; 
 	wire [31:0] alu_result_m; 
 	wire [31:0] data2_m; 
@@ -209,7 +203,6 @@ module pipeline(
 		.reg_write(reg_write_ex), //Conectado
 		.branch(branch_ex), //Conectado
 		.mem_write(mem_write_ex), //Conectado
-		.mem_read(mem_read_ex), //Conectado
 		.pc_branch(branch_pc), // conectado
 		.zero(zero), //Conectado
 		.alu_result(alu_result), //Conectado 
@@ -221,7 +214,6 @@ module pipeline(
 		.reg_write_reg(reg_write_m), //Conectado
 		.branch_reg(branch_m), //Conectado
 		.mem_write_reg(mem_write_m), //Conectado
-		.mem_read_reg(mem_read_m), 
 		.pc_branch_reg(pc_branch_fetch), //Conectado
 		.zero_reg(zero_m), //Conectado
 		.alu_result_reg(alu_result_m), //Conectado
@@ -237,7 +229,7 @@ module pipeline(
 		.branch(branch_m), //Conectado
 		.zero(zero_m), //Conectado  
 		.mem_write(mem_write_m), //Conectado
-		.address(alu_result_m), //Conectado 
+		.address(alu_result_m[6:0]), //Conectado 
 		.write_data(data2_m), //Conectado 
 		.data_out(data_out), //Conectado
 		.pc_src(pc_src) //Conectado
@@ -311,7 +303,7 @@ module pipeline(
 	hazard data_hazard (
 		.clk(clk),
 		.rst(rst),
-		.instruction(instruction_reg), 
+		.instruction(instruction_reg[25:16]), 
 		.rt_ex(rt), 
 		.mem_to_reg_ex(mem_to_reg_ex), 
 		.stop(stop)

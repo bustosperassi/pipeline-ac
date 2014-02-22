@@ -21,7 +21,7 @@
 module branch_detection(
 		input clk,
 		input rst,
-		input [31:0] instruccion,
+		input [5:0] instruccion,
 		output reg stop,
 		output reg bubble,
 		output [1:0] flag_reg
@@ -52,7 +52,7 @@ module branch_detection(
 				end
 			end
 			else begin
-				case(instruccion[31:26])
+				case(instruccion)
 					6'b000100: // beq
 						begin
 							flag <= 1;

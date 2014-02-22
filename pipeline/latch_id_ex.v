@@ -24,7 +24,6 @@ module latch_id_ex(
     input alu_src,
     input branch,
     input mem_write,
-    input mem_read,
     input reg_write,
     input mem_to_reg,
     input [6:0] pc_next,
@@ -42,7 +41,6 @@ module latch_id_ex(
     output alu_src_reg,
     output branch_reg,
     output mem_write_reg,
-    output mem_read_reg,
     output reg_write_reg,
     output mem_to_reg_reg,
     output reg[6:0] pc_next_reg,
@@ -70,10 +68,8 @@ module latch_id_ex(
 		.clk(clk),
 		.rst(rst),		
 		.mem_write(mem_write), 
-		.mem_read(mem_read), 
 		.branch(branch), 
-		.mem_write_reg(mem_write_reg), 
-		.mem_read_reg(mem_read_reg), 
+		.mem_write_reg(mem_write_reg),  
 		.branch_reg(branch_reg)
 	);
 	 

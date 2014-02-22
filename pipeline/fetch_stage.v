@@ -48,7 +48,7 @@ module fetch_stage(
 	branch_detection branches (
 		.clk(~clk), 
 		.rst(rst),
-		.instruccion(DR),
+		.instruccion(DR[31:26]),
 		.stop(stop_branch),
 		.bubble(bubble),
 		.flag_reg(flag)

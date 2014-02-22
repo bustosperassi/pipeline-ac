@@ -23,7 +23,6 @@ module latch_ex_m(
     input reg_write,
     input branch,
     input mem_write,
-    input mem_read,
     input [6:0] pc_branch,
     input zero,
     input [31:0] alu_result,
@@ -35,7 +34,6 @@ module latch_ex_m(
     output reg_write_reg,
     output branch_reg,
     output mem_write_reg,
-    output mem_read_reg,
     output reg [6:0] pc_branch_reg,
     output reg zero_reg,
     output reg [31:0] alu_result_reg,
@@ -47,10 +45,8 @@ module latch_ex_m(
 		.clk(clk),
 		.rst(rst),
 		.mem_write(mem_write), 
-		.mem_read(mem_read), 
 		.branch(branch), 
-		.mem_write_reg(mem_write_reg), 
-		.mem_read_reg(mem_read_reg), 
+		.mem_write_reg(mem_write_reg),
 		.branch_reg(branch_reg)
 	);
 	 

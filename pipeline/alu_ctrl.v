@@ -19,7 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module alu_ctrl(
-    input [5:0] ff,
+    input [3:0] ff,
     input [5:0] aluOp,
     output reg [3:0] operation
     );

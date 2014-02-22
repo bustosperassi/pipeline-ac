@@ -12,7 +12,7 @@ module mem_stage(
 	 input branch,
     input zero,
 	 input mem_write,
-    input [31:0] address,
+    input [6:0] address,
     input [31:0] write_data,
     output [31:0] data_out,
     output pc_src
@@ -21,7 +21,7 @@ module mem_stage(
 	 data_memory memoria_datos (
 		.clka(no_clk), 
 		.wea(mem_write), 
-		.addra(address[9:0]), 
+		.addra(address[6:0]), 
 		.dina(write_data), 
 		.douta(data_out)
 	 );

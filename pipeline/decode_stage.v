@@ -23,7 +23,6 @@ module decode_stage(
 	 // Salidas de la unidad de control
 	 //output Jump, 
 	 output branch,
-	 output mem_read,
 	 output mem_write,
 	 output mem_to_reg,
 	 output reg_dst,
@@ -61,8 +60,7 @@ module decode_stage(
 		.rst(rst_stop),
 		.ena(ena_stop),
 		.opcode(instruccion[31:26]),
-		.Branch(branch), 
-		.MemRead(mem_read), 
+		.Branch(branch),
 		.MemWrite(mem_write), 
 		.MemtoReg(mem_to_reg), 
 		.RegDst(reg_dst), 

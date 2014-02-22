@@ -21,13 +21,13 @@
 module branch_sum  #(parameter PC_WIDE = 7)(
     input rst,
 	 input [PC_WIDE - 1:0] pc_next,
-    input [31:0] pc_branch,
+    input [6:0] pc_branch,
     output reg [PC_WIDE - 1:0] branch_pc
     );
 	 
 	 always @(pc_next, pc_branch) begin
-		if (rst == 1) branch_pc <= 0;
-		else branch_pc <= pc_next + pc_branch[PC_WIDE - 1:0];
+			if (rst == 1) branch_pc <= 0;
+			else branch_pc <= pc_next + pc_branch[PC_WIDE - 1:0];
 	 end
 	
 endmodule

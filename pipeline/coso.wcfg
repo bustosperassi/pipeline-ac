@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/nico/pipeline-ac/pipeline/pipeline_test_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="pipeline_test" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="29" />
+   <wvobject fp_name="/pipeline_test/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider19" type="divider">
+      <obj_property name="label">IF</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#ff0000</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/ifetch/DR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DR[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/stop_enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stop_enable</obj_property>
+      <obj_property name="ObjectShortName">stop_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/ifetch/stop_branch" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stop_branch</obj_property>
+      <obj_property name="ObjectShortName">stop_branch</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/ifetch/branches/puto" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">puto</obj_property>
+      <obj_property name="ObjectShortName">puto</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/mem/pc_src" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pc_src</obj_property>
+      <obj_property name="ObjectShortName">pc_src</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/mem/branch" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">branch</obj_property>
+      <obj_property name="ObjectShortName">branch</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/ifetch/bubble" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">bubble</obj_property>
+      <obj_property name="ObjectShortName">bubble</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/ifetch/mux1/out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">out[6:0]</obj_property>
+      <obj_property name="ObjectShortName">out[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/ifetch/PC" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">PC[6:0]</obj_property>
+      <obj_property name="ObjectShortName">PC[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/ifetch/branches/flag" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">flag[2:0]</obj_property>
+      <obj_property name="ObjectShortName">flag[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider15" type="divider">
+      <obj_property name="label">Decode</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/data_hazard/stop" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stop</obj_property>
+      <obj_property name="ObjectShortName">stop</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/data_hazard/instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/decode/banco/registros" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">registros[31:0,31:0]</obj_property>
+      <obj_property name="ObjectShortName">registros[31:0,31:0]</obj_property>
+      <obj_property name="label">registros[1:0,31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/decode/banco/busA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">busA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">busA[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/decode/banco/busB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">busB[31:0]</obj_property>
+      <obj_property name="ObjectShortName">busB[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/decode/ext_sig" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ext_sig[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ext_sig[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider16" type="divider">
+      <obj_property name="label">Execute</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/execute/alu_result" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_result[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_result[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/execute/alu_instance/data1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/execute/alu_instance/data2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider17" type="divider">
+      <obj_property name="label">Mem</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/mem/address" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">address[31:0]</obj_property>
+      <obj_property name="ObjectShortName">address[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/mem/data_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider18" type="divider">
+      <obj_property name="label">WB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/WR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">WR[4:0]</obj_property>
+      <obj_property name="ObjectShortName">WR[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/pipeline_test/uut/WD" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">WD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WD[31:0]</obj_property>
+   </wvobject>
+</wave_config>

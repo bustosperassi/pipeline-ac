@@ -50,6 +50,7 @@ module decode_stage(
 	);
 	
 	sign_extended extension_signo (
+		.rst(rst),
 		.clk(clk),
 		.offset(instruccion[15:0]), 
 		.extension(ext_sig)

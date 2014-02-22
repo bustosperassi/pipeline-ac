@@ -41,9 +41,6 @@ module fetch_stage(
 	);
 	
 	sumador sum (
-		.clk(clk),
-		.rst(rst),
-		.enable(enable),
 		.pc(PC), 
 		.pc_inc(pc_next)
 	);
@@ -56,10 +53,9 @@ module fetch_stage(
 		.bubble(bubble),
 		.flag_reg(flag)
 	);
-
-	assign pc_out = PC; // El pc que se va a guardar en el latch para saltos.
+	assign pc_out = pc_next;
 	
-	always @(pc_in) begin
+	always @(negedge clk) begin
 		if (rst == 1) PC <= 0;
 		else begin
 			if (enable)PC <= pc_in;

@@ -43,12 +43,13 @@ module pipeline_test;
 		enable = 0;
 		#100;
       clk = 0;
-		rst = 0;
+		rst = 1;
 		enable = 1;
 		#100;
       clk = 1;
 		#100;
       clk = 0;
+		rst = 0;
 		#100;
       clk = 1;
 		#100;
@@ -121,7 +122,32 @@ module pipeline_test;
       clk = 1;
 		#100;
       clk = 0;
-
+		#100;
+      clk = 0;
+		#100;
+      clk = 1;
+		#100;
+      clk = 0;
+		#100;
+      clk = 1;
+		#100;
+      clk = 0;
+		#100;
+		clk = 1;
+		#100;
+      clk = 0;
+		#100;
+      clk = 1;
+		#100;
+      clk = 0;
+		#100;
+      clk = 1;
+		#100;
+      clk = 0;
+		#100;
+      clk = 1;
+		#100;
+      clk = 0;
 	end
       
 endmodule

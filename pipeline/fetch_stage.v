@@ -22,13 +22,12 @@ module fetch_stage(
 	 wire [6:0] pc_in;
 	 wire [1:0] flag;
 	 wire stop_branch;
-	 wire enable; // Es el enable que se le manda al sumador.
-	 assign enable = (enbl & (~stop_branch));
-	 reg [6:0] PC;
+	 wire [6:0] PC;
 	 
 	 mem instruction_mem (
 		.clka(clk), 
-		.addra(PC), 
+		.addra(PC),
+		.ena(enbl),
 		.douta(DR)
 	);
 	
@@ -46,21 +45,19 @@ module fetch_stage(
 	);
 	
 	branch_detection branches (
-		.clk(~clk), 
-		.rst(rst),
 		.instruccion(DR[31:26]),
-		.stop(stop_branch),
-		.bubble(bubble),
-		.flag_reg(flag)
+		.stop(stop_branch)
 	);
 	assign pc_out = pc_next;
 	
-	always @(negedge clk) begin
-		if (rst == 1) PC <= 0;
-		else begin
-			if (enable)PC <= pc_in;
-			else if (flag == 1) PC <= PC - 1;
-		end
-	end
+	program_counter contPrograma (
+		.clk(clk), 
+		.rst(rst), 
+		.enable(enbl), 
+		.pc_in(pc_in), 
+		.stop(stop_branch), 
+		.bubble(bubble), 
+		.PC(PC)
+	);
 	
 endmodule

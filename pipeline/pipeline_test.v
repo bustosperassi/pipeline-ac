@@ -41,15 +41,18 @@ module pipeline_test;
 		clk = 1;
 		rst = 1;
 		enable = 0;
+		
 		#100;
       clk = 0;
-		rst = 1;
-		enable = 1;
+		
 		#100;
       clk = 1;
+		rst = 0;
+		enable = 1;
+		
 		#100;
       clk = 0;
-		rst = 0;
+		
 		#100;
       clk = 1;
 		#100;

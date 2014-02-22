@@ -32,7 +32,7 @@ module pipeline(
 	 wire [31:0] DR;
 	 wire stop_enable;
 	 wire bubble_wire;
-	 assign stop_enable = enable & (~stop);
+	 assign stop_enable = enable & (~stop); // Senal del datahazard
 	 
 	 /* Bloque de busqueda de instruccion */
 	fetch_stage ifetch (

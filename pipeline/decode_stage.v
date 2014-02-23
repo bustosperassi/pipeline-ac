@@ -65,8 +65,8 @@ module decode_stage(
 	mux #(.nbits(12)) mux1(
 		.rst(rst),
 		.dec(stop),
-		.msb(word),
-		.lsb(12'b0),
+		.msb(12'b0),
+		.lsb(word),
 		.out(palabra_salida)
 	);	
 	

@@ -35,7 +35,7 @@ module pipeline(
 	 wire [31:0] ext_sig;
 	 wire [11:0] palabra;
 	 wire equals;
-	 assign equals = ((data1 & data2) & palabra[11]); // Para chequear que los datos son iguales en la salida del banco de registros.
+	 assign equals = ((data1 ~^ data2) & palabra[11]); // Para chequear que los datos son iguales en la salida del banco de registros.
 	
 	 
 	 assign stop_enable = enable & (~stop);

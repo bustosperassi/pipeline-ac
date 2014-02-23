@@ -40,8 +40,8 @@ module fetch_stage(
 	mux #(.nbits(32))branches(
 		.rst(rst),
 		.dec(dec),
-		.msb(salida_instruccion),
-		.lsb(0), // Comprobar que la nop funciona
+		.msb(0),
+		.lsb(salida_instruccion), // Comprobar que la nop funciona
 		.out(DR)
 	);
 	

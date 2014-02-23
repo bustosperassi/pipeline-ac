@@ -72,7 +72,7 @@ module latch_id_ex(
 		.mem_write_reg(mem_write_reg),  
 		.branch_reg(branch_reg)
 	);
-	 
+	
 	 latch_wb wb (
 		.clk(clk),
 		.rst(rst),		

@@ -28,7 +28,7 @@ module alu #(parameter ANCHO_BUS = 32)(
     output reg zero
 	 );
 	
-	 always @(operation, data1, data2) begin
+	 always @(*) begin
 		if (rst == 1) begin
 			alu_result 	= 0;
 			zero 			= 0;

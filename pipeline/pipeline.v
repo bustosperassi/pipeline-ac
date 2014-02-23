@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    20:15:58 12/06/2013 
+// Create Date:    23/03/2014 
 // Design Name: 
 // Module Name:    pipeline 
 // Project Name: 
@@ -31,8 +31,8 @@ module pipeline(
 	 wire [6:0] pc_branch_fetch ;
 	 wire [31:0] DR;
 	 wire stop_enable;
-	 wire bubble_wire;
-	 assign stop_enable = enable & (~stop); // Senal del datahazard
+	 
+	 assign stop_enable = enable & (~stop);
 	 
 	 /* Bloque de busqueda de instruccion */
 	fetch_stage ifetch (
@@ -42,28 +42,25 @@ module pipeline(
 		.enbl(stop_enable),
 		.pc_mux(pc_branch_fetch), // conectado
 		.pc_out(pc_out),  // conectado
-		.DR(DR), // conectado
-		.bubble(bubble_wire)
+		.DR(DR) // conectado
 	); 
+	
 	 
 	 /* Latch entre ifetch e idecode*/
 	 wire ena_id;
 	 wire [6:0] next_pc_reg;
 	 wire [31:0] instruction_reg;
-	 wire bubble_out;
 	 
 	 latch_if_id if_id (
 		.clk(clk), //conectado
 		.rst(rst),
 		.ena(enable),
 		.stop(stop),
-		.bubble(bubble_wire),
 		.next_pc(pc_out), // conectado
 		.instruction(DR), // conectado
 		.ena_if_id_reg(ena_id), //conectado
 		.next_pc_reg(next_pc_reg), //conectado
-		.instruction_reg(instruction_reg), //conectado
-		.bubble_reg(bubble_out)
+		.instruction_reg(instruction_reg) //conectado
 	);
 	
 	/* bloque de etapa decode */
@@ -80,14 +77,11 @@ module pipeline(
 	 wire reg_write_out;
 	 wire alu_src;
 	 wire [5:0] alu_op;
-	 wire stop_bubble;
-	 
-	 assign stop_bubble = stop | bubble_out;
 	 
 	 decode_stage decode (
 		.clk(~clk), 
 		.rst(rst),
-		.stop(stop_bubble),
+		.stop(stop),
 		.ena(ena_id),
 		.reg_write_in(reg_write_in), // conectado
 		.instruccion(instruction_reg), //conectado
@@ -301,7 +295,6 @@ module pipeline(
 	//_-_-_-_-_-_-_-_-Unidad de Detección de Riesgos de Datos-_-_-_-_-_-_-_-_-_//
 
 	hazard data_hazard (
-		.clk(clk),
 		.rst(rst),
 		.instruction(instruction_reg[25:16]), 
 		.rt_ex(rt), 

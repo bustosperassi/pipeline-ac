@@ -15,7 +15,7 @@ module mux #(parameter nbits = 7)(
     input dec
     );
 	 
-	 always@(msb, lsb, dec) begin
+	 always@(msb or lsb or dec or rst) begin
 		if (rst == 1) out <= 0;
 		else begin
 			 if (dec == 0) begin

@@ -1,63 +1,53 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Create Date:    19:32:42 06/04/2013 
+// Create Date:    19:32:42 23/02/2014 
 // Module Name:    fetch_stage 
 // Project Name:   pipeline 
 // Additional Comments: Etapa de busqueda de instruccion en memoria
 //								Tiene de salida la propia instruccion
 //////////////////////////////////////////////////////////////////////////////////
 module fetch_stage(
-	 input clk,
-	 input dec,
+	 input wire clk,
+	 input wire dec,
 	 input rst,
 	 input enbl,
     input [6:0] pc_mux,
     output [6:0] pc_out,
-    output [31:0] DR,
-	 output bubble
+    output [31:0] DR
     );
-	 
 	 // Declaracion de senales internas
-	 wire [6:0] pc_next;
 	 wire [6:0] pc_in;
-	 wire [1:0] flag;
-	 wire stop_branch;
-	 wire [6:0] PC;
+	 reg [6:0] PC;
 	 
 	 mem instruction_mem (
 		.clka(clk), 
-		.addra(PC),
+		.addra(PC), 
+		.douta(DR),
 		.ena(enbl),
-		.douta(DR)
+		.wea(1'b0),
+		.dina(0)
 	);
 	
-	mux_program_counter mux1(
+	mux mux1(
 		.rst(rst),
 		.dec(dec),
 		.msb(pc_mux),
-		.lsb(pc_next),
+		.lsb(pc_out),
 		.out(pc_in)
 	);
 	
 	sumador sum (
 		.pc(PC), 
-		.pc_inc(pc_next)
+		.pc_inc(pc_out)
 	);
-	
-	branch_detection branches (
-		.instruccion(DR[31:26]),
-		.stop(stop_branch)
-	);
-	assign pc_out = pc_next;
-	
-	program_counter contPrograma (
-		.clk(clk), 
-		.rst(rst), 
-		.enable(enbl), 
-		.pc_in(pc_in), 
-		.stop(stop_branch), 
-		.bubble(bubble), 
-		.PC(PC)
-	);
+	// Para colocar un nuevo fetch stage
+	always@(posedge clk or posedge rst)
+	if (rst == 1) PC = 0;
+	else
+	begin
+		if (enbl) begin
+			PC = pc_in;
+		end
+	end
 	
 endmodule

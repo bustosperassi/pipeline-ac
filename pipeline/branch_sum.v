@@ -25,7 +25,7 @@ module branch_sum  #(parameter PC_WIDE = 7)(
     output reg [PC_WIDE - 1:0] branch_pc
     );
 	 
-	 always @(pc_next, pc_branch) begin
+	 always @(pc_next or pc_branch or rst) begin
 			if (rst == 1) branch_pc <= 0;
 			else branch_pc <= pc_next + pc_branch[PC_WIDE - 1:0];
 	 end

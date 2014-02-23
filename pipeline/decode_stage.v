@@ -24,6 +24,8 @@ module decode_stage(
 	 //output Jump, 
 	 output [11:0] palabra_salida
     ); 
+	 
+	 wire [5:0] alu_op;
 	 	 
 	 register_bank banco (
 		.clk(clk),
@@ -57,11 +59,13 @@ module decode_stage(
 		.ALUSrc(alu_src), 
 		.AluOp(alu_op)
 	);
+	wire [11:0] word;
+	assign word = {branch, mem_write, mem_to_reg, reg_dst, reg_write_out, alu_src, alu_op[5:0]};
 	
 	mux #(.nbits(12)) mux1(
 		.rst(rst),
 		.dec(stop),
-		.msb({branch, mem_write, mem_to_reg, reg_dst, reg_write_out, alu_src, alu_op}),
+		.msb(word),
 		.lsb(12'b0),
 		.out(palabra_salida)
 	);	

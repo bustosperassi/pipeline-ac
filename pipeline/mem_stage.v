@@ -9,7 +9,6 @@
 //////////////////////////////////////////////////////////////////////////////////
 module mem_stage(
 	 input no_clk,
-    input zero,
 	 input mem_write,
     input [6:0] address,
     input [31:0] write_data,

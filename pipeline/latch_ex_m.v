@@ -22,7 +22,6 @@ module latch_ex_m(
     input mem_to_reg,
     input reg_write,
     input mem_write,
-    input zero,
     input [31:0] alu_result,
     input [31:0] data2,
     input [4:0] dst,
@@ -31,7 +30,6 @@ module latch_ex_m(
 	 output mem_to_reg_reg,
     output reg_write_reg,
     output mem_write_reg,
-    output reg zero_reg,
     output reg [31:0] alu_result_reg,
     output reg [31:0] data2_reg,
     output reg [4:0] dst_reg
@@ -56,13 +54,11 @@ module latch_ex_m(
 	always@(posedge clk) begin
 		if (rst == 1) begin
 			data2_reg <= 0;
-			zero_reg <= 0;
 			alu_result_reg <= 0;
 			dst_reg <= 0;
 		end
 		else begin
 				data2_reg <= data2;
-				zero_reg <= zero;
 				alu_result_reg <= alu_result;
 				dst_reg <= dst;
 		end

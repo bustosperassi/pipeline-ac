@@ -34,7 +34,8 @@ module pipeline(
 	 wire [31:0] data2;
 	 wire [31:0] ext_sig;
 	 wire [11:0] palabra;
-	 wire equals = (data1 & data2) & palabra[11]; // Para chequear que los datos son iguales en la salida del banco de registros.
+	 wire equals;
+	 assign equals = ((data1 & data2) & palabra[11]); // Para chequear que los datos son iguales en la salida del banco de registros.
 	
 	 
 	 assign stop_enable = enable & (~stop);
@@ -89,9 +90,7 @@ module pipeline(
 		.palabra_salida(palabra) //  VERIFICAR!!
 	);
 	
-	
-	// SUma del branch!
-	branch_sum sum_instance (
+	branch_sum next_hop (
 		.rst(rst),
 		.pc_next(next_pc_reg), 
 		.pc_branch(ext_sig[6:0]), 
@@ -150,7 +149,6 @@ module pipeline(
 	wire [31:0] cortoB_out;
 	
 	/* bloque de etapa execute */
-	wire zero;
 	wire [31:0] alu_result;
 	wire [31:0] data2_out;
 	wire [4:0] dst;
@@ -165,7 +163,6 @@ module pipeline(
 		.sign_extend(sign_extend_ex), //Conectado 
 		.reg1(reg1_ex), //Conectado 
 		.reg2(reg2_ex), //Conectado
-		.zero(zero), //Conectado
 		.alu_result(alu_result), //Conectado
 		.data2_out(data2_out), //Conectado
 		.dst(dst) //Conectado
@@ -176,7 +173,6 @@ module pipeline(
 	wire mem_to_reg_m; 
    wire reg_write_m; 
 	wire mem_write_m; 
-	wire zero_m; 
 	wire [31:0] alu_result_m; 
 	wire [31:0] data2_m; 
 	wire [4:0] dst_m;
@@ -185,7 +181,6 @@ module pipeline(
 		.mem_to_reg(mem_to_reg_ex), //Conectado
 		.reg_write(reg_write_ex), //Conectado
 		.mem_write(mem_write_ex), //Conectado
-		.zero(zero), //Conectado
 		.alu_result(alu_result), //Conectado 
 		.data2(data2_out), //Conectado 
 		.dst(dst), //Conectado
@@ -194,7 +189,6 @@ module pipeline(
 		.mem_to_reg_reg(mem_to_reg_m), //Conectado
 		.reg_write_reg(reg_write_m), //Conectado
 		.mem_write_reg(mem_write_m), //Conectado
-		.zero_reg(zero_m), //Conectado
 		.alu_result_reg(alu_result_m), //Conectado
 		.data2_reg(data2_m), //Conectado
 		.dst_reg(dst_m) //Conectado
@@ -204,8 +198,7 @@ module pipeline(
 	wire [31:0] data_out;
 	
 	mem_stage mem (
-		.no_clk(~clk), //Conectado
-		.zero(zero_m), //Conectado  
+		.no_clk(~clk), //Conectado 
 		.mem_write(mem_write_m), //Conectado
 		.address(alu_result_m[6:0]), //Conectado 
 		.write_data(data2_m), //Conectado 

@@ -24,14 +24,12 @@ module alu #(parameter ANCHO_BUS = 32)(
 	 input [ANCHO_BUS-1:0] data1,  		// Primera entrada de datos.
 	 input [ANCHO_BUS-1:0] data2,
 	 input [3:0] operation,				// eleccion de la operacion 
-    output reg[ANCHO_BUS-1:0] alu_result,	// Salida de la operacion de la ALU
-    output reg zero
+    output reg[ANCHO_BUS-1:0] alu_result	// Salida de la operacion de la ALU
 	 );
 	
 	 always @(*) begin
 		if (rst == 1) begin
 			alu_result 	= 0;
-			zero 			= 0;
 		end
 		else begin
 			case(operation)
@@ -64,12 +62,6 @@ module alu #(parameter ANCHO_BUS = 32)(
 								alu_result = 8'b11001100;
 							end
 			endcase
-			if(alu_result == 0)begin
-				zero = 1;
-			end
-			else begin
-				zero = 0;
-			end
 		end
 	end
 	

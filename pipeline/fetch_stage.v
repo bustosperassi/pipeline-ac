@@ -18,7 +18,7 @@ module fetch_stage(
 	 // Declaracion de senales internas
 	 wire [6:0] pc_in;
 	 reg [6:0] PC;
-	 wire salida_instruccion;
+	 wire [31:0] salida_instruccion;
 	 
 	 mem instruction_mem (
 		.clka(clk), 
@@ -39,7 +39,7 @@ module fetch_stage(
 	
 	mux #(.nbits(32))branches(
 		.rst(rst),
-		.dec(equals),
+		.dec(dec),
 		.msb(salida_instruccion),
 		.lsb(0), // Comprobar que la nop funciona
 		.out(DR)

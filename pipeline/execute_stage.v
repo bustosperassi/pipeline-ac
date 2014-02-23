@@ -28,7 +28,6 @@ module execute_stage(
     input [31:0] sign_extend,
     input [4:0] reg1,
     input [4:0] reg2,
-    output zero,
     output [31:0] alu_result,
     output [31:0] data2_out,
     output [4:0] dst
@@ -44,8 +43,7 @@ module execute_stage(
 		.data1(data1), 
 		.data2(wire_data2), 
 		.operation(wire_operation), 
-		.alu_result(alu_result), 
-		.zero(zero)
+		.alu_result(alu_result)
 	 );
 	 
 	 alu_ctrl alu_ctrl_instance (

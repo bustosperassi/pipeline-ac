@@ -9,13 +9,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 module mem_stage(
 	 input no_clk,
-	 input branch,
     input zero,
 	 input mem_write,
     input [6:0] address,
     input [31:0] write_data,
-    output [31:0] data_out,
-    output pc_src
+    output [31:0] data_out
     );
 	 
 	 data_memory memoria_datos (
@@ -25,7 +23,5 @@ module mem_stage(
 		.dina(write_data), 
 		.douta(data_out)
 	 );
-	 
-	 assign pc_src = zero & branch;
-	 
+	 	 
 endmodule

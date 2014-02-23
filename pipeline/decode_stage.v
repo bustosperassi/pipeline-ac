@@ -22,20 +22,9 @@ module decode_stage(
     output [31:0] ext_sig,
 	 // Salidas de la unidad de control
 	 //output Jump, 
-	 output branch,
-	 output mem_write,
-	 output mem_to_reg,
-	 output reg_dst,
-	 output reg_write_out,
-	 output alu_src,
-	 output [5:0] alu_op
+	 output [11:0] palabra_salida
     ); 
-	 
-	 wire rst_stop, ena_stop;
-	 
-	 assign rst_stop = (rst | stop);
-	 assign ena_stop = (ena & (~stop));
-	 
+	 	 
 	 register_bank banco (
 		.clk(clk),
 		.rst(rst),
@@ -57,8 +46,8 @@ module decode_stage(
 	
 	ctrl_unit unidad_control (
 		.clk(clk),
-		.rst(rst_stop),
-		.ena(ena_stop),
+		.rst(rst),
+		.ena(ena),
 		.opcode(instruccion[31:26]),
 		.Branch(branch),
 		.MemWrite(mem_write), 
@@ -68,4 +57,13 @@ module decode_stage(
 		.ALUSrc(alu_src), 
 		.AluOp(alu_op)
 	);
+	
+	mux #(.nbits(12)) mux1(
+		.rst(rst),
+		.dec(stop),
+		.msb({branch, mem_write, mem_to_reg, reg_dst, reg_write_out, alu_src, alu_op}),
+		.lsb(12'b0),
+		.out(palabra_salida)
+	);	
+	
 endmodule

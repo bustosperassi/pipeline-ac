@@ -18,11 +18,12 @@ module fetch_stage(
 	 // Declaracion de senales internas
 	 wire [6:0] pc_in;
 	 reg [6:0] PC;
+	 wire salida_instruccion;
 	 
 	 mem instruction_mem (
 		.clka(clk), 
 		.addra(PC), 
-		.douta(DR),
+		.douta(salida_instruccion),
 		.ena(enbl),
 		.wea(1'b0),
 		.dina(0)
@@ -34,6 +35,14 @@ module fetch_stage(
 		.msb(pc_mux),
 		.lsb(pc_out),
 		.out(pc_in)
+	);
+	
+	mux #(.nbits(32))branches(
+		.rst(rst),
+		.dec(equals),
+		.msb(salida_instruccion),
+		.lsb(0), // Comprobar que la nop funciona
+		.out(DR)
 	);
 	
 	sumador sum (

@@ -25,10 +25,6 @@ module ctrl_unit(
 	assign r_type	= (~opcode[0])&&(~opcode[1])&&(~opcode[2])&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
 	assign j 		= (~opcode[0])&&(opcode[1])&&(~opcode[2])&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
 	
-	always @(posedge rst) begin
-		
-	end
-	
 	always @(posedge clk) begin
 		if (rst == 1) begin
 			Branch 	<= 0;

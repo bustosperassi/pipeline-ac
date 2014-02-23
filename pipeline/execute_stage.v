@@ -23,13 +23,11 @@ module execute_stage(
 	 input alu_src,
     input [5:0] alu_op,
     input reg_dst,
-    input [6:0] pc_next,
     input [31:0] data1,
     input [31:0] data2,
     input [31:0] sign_extend,
     input [4:0] reg1,
     input [4:0] reg2,
-    output [6:0] branch_pc,
     output zero,
     output [31:0] alu_result,
     output [31:0] data2_out,
@@ -48,13 +46,6 @@ module execute_stage(
 		.operation(wire_operation), 
 		.alu_result(alu_result), 
 		.zero(zero)
-	 );
-	 
-	 branch_sum sum_instance (
-		.rst(rst),
-		.pc_next(pc_next), 
-		.pc_branch(sign_extend[6:0]), 
-		.branch_pc(branch_pc)
 	 );
 	 
 	 alu_ctrl alu_ctrl_instance (

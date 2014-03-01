@@ -272,7 +272,7 @@ module pipeline(
 
 	hazard data_hazard (
 		.rst(rst),
-		.instruction(instruction_reg[25:16]), 
+		.instruction(instruction_reg[31:16]), 
 		.rt_ex(rt), 
 		.mem_to_reg_ex(mem_to_reg_ex), 
 		.stop(stop)

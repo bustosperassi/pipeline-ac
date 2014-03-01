@@ -50,7 +50,7 @@ module fetch_stage(
 		.pc_inc(pc_out)
 	);
 	// Para colocar un nuevo fetch stage
-	always@(posedge clk or posedge rst)
+	always@(negedge clk or posedge rst)
 	if (rst == 1) PC = 0;
 	else
 	begin

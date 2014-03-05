@@ -1,0 +1,7 @@
+
+
+NET "clk" LOC = V10;
+NET "rx" LOC = N17;
+NET "tx" LOC = N18;
+
+

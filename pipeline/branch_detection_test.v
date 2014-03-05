@@ -4,7 +4,7 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   19:50:31 02/06/2014
+// Create Date:   12:55:54 02/23/2014
 // Design Name:   branch_detection
 // Module Name:   /home/nico/pipeline-ac/pipeline/branch_detection_test.v
 // Project Name:  pipeline
@@ -28,12 +28,22 @@ module branch_detection_test;
 	reg clk;
 	reg rst;
 	reg [5:0] instruccion;
+	reg branch_mem;
+
+	// Outputs
+	wire stop_pc;
+	wire stop_latch;
+	wire bubble;
 
 	// Instantiate the Unit Under Test (UUT)
 	branch_detection uut (
 		.clk(clk), 
 		.rst(rst), 
-		.instruccion(instruccion[5:0])
+		.instruccion(instruccion), 
+		.branch_mem(branch_mem), 
+		.stop_pc(stop_pc), 
+		.stop_latch(stop_latch), 
+		.bubble(bubble)
 	);
 
 	initial begin
@@ -41,61 +51,43 @@ module branch_detection_test;
 		clk = 0;
 		rst = 0;
 		instruccion = 0;
+		branch_mem = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
-		rst = 1;
-		clk = 0;
-		
+      rst = 1;
 		#100;
-		clk = 1;
-		instruccion = 6'b000100;
-		
+		rst = 0;
 		#100;
-		clk = 0;		
 		
-		#100;
-		clk = 1;
-		
-		#100;
-		clk = 0;
-		
-		#100;
-		clk = 1;
-		
-		#100;
-		clk = 0;
-		
-		#100;
-		clk = 1;
 		instruccion = 6'b000101;
-		
+		clk = 1;
+		#100;
+		clk = 0;
+		#100;
+		clk = 1;
+		#100;
+		clk = 0;
+		#100;
+		clk = 1;
+		#100;
+		clk = 0;
+		#100;
+		instruccion = 6'b100010;
+		clk = 1;
+		#100;
+		clk = 0;
+		#100;
+		clk = 1;
+		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		#100;
 		clk = 0;
 		
-		
-		#100;
-		clk = 1;
-		
-		#100;
-		clk = 0;
-		
-		#100;
-		clk = 1;
-		
-		#100;
-		clk = 0;
-		
-		#100;
-		clk = 1;
-		instruccion = 6'b000010;
-		
-		#100;
-		clk = 0;
-		
-		#100;
-		clk = 1;
-		// Add stimulus here
+
+
 	end
       
 endmodule

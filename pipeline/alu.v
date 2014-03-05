@@ -37,16 +37,22 @@ module alu #(parameter ANCHO_BUS = 32)(
 							alu_result = data1 & data2;
 							end
 				4'b0001: begin
-							alu_result = data1 | data2;
+							alu_result = data1 | data2; 
 							end
 				4'b0010: begin
 							alu_result = data1 + data2; // load or store
+							end
+				4'b0100: begin
+							alu_result = data1 ^ data2; // rs XOR rt
+							end
+				4'b0101: begin
+							alu_result = ~(data1 | data2);  // rs NOR rt 
 							end
 				4'b0110: begin
 							alu_result = data1 - data2; // branch equal
 							end
 				4'b1001: begin
-							alu_result = data1 ^ data2;
+							alu_result = data1 ^ data2; //rt XOR inmediato
 							end
 				4'b0111: begin
 								if(data1 < data2)
@@ -59,7 +65,7 @@ module alu #(parameter ANCHO_BUS = 32)(
 									end
 							end
 				default :begin 
-								alu_result = 8'b11001100;
+								alu_result = 20'b01111101111011101101;
 							end
 			endcase
 		end

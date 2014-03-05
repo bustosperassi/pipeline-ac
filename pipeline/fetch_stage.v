@@ -24,8 +24,7 @@ module fetch_stage(
 		.clka(clk), 
 		.addra(PC), 
 		.douta(salida_instruccion),
-		.ena(enbl),
-		.wea(1'b0),
+		//.wea(1'b0),
 		.dina(0)
 	);
 	

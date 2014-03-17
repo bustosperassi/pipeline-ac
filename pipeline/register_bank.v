@@ -14,56 +14,59 @@ module register_bank(
 	 input [31:0]write_data,		//Datos que se van a escribir sobre el anterior registro.
 	 input Reg_write,					//Señal para escribir en el registro.
 	 output reg [31:0] busA,
-    output reg [31:0] busB
+    output reg [31:0] busB,
+	 output wire [1023:0] registros
     );
 
-	reg [31:0] registros [31:0];
+	reg [31:0] registers [31:0];
+	
+	assign registros = {registers[31],registers[30],registers[29],registers[28],registers[27],registers[26],registers[25],registers[24],registers[23],registers[22],registers[21],registers[20],registers[19],registers[18],registers[17],registers[16],registers[15],registers[14],registers[13],registers[12],registers[11],registers[10],registers[9],registers[8],registers[7],registers[6],registers[5],registers[4],registers[3],registers[2],registers[1],registers[0]};
 	
 	always@(posedge clk) begin //!!!!!!!!!!!!!!!!!!!!!!!!
 		if (rst == 1) begin
-			registros[0] <= 0;
-			registros[1] <= 0;
-			registros[2] <= 0;
-			registros[3] <= 0;
-			registros[4] <= 0;
-			registros[5] <= 0;
-			registros[6] <= 0;
-			registros[7] <= 0;
-			registros[8] <= 0;
-			registros[9] <= 0;
-			registros[10] <= 0;
-			registros[11] <= 0;
-			registros[12] <= 0;
-			registros[13] <= 0;
-			registros[14] <= 0;
-			registros[15] <= 0;
-			registros[16] <= 0;
-			registros[17] <= 0;
-			registros[18] <= 0;
-			registros[19] <= 0;
-			registros[20] <= 0;
-			registros[21] <= 0;
-			registros[22] <= 0;
-			registros[23] <= 0;
-			registros[24] <= 0;
-			registros[25] <= 0;
-			registros[26] <= 0;
-			registros[27] <= 0;
-			registros[28] <= 0;
-			registros[29] <= 0;
-			registros[30] <= 0;
-			registros[31] <= 0;
+			registers[0] <= 0;
+			registers[1] <= 0;
+			registers[2] <= 0;
+			registers[3] <= 0;
+			registers[4] <= 0;
+			registers[5] <= 0;
+			registers[6] <= 0;
+			registers[7] <= 0;
+			registers[8] <= 0;
+			registers[9] <= 0;
+			registers[10] <= 0;
+			registers[11] <= 0;
+			registers[12] <= 0;
+			registers[13] <= 0;
+			registers[14] <= 0;
+			registers[15] <= 0;
+			registers[16] <= 0;
+			registers[17] <= 0;
+			registers[18] <= 0;
+			registers[19] <= 0;
+			registers[20] <= 0;
+			registers[21] <= 0;
+			registers[22] <= 0;
+			registers[23] <= 0;
+			registers[24] <= 0;
+			registers[25] <= 0;
+			registers[26] <= 0;
+			registers[27] <= 0;
+			registers[28] <= 0;
+			registers[29] <= 0;
+			registers[30] <= 0;
+			registers[31] <= 0;
 		end
 		else begin
 			if(Reg_write==1) begin
-					registros[write_register] <= write_data;
+					registers[write_register] <= write_data;
 			end
 		end
 	end
 	
 	always @(posedge clk) begin
-		busA <= registros[read_register1];
-		busB <= registros[read_register2];
+		busA <= registers[read_register1];
+		busB <= registers[read_register2];
 	end
 
 endmodule

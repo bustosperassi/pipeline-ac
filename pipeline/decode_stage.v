@@ -22,7 +22,8 @@ module decode_stage(
     output [31:0] ext_sig,
 	 // Salidas de la unidad de control
 	 //output Jump, 
-	 output [11:0] palabra_salida
+	 output [11:0] palabra_salida,
+	 output wire [1023:0] registros
     ); 
 	 
 	 wire [5:0] alu_op;
@@ -36,7 +37,8 @@ module decode_stage(
 		.write_data(WD), 
 		.Reg_write(reg_write_in), 
 		.busA(data1), 
-		.busB(data2)
+		.busB(data2),
+		.registros(registros)
 	);
 	
 	sign_extended extension_signo (

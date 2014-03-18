@@ -1,11 +1,10 @@
 `timescale 1ns / 1ps
 
 module pipe_debugger(
-		input top_clk,
-		input top_rst,
-		input enable,
-		input tx,
-		input rx
+		input wire top_clk,
+		input wire enable,
+		input wire rx,
+		output wire tx
 		);
 	 
 	//_-_-_-_-_-_-_-_-Unidad de Debug + UART-_-_-_-_-_-_-_-_-_//
@@ -18,46 +17,30 @@ module pipe_debugger(
 	wire [71:0] ex_m;
 	wire [70:0] m_wb;
 	wire [1023:0] registros;
-	wire [31:0] data_mem;
 	wire [7:0] rx_bus;
 	wire [7:0] tx_bus;
-	wire [4:0] alter_address;
 	
 	pipeline pipe_instance (
 		.clk(clk), 
 		.rst(rst), 
 		.enable(enable), 
-		.alter_mux(alter_mux), 
-		.alter_clk(alter_clk), 
-		.alter_address(alter_address), 
 		.instruccion(instruccion), 
 		.pc(pc), 
 		.if_id(if_id), 
 		.id_ex(id_ex), 
 		.ex_m(ex_m), 
 		.m_wb(m_wb), 
-		.registros(registros), 
-		.data_mem(data_mem)
+		.registros(registros)
 	);
 	
 	debug_unit debug_instance (
 		.top_clk(top_clk), 
-		.rst(top_rst), 
 		.rx_done_tick(rx_done_tick), 
 		.rx_bus(rx_bus), 
 		.tx_done_tick(tx_done_tick), 
 		.instruccion(instruccion), 
-		.pc(pc), 
-		.if_id(if_id), 
-		.id_ex(id_ex), 
-		.ex_m(ex_m), 
-		.m_wb(m_wb), 
-		.registers(registros), 
-		.data(data_mem), 
+		.send_data({registros,1'b0,m_wb,ex_m,1'b0,id_ex,1'b0,if_id,1'b0,pc}),
 		.clk_pipe(clk), 
-		.alter_mux(alter_mux), 
-		.alter_clk(alter_clk), 
-		.alter_address(alter_address), 
 		.rst_pipe(rst), 
 		.tx_start(tx_start), 
 		.tx_bus(tx_bus)

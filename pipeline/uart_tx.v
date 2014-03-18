@@ -95,7 +95,7 @@ always @*
 								n_next = 0;
 							end
 						else
-							s_next = s_reg+1;
+							s_next = s_reg+1'b1;
 				end
 			data:
 				begin
@@ -108,10 +108,10 @@ always @*
 								if(n_reg == (DBIT-1))
 									state_next = stop;
 								else
-									n_next = n_reg + 1;
+									n_next = n_reg + 1'b1;
 							end
 						else
-							s_next = s_reg + 1;
+							s_next = s_reg + 1'b1;
 				end
 			stop:
 				begin
@@ -123,7 +123,7 @@ always @*
 								tx_done_tick = 1'b1;
 							end
 						else
-							s_next = s_reg + 1;
+							s_next = s_reg + 1'b1;
 				end
 		endcase
 	end

@@ -2,7 +2,7 @@
 
 module uart_rx
 					#(parameter 	DBIT = 8 , // # numero de bits de datos
-										SB_TICK = 16 ) // #  el número de pasos necesarios para los bits de parada
+										SB_TICK = 16 ) // #  el nmero de pasos necesarios para los bits de parada
 					(
 					input wire clk, reset,
 					input wire rx, s_tick,
@@ -74,7 +74,7 @@ module uart_rx
 							n_next = 0 ;
 						end
 						else
-							s_next = s_reg + 1 ;
+							s_next = s_reg + 1'b1 ;
 				data:
 					if(s_tick)
 						if (s_reg==15)
@@ -84,10 +84,10 @@ module uart_rx
 							if(n_reg==(DBIT-1))
 								state_next = stop;
 							else
-								n_next = n_reg + 1 ;
+								n_next = n_reg + 1'b1 ;
 						end
 					else
-						s_next = s_reg + 1 ;
+						s_next = s_reg + 1'b1 ;
 				stop:
 					if(s_tick)
 						if(s_reg==(SB_TICK-1))
@@ -96,7 +96,7 @@ module uart_rx
 							rx_done_tick =1'b1;
 						end
 						else
-							s_next = s_reg + 1;
+							s_next = s_reg + 1'b1;
 			endcase
 	end
 	//output

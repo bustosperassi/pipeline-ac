@@ -4,17 +4,13 @@ module pipeline(
 		input wire clk,
 		input wire rst,
 		input wire enable,
-		input wire alter_mux,
-		input wire alter_clk,
-		input wire [4:0] alter_address,
 		output wire [31:0] instruccion, 
 		output wire [6:0] pc,
 		output wire [38:0] if_id, //[38:32] next_pc_if_id, [31:0] instruction_if_id
 		output wire [126:0] id_ex, //[5:0] alu_op_id_ex,reg_dst_id_ex,alu_src_id_ex,mem_write_id_ex,reg_write_id_ex,mem_to_reg_id_ex,[31:0] data1_id_ex,[31:0] data2_id_ex,[31:0] sign_extend_id_ex,[4:0] reg1_id_ex,[4:0] reg2_id_ex,[4:0] rs_id_ex,[4:0] rt_id_ex
 		output wire [71:0] ex_m, //mem_to_reg_ex_m,reg_write_ex_m,mem_write_ex_m,[31:0] alu_result_ex_m,[31:0] data2_ex_m,[4:0] dst_ex_m,
 		output wire [70:0] m_wb, //reg_write_m_wb,mem_to_reg_m_wb,[31:0] alu_result_m_wb,[31:0] data_load_m_wb,[4:0] dst_m_wb,
-		output wire [1023:0] registros,
-		output wire [31:0] data_mem
+		output wire [1023:0] registros
 		);
 	 
 	 wire stop;
@@ -189,13 +185,11 @@ module pipeline(
 	
 	/* bloque de etapa memoria */
 	wire [31:0] data_out;
-	wire [4:0] mux_address;
-	wire mux_clk;
 	
 	mem_stage mem_instance (
-		.no_clk(mux_clk), //Conectado 
+		.no_clk(~clk), //Conectado 
 		.mem_write(mem_write_m), //Conectado
-		.address(mux_address), //Conectado 
+		.address(alu_result_m[4:0]), //Conectado 
 		.write_data(data2_m), //Conectado 
 		.data_out(data_out) //Conectado
 	);
@@ -267,27 +261,10 @@ module pipeline(
 
 	hazard data_hazard_instance (
 		.rst(rst),
-		.instruction(instruction_reg[31:16]), 
+		.instruction(instruction_reg[25:16]), 
 		.rt_ex(rt), 
 		.mem_to_reg_ex(mem_to_reg_ex), 
 		.stop(stop)
-	);
-	
-	
-	mux #(.nbits(5)) alter_mem(
-    .rst(rst), 
-    .msb(alter_address), 
-    .lsb(alu_result_m[4:0]), 
-    .out(mux_address), 
-    .dec(alter_mux)
-	);
-	
-	mux #(.nbits(1)) alter_mem_clk(
-    .rst(rst), 
-    .msb(alter_clk), 
-    .lsb(~clk), 
-    .out(mux_clk), 
-    .dec(alter_mux)
 	);
 	
 	assign instruccion = DR; 
@@ -296,6 +273,5 @@ module pipeline(
 	assign id_ex = {alu_op_ex, reg_dst_ex, alu_src_ex, mem_write_ex, reg_write_ex, mem_to_reg_ex, data1_ex, data2_ex, sign_extend_ex, reg1_ex, reg2_ex, rs, rt};
 	assign ex_m = {mem_to_reg_m, reg_write_m, mem_write_m, alu_result_m, data2_m, dst_m};
 	assign m_wb = {reg_write_in, mem_to_reg_wb, alu_result_wb, data_load_wb, WR};
-	assign data_mem = data_out; 
 
 endmodule

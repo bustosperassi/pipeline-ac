@@ -22,6 +22,14 @@ module decode_stage(
     output [31:0] ext_sig,
 	 // Salidas de la unidad de control
 	 //output Jump, 
+	 output branch,
+	 output mem_write,
+	 output mem_to_reg,
+	 output reg_dst,
+	 output reg_write_out,
+	 output alu_src,
+	 output [5:0] alu_op,
+	 output [1023:0] registros
 	 output [11:0] palabra_salida,
 	 output wire [1023:0] registros
     ); 

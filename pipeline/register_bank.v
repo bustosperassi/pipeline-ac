@@ -3,7 +3,7 @@
 // Create Date:    19:03:30 06/08/2013 
 // Module Name:    register_bank 
 // Description:    Dependiendo del tipo de instruccion
-//						 asigna los valores a los registros
+//						 asigna los valores a los registers
 //////////////////////////////////////////////////////////////////////////////////
 module register_bank(
 	 input clk,
@@ -19,8 +19,8 @@ module register_bank(
     );
 
 	reg [31:0] registers [31:0];
+	assign registros = ({registers[31], registers[30], registers[29], registers[28], registers[27], registers[26], registers[25], registers[24], registers[23], registers[22], registers[21], registers[20], registers[19], registers[18], registers[17], registers[16], registers[15], registers[14], registers[13], registers[12], registers[11], registers[10], registers[9], registers[8], registers[7], registers[6], registers[5], registers[4], registers[3], registers[2], registers[1], registers[0]});
 	
-	assign registros = {registers[31],registers[30],registers[29],registers[28],registers[27],registers[26],registers[25],registers[24],registers[23],registers[22],registers[21],registers[20],registers[19],registers[18],registers[17],registers[16],registers[15],registers[14],registers[13],registers[12],registers[11],registers[10],registers[9],registers[8],registers[7],registers[6],registers[5],registers[4],registers[3],registers[2],registers[1],registers[0]};
 	
 	always@(posedge clk) begin //!!!!!!!!!!!!!!!!!!!!!!!!
 		if (rst == 1) begin

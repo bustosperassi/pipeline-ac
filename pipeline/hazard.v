@@ -19,7 +19,6 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module hazard(
-	 input rst,
     input [9:0] instruction,
     input [4:0] rt_ex,
     input mem_to_reg_ex,

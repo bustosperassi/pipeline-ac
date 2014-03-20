@@ -9,12 +9,6 @@ module debug_unit(
 	 input wire [31:0] instruccion,
 	
 	//Entradas de datos
-	 //input [6:0] pc,
-	 //input [38:0] if_id, //[38:32] next_pc_if_id, [31:0] instruction_if_id
-	 //input [126:0] id_ex, //[5:0] alu_op_id_ex,reg_dst_id_ex,alu_src_id_ex,mem_write_id_ex,reg_write_id_ex,mem_to_reg_id_ex,[31:0] data1_id_ex,[31:0] data2_id_ex,[31:0] sign_extend_id_ex,[4:0] reg1_id_ex,[4:0] reg2_id_ex,[4:0] rs_id_ex,[4:0] rt_id_ex
-	 //input [71:0] ex_m, //mem_to_reg_ex_m,reg_write_ex_m,mem_write_ex_m,[31:0] alu_result_ex_m,[31:0] data2_ex_m,[4:0] dst_ex_m,
-	 //input [70:0] m_wb, //reg_write_m_wb,mem_to_reg_m_wb,[31:0] alu_result_m_wb,[31:0] data_load_m_wb,[4:0] dst_m_wb,
-	 //input [1023:0] registers,
 	 input [1343:0] send_data,
 	 
 	//Salidas de funcionamiento
@@ -22,13 +16,13 @@ module debug_unit(
 	 output reg rst_pipe,
 	 
 	//Salidas de envio
-	 output reg tx_start,
+	 output reg tx_start /* synthesis syn_keep = 1 */,
 	 output wire [7:0] tx_bus
     );
 	 
-	 reg [1343:0] buffer;
-	 reg [7:0] contador;
-	 reg [5:0] contador_fin;
+	 reg [1343:0] buffer = 0 /* synthesis syn_keep = 1 */;
+	 reg [7:0] contador = 0;
+	 reg [5:0] contador_fin = 0;
 
    parameter IDLE = 0;
 	parameter STEP = 1;
@@ -39,7 +33,7 @@ module debug_unit(
 	parameter SEND1 = 6;
 	parameter SEND2 = 7;
 	
-(* FSM_ENCODING="SEQUENTIAL", SAFE_IMPLEMENTATION="YES"*) reg [2:0] state = IDLE;
+(* FSM_ENCODING="SEQUENTIAL", SAFE_IMPLEMENTATION="YES", SAFE_RECOVERY_STATE="IDLE"*) reg [3:0] state = IDLE;
 
 	always@(posedge top_clk) begin
 		tx_start <= 0;
@@ -50,8 +44,9 @@ module debug_unit(
 						state <= CONT1;
 					end
 					if ((rx_bus == "s") || (rx_bus == "S")) begin
-						clk_pipe <= 1;
-						state <= STEP;
+						contador <= 168;
+						buffer <= send_data;
+						state <= SEND1;
 					end
 					if ((rx_bus == "r") || (rx_bus == "R")) begin
 						rst_pipe <= 1;
@@ -63,9 +58,7 @@ module debug_unit(
 						
 			STEP: begin
 				clk_pipe <= 0;
-				contador <= 168;
-				buffer <= send_data;
-				state <= SEND1;
+				state <= IDLE;
 			end
 			
 			CONT1: begin
@@ -110,7 +103,8 @@ module debug_unit(
 						contador <= contador - 1'b1;
 					end
 					else begin
-						state <= IDLE;
+						state <= STEP;
+						clk_pipe <= 1;
 					end
 				end
 			end

@@ -11,11 +11,11 @@ module pipe_debugger(
 	
 	wire rx_done_tick, tx_done_tick, s_tick, tx_start, clk, rst;
 	wire [31:0]instruccion; 
-	wire [6:0] pc;
-	wire [38:0] if_id;
-	wire [126:0] id_ex;
-	wire [71:0] ex_m;
-	wire [70:0] m_wb;
+	wire [7:0] pc;
+	wire [39:0] if_id;
+	wire [143:0] id_ex;
+	wire [79:0] ex_m;
+	wire [79:0] m_wb;
 	wire [1023:0] registros;
 	wire [7:0] rx_bus;
 	wire [7:0] tx_bus;
@@ -63,7 +63,7 @@ module pipe_debugger(
 		.rx_bus(rx_bus), 
 		.tx_done_tick(tx_done_tick), 
 		.instruccion(instruccion), 
-		.send_data({registros,1'b0,m_wb,ex_m,1'b0,id_ex,1'b0,if_id,1'b0,pc}),
+		.send_data({registros,m_wb,ex_m,id_ex,if_id,pc}),
 		.clk_pipe(clk), 
 		.rst_pipe(rst), 
 		.tx_start(tx_start), 

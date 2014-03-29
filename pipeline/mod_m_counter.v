@@ -1,7 +1,7 @@
 module mod_m_counter #(parameter N = 4 , M = 10)
 (
 input wire clk, reset,
-output wire maxtick,
+output wire max_tick,
 output wire [N-1:0] q
 );
 

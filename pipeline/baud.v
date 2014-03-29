@@ -27,15 +27,15 @@ module baud
 					
 		(
 		input sys_clk,
-		output reg baud_clk				
+		output baud_clk				
 		);
 
-
+		
 
 reg		[31:0]	clk_div /* syn keep = TRUE */;
 
 //PARA SIMULAR
-initial 
+/*initial 
 	begin
 		clk_div=0;
 		baud_clk=0;
@@ -49,5 +49,13 @@ always @(posedge sys_clk)
     clk_div  <= clk_div + 1;
 	 baud_clk <=0;
   end
+*/
+	mod_m_counter #(.N(9), .M(326)) modu
+		(
+		.clk(sys_clk),
+		.reset(1'b0),
+		.q(),
+		.max_tick(baud_clk)
+	);
 
 endmodule

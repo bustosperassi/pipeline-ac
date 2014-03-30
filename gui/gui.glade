@@ -38,8 +38,9 @@
                   <object class="GtkEntry" id="entry1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="max_length">3</property>
+                    <property name="max_length">4</property>
                     <property name="invisible_char">•</property>
+                    <property name="width_chars">5</property>
                     <property name="invisible_char_set">True</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
@@ -59,12 +60,28 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="use_action_appearance">False</property>
+                    <signal name="clicked" handler="on_step_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="padding">5</property>
                     <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="rst">
+                    <property name="label" translatable="yes">reset</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="use_action_appearance">False</property>
+                    <signal name="clicked" handler="on_rst_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
               </object>
@@ -190,7 +207,9 @@
                               <object class="GtkEntry" id="entry2">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="max_length">4</property>
                                 <property name="invisible_char">•</property>
+                                <property name="width_chars">4</property>
                                 <property name="invisible_char_set">True</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
@@ -207,7 +226,9 @@
                               <object class="GtkEntry" id="entry3">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="max_length">4</property>
                                 <property name="invisible_char">•</property>
+                                <property name="width_chars">4</property>
                                 <property name="invisible_char_set">True</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
@@ -1910,7 +1931,9 @@
                               <object class="GtkEntry" id="entry4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="max_length">4</property>
                                 <property name="invisible_char">•</property>
+                                <property name="width_chars">4</property>
                                 <property name="invisible_char_set">True</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
@@ -1927,7 +1950,9 @@
                               <object class="GtkEntry" id="entry5">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="max_length">4</property>
                                 <property name="invisible_char">•</property>
+                                <property name="width_chars">4</property>
                                 <property name="invisible_char_set">True</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
@@ -1944,7 +1969,9 @@
                               <object class="GtkEntry" id="entry6">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="max_length">4</property>
                                 <property name="invisible_char">•</property>
+                                <property name="width_chars">4</property>
                                 <property name="invisible_char_set">True</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
@@ -2219,7 +2246,9 @@
                           <object class="GtkEntry" id="entry39">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2236,7 +2265,9 @@
                           <object class="GtkEntry" id="entry40">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2253,7 +2284,9 @@
                           <object class="GtkEntry" id="entry41">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2270,7 +2303,9 @@
                           <object class="GtkEntry" id="entry42">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2287,7 +2322,9 @@
                           <object class="GtkEntry" id="entry43">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2304,7 +2341,9 @@
                           <object class="GtkEntry" id="entry44">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2321,7 +2360,9 @@
                           <object class="GtkEntry" id="entry58">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2338,7 +2379,9 @@
                           <object class="GtkEntry" id="entry59">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2355,7 +2398,9 @@
                           <object class="GtkEntry" id="entry60">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2372,7 +2417,9 @@
                           <object class="GtkEntry" id="entry61">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2389,7 +2436,9 @@
                           <object class="GtkEntry" id="entry62">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2406,7 +2455,9 @@
                           <object class="GtkEntry" id="entry63">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2423,7 +2474,9 @@
                           <object class="GtkEntry" id="entry64">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2597,8 +2650,9 @@
                           <object class="GtkEntry" id="entry65">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
-                            <property name="width_chars">1</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2615,8 +2669,9 @@
                           <object class="GtkEntry" id="entry66">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
-                            <property name="width_chars">1</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2633,8 +2688,9 @@
                           <object class="GtkEntry" id="entry67">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
-                            <property name="width_chars">1</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2651,7 +2707,9 @@
                           <object class="GtkEntry" id="entry68">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2668,7 +2726,9 @@
                           <object class="GtkEntry" id="entry69">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="max_length">8</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
@@ -2686,6 +2746,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">•</property>
+                            <property name="width_chars">8</property>
                             <property name="invisible_char_set">True</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>

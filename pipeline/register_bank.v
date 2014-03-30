@@ -22,7 +22,7 @@ module register_bank(
 	assign registros = ({registers[31], registers[30], registers[29], registers[28], registers[27], registers[26], registers[25], registers[24], registers[23], registers[22], registers[21], registers[20], registers[19], registers[18], registers[17], registers[16], registers[15], registers[14], registers[13], registers[12], registers[11], registers[10], registers[9], registers[8], registers[7], registers[6], registers[5], registers[4], registers[3], registers[2], registers[1], registers[0]});
 	
 	
-	always@(posedge clk) begin //!!!!!!!!!!!!!!!!!!!!!!!!
+	always@(posedge clk or posedge rst) begin //!!!!!!!!!!!!!!!!!!!!!!!!
 		if (rst == 1) begin
 			registers[0] <= 0;
 			registers[1] <= 0;

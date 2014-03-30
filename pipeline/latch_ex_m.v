@@ -51,7 +51,7 @@ module latch_ex_m(
 		.mem_to_reg_reg(mem_to_reg_reg)
 	);
 	
-	always@(posedge clk) begin
+	always@(posedge clk or posedge rst) begin
 		if (rst == 1) begin
 			data2_reg <= 0;
 			alu_result_reg <= 0;

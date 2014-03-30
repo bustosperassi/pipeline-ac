@@ -29,7 +29,7 @@ module latch_ex(
     output reg reg_dst_reg
     );
 
-	always @(posedge clk) begin
+	always @(posedge clk or posedge rst) begin
 		if (rst == 1) begin
 			alu_src_reg	<= 0;
 			alu_op_reg 	<= 0;

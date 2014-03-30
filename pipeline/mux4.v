@@ -28,9 +28,6 @@ module mux4(
     output reg [31:0] out_mux4
     );
 
-	always @(posedge rst) begin
-		
-	end
 
 	always@(*) begin
 		if (rst == 1) out_mux4 <= 0;

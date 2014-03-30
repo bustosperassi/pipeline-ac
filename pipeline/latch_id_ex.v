@@ -76,7 +76,7 @@ module latch_id_ex(
 		.mem_to_reg_reg(mem_to_reg_reg)
 	);
 	
-	always@(posedge clk) begin
+	always@(posedge clk or posedge rst) begin
 		if (rst == 1) 	begin
 			data1_reg <= 0;
 			data2_reg <= 0;

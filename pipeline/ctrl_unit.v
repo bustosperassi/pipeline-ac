@@ -25,7 +25,7 @@ module ctrl_unit(
 	assign r_type	= (~opcode[0])&&(~opcode[1])&&(~opcode[2])&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
 	assign j 		= (~opcode[0])&&(opcode[1])&&(~opcode[2])&&(~opcode[3])&&(~opcode[4])&&(~opcode[5]);
 	
-	always @(posedge clk) begin
+	always @(posedge clk or posedge rst) begin
 		if (rst == 1) begin
 			Branch 	<= 0;
 			MemWrite <= 0;

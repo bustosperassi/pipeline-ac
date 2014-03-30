@@ -25,7 +25,7 @@ module latch_m(
     output reg mem_write_reg
     );
 
-	always @(posedge clk) begin
+	always @(posedge clk or posedge rst) begin
 		if (rst == 1) begin
 			mem_write_reg	<= 0;
 		end

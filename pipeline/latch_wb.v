@@ -27,7 +27,7 @@ module latch_wb(
     output reg mem_to_reg_reg
     );
 
-	 always @(posedge clk) begin
+	 always @(posedge clk or posedge rst) begin
 		if (rst == 1)  begin
 				reg_write_reg <= 0;
 				mem_to_reg_reg <= 0;

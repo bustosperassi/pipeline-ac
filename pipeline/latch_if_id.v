@@ -30,7 +30,7 @@ module latch_if_id(
     output reg [31:0] instruction_reg
     );
 	
-	always @(posedge clk) begin
+	always @(posedge clk or posedge rst) begin
 		if (rst == 1) begin
 			next_pc_reg 		<= 0;
 			instruction_reg 	<= 0;

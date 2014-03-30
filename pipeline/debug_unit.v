@@ -20,7 +20,7 @@ module debug_unit(
 	 output wire [7:0] tx_bus
     );
 	 
-	 reg [1343:0] buffer = 0 /* synthesis syn_keep = 1 */;
+	 reg [1375:0] buffer = 0 /* synthesis syn_keep = 1 */;
 	 reg [7:0] contador = 0;
 	 reg [5:0] contador_fin = 0;
 

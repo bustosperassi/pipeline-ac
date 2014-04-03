@@ -25,14 +25,14 @@ module debug_unit(
 	 reg [5:0] contador_fin = 0;
 
    parameter IDLE = 4'b0000;
-	parameter STEP = 4'b0001;
+	parameter STEP1 = 4'b0001;
 	parameter CONT1 = 4'b0010;
 	parameter CONT2 = 4'b0011;
 	parameter CONT3 = 4'b0100;
 	parameter RESET = 4'b0101;
 	parameter SEND1 = 4'b0110;
 	parameter SEND2 = 4'b0111;
-	parameter TEST = 4'b1000; 
+	parameter STEP2 = 4'b1000;
 	
 (* FSM_ENCODING="SEQUENTIAL", SAFE_IMPLEMENTATION="YES", SAFE_RECOVERY_STATE="IDLE" *) reg [3:0] state = IDLE;
 
@@ -41,25 +41,18 @@ module debug_unit(
 		(* PARALLEL_CASE *) case (state)
 			IDLE: begin
 				if (rx_done_tick) begin
-					if ((rx_bus == "c") || (rx_bus == "C")) begin
+					if (rx_bus == "c") begin
 						state <= CONT1;
 					end
-					if ((rx_bus == "s") || (rx_bus == "S")) begin
-						contador <= 172;
-						buffer <= send_data;
-						state <= SEND1;
-					end
-					if ((rx_bus == "r") || (rx_bus == "R")) begin
-						rst_pipe <= 1;
+					if (rx_bus == "s") begin
+						state <= STEP1;
 						clk_pipe <= 1;
+					end
+					if (rx_bus == "r") begin
+						rst_pipe <= 1;
 						state <= RESET;
 					end
 				end	
-			end
-						
-			STEP: begin
-				clk_pipe <= 0;
-				state <= IDLE;
 			end
 			
 			CONT1: begin
@@ -83,18 +76,21 @@ module debug_unit(
 				state <= CONT1;
 			end
 			
-			RESET: begin
-				rst_pipe <= 0;
+			STEP1: begin
 				clk_pipe <= 0;
-				state <= IDLE;
+				state <= STEP2;
+			end
+			
+			STEP2: begin
+				contador <= 172;
+				buffer <= send_data;
+				state <= SEND1;
 			end
 			
 			SEND1: begin
-		//		if(tx_done_tick)begin
 					tx_start <= 1;
-					state <= SEND2;
 					contador <= contador - 1;
-		//		end
+					state <= SEND2;
 			end
 
 			SEND2: begin
@@ -105,12 +101,16 @@ module debug_unit(
 						contador <= contador - 1;
 					end
 					else begin
-						state <= STEP;
-						clk_pipe <= 1;
+						state <= IDLE;
 					end
 				end
 			end
-			
+						
+			RESET: begin
+				rst_pipe <= 0;
+				state <= IDLE;
+			end
+						
 		endcase
 	end
 

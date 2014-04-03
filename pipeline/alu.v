@@ -1,23 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    18:09:45 12/02/2013 
-// Design Name: 
-// Module Name:    alu 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
 
 module alu #(parameter ANCHO_BUS = 32)( 
     input rst,
@@ -65,7 +46,7 @@ module alu #(parameter ANCHO_BUS = 32)(
 									end
 							end
 				default :begin 
-								alu_result = 20'b01111101111011101101;
+								alu_result = 0;
 							end
 			endcase
 		end

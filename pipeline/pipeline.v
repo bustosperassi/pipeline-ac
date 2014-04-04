@@ -22,16 +22,14 @@ module pipeline(
 	 wire [31:0] data2;
 	 wire [31:0] ext_sig;
 	 wire [11:0] palabra;
-	 wire equals;
-	 assign equals = ((data1 ~^ data2) & palabra[11]); // Para chequear que los datos son iguales en la salida del banco de registros.
-	
+	 wire taken;
 	 
 	 assign stop_enable = enable & (~stop);
 	 
 	 /* Bloque de busqueda de instruccion */
 	fetch_stage ifetch_instance (
 		.clk(~clk), // conectado
-		.dec(equals), // conectado
+		.dec(taken), // conectado
 		.rst(rst), 
 		.enbl(stop_enable),
 		.pc_mux(branch_pc), // conectado
@@ -81,8 +79,12 @@ module pipeline(
 	
 	branch_sum next_hop (
 		.rst(rst),
+		.opcode(instruction_reg[31:26]),
+		.d1(data1),
+		.d2(data2),
 		.pc_next(next_pc_reg), 
 		.pc_branch(ext_sig[6:0]), 
+		.taken(taken),
 		.branch_pc(branch_pc)
 	 );
 	

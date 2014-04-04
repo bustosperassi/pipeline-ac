@@ -1,10 +1,5 @@
 `timescale 1ns / 1ps
-////////////////////////////////////////////////
-// Module Name:    decode_stage 
-// Description: 	Etapa de decodificacion de
-//						de la instruccion que proviene
-//						desde la etapa fetch.
-////////////////////////////////////////////////
+
 module decode_stage(
 	 input clk,
 	 input rst,
@@ -22,14 +17,6 @@ module decode_stage(
     output [31:0] ext_sig,
 	 // Salidas de la unidad de control
 	 //output Jump, 
-	 output branch,
-	 output mem_write,
-	 output mem_to_reg,
-	 output reg_dst,
-	 output reg_write_out,
-	 output alu_src,
-	 output [5:0] alu_op,
-	 output [1023:0] registros
 	 output [11:0] palabra_salida,
 	 output wire [1023:0] registros
     ); 
@@ -69,6 +56,7 @@ module decode_stage(
 		.ALUSrc(alu_src), 
 		.AluOp(alu_op)
 	);
+	
 	wire [11:0] word;
 	assign word = {branch, mem_write, mem_to_reg, reg_dst, reg_write_out, alu_src, alu_op[5:0]};
 	

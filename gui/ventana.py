@@ -56,6 +56,7 @@ class Ventana:
 		self.writeMem = self.builder.get_object("entry42")
 		self.writeReg = self.builder.get_object("entry43")
 		self.memToReg = self.builder.get_object("entry44")
+		self.iterSerial =self.builder.get_object("entry45")
 		self.data1 = self.builder.get_object("entry58")
 		self.data2 = self.builder.get_object("entry59")
 		self.signExtended = self.builder.get_object("entry60")
@@ -73,23 +74,33 @@ class Ventana:
 		self.ventanaPrincipal = self.builder.get_object("Pipeline")
 		self.ventanaPrincipal.show()
 
+###############################################################################
 	def on_step_clicked(self, widget):
 		try:
 			s = serial.Serial('/dev/ttyUSB0',19200)
 		except:
 			print "No se puede abrir puerto serie"
-		s.write("s")		
-		self.bytes = []
-		i = 172
-		while i > 0:	
-			try:		
-				line = s.read()
-				self.bytes.append(line)
-			except serial.serialutil.SerialException:
-				pass
-			i-=1		
+		try:
+			for i in range(int(self.iterSerial.get_text())):
+				s.write("s")		
+			self.bytes = []
+			i = 172
+			while i > 0:	
+				try:		
+					line = s.read()
+					self.bytes.append(line)
+				except serial.serialutil.SerialException:
+					pass
+				i-=1
+		except:
+			print "pone un numero puto"
 
 		s.close()
+		self.fillGui()
+		pass
+###############################################################################
+
+	def fillGui(self):
 
 		self.setTextProgramCounter(str(ord(self.bytes[0])))
 
@@ -120,24 +131,23 @@ class Ventana:
 		self.aluText.set_text(str((ord(self.bytes[42]) << 24)+(ord(self.bytes[41]) << 16)+(ord(self.bytes[40]) << 8)+(ord(self.bytes[39])))		)
 		#faltan dos senales
 		self.setTextReg()
-		s.close()
-############################################################################################################
 
-
+###############################################################################
 	def on_Pipeline_destroy(self, object, data=None):
     		gtk.main_quit()
+###############################################################################
 
 	def setTextProgramCounter(self, text):
 		self.programCounter.set_text(text)
 		pass
-
+###############################################################################
 	def setTextNextProgramCounter(self, text):
 		self.nextProgramCounter.set_text(text)	
-
+###############################################################################
 	def setTextInstruccion(self, text):
 		self.instruccion.set_text(text)
 		pass
-
+###############################################################################
 	def setTextReg(self):
 		j = 171
 		a = 31
@@ -147,16 +157,33 @@ class Ventana:
 			j-=4			
 			a-=1
 		pass
-
+###############################################################################
 	def on_rst_clicked(self, widget):
 		try:
 			s = serial.Serial('/dev/ttyUSB0',19200)
 		except:
 			print "No se puede abrir puerto serie"
 		s.write("r")
-		s.close()			
+		s.close()							
 		pass
-			
+###############################################################################
+	def on_continuo_clicked(self, widget):
+			try:
+				s = serial.Serial('/dev/ttyUSB0',19200)
+			except:
+				print "No se puede abrir puerto serie"
+			s.write("c")
+			self.bytes = []
+			i = 172
+			while i > 0:	
+				try:		
+					line = s.read()
+					self.bytes.append(line)
+				except serial.serialutil.SerialException:
+					pass
+				i-=1
+			s.close()
+			self.fillGui()
 
 if __name__ == "__main__":
     	main = Ventana()

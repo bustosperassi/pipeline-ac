@@ -11,9 +11,9 @@ module branch_sum  #(parameter PC_WIDE = 7)(
     output reg [PC_WIDE - 1:0] branch_pc
     );
 	 
-	parameter BEQ = 6'b000100;
-	parameter BNE = 6'b000101;
-	parameter JUMP = 6'b000010;
+	localparam BEQ = 6'b000100;
+	localparam BNE = 6'b000101;
+	localparam JUMP = 6'b000010;
 	
 	always @(*) begin
 		if (rst == 1) begin

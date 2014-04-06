@@ -30,8 +30,6 @@ module latch_id_ex(
     input [31:0] sign_extend,
     input [4:0] reg1,
     input [4:0] reg2,
-	 input [4:0] rs,
-	 input [4:0] rt,
     input clk,
 	 input rst,
 	 output [5:0] alu_op_reg,
@@ -44,9 +42,7 @@ module latch_id_ex(
     output reg[31:0] data2_reg,
     output reg[31:0] sign_extend_reg,
     output reg[4:0] reg1_reg,
-    output reg[4:0] reg2_reg,
-	 output reg[4:0] rs_reg,
-	 output reg[4:0] rt_reg
+    output reg[4:0] reg2_reg
     );
 	 
 	 latch_ex ex (
@@ -83,8 +79,6 @@ module latch_id_ex(
 			sign_extend_reg <= 0;
 			reg1_reg <= 0;
 			reg2_reg <= 0;
-			rs_reg <= 0;
-			rt_reg <= 0;
 		end
 		else begin
 			data1_reg <= data1;
@@ -92,8 +86,6 @@ module latch_id_ex(
 			sign_extend_reg <= sign_extend;
 			reg1_reg <= reg1;
 			reg2_reg <= reg2;
-			rs_reg <= rs;
-			rt_reg <= rt;
 		end
 	end
 

@@ -77,11 +77,14 @@ module pipeline(
 		.registros(registros)
 	);
 	
+	wire [31:0] cortoA_out;
+	wire [31:0] cortoB_out;
+
 	branch_sum next_hop (
 		.rst(rst),
 		.opcode(instruction_reg[31:26]),
-		.d1(data1),
-		.d2(data2),
+		.d1(cortoA_out),
+		.d2(cortoB_out),
 		.pc_next(next_pc_reg), 
 		.pc_branch(ext_sig[6:0]), 
 		.taken(taken),
@@ -110,13 +113,11 @@ module pipeline(
 		.mem_write(palabra[10]), // Conectado
 		.reg_write(palabra[7]), // Conectado 
 		.mem_to_reg(palabra[9]), // Conectado
-		.data1(data1), // Conectado
-		.data2(data2), // Conectado
+		.data1(cortoA_out), // Conectado
+		.data2(cortoB_out), // Conectado
 		.sign_extend(ext_sig), // Conectado 
 		.reg1(instruction_reg[20:16]),  // Conectado
 		.reg2(instruction_reg[15:11]), // Conectado
-		.rs(instruction_reg[25:21]),
-		.rt(instruction_reg[20:16]),
 		.clk(clk), // Conectado
 		.rst(rst),
 		.alu_op_reg(alu_op_ex), //Conectado 
@@ -129,15 +130,11 @@ module pipeline(
 		.data2_reg(data2_ex), //Conectado
 		.sign_extend_reg(sign_extend_ex), //Conectado 
 		.reg1_reg(reg1_ex), //Conectado
-		.reg2_reg(reg2_ex), //Conectado
-		.rs_reg(rs),
-		.rt_reg(rt)
+		.reg2_reg(reg2_ex)
 	);
 	/* Wires de la unidad de cortocircuito */
 	wire [1:0] cortoA;
 	wire [1:0] cortoB;
-	wire [31:0] cortoA_out;
-	wire [31:0] cortoB_out;
 	
 	/* bloque de etapa execute */
 	wire [31:0] alu_result;
@@ -149,8 +146,8 @@ module pipeline(
 		.alu_src(alu_src_ex), //Conectado
 		.alu_op(alu_op_ex), //Conectado
 		.reg_dst(reg_dst_ex), //Conectado 
-		.data1(cortoA_out), //Conectado 
-		.data2(cortoB_out), //Conectado
+		.data1(data1_ex), //Conectado 
+		.data2(data2_ex), //Conectado
 		.sign_extend(sign_extend_ex), //Conectado 
 		.reg1(reg1_ex), //Conectado 
 		.reg2(reg2_ex), //Conectado
@@ -229,10 +226,12 @@ module pipeline(
 	//_-_-_-_-_-_-_Unidad de Cortocircuito_-_-_-_-_-_-_-_//
 	
 	forwarding unidadCorto(
-		.rs(rs), 
-		.rt(rt), 
+		.rs(instruction_reg[25:21]), 
+		.rt(instruction_reg[20:16]), 
+		.dst_ex(dst),
 		.dst_mem(dst_m), 
-		.dst_wb(WR), 
+		.dst_wb(WR),
+		.wb_ex(reg_write_ex),
 		.wb_mem(reg_write_m), 
 		.wb_wb(reg_write_in), 
 		.cortoA(cortoA), 
@@ -241,20 +240,20 @@ module pipeline(
 	
 	mux4 rs_cortoA (
 		.rst(rst),
-		.in00(data1_ex), 
-		.in01(alu_result_m), 
-		.in02(WD), 
-		.in03(alu_result_m), 
+		.in00(data1), 
+		.in01(alu_result), 
+		.in02(alu_result_m), 
+		.in03(WD), 
 		.signal(cortoA), 
 		.out_mux4(cortoA_out)
 	);
 	
 	mux4 rt_cortoB (
 		.rst(rst),
-		.in00(data2_ex), 
-		.in01(alu_result_m), 
-		.in02(WD), 
-		.in03(alu_result_m), 
+		.in00(data2), 
+		.in01(alu_result), 
+		.in02(alu_result_m), 
+		.in03(WD), 
 		.signal(cortoB), 
 		.out_mux4(cortoB_out)
 	);

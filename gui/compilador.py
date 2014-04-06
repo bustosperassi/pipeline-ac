@@ -113,7 +113,7 @@ J1={'JR':'001000'}   # JR rs
 J2={'JALR':'001001'}  # JALR rd,rs
                     # 000000rs00000rd00000001001
 # ------------------------------------------------------------------
-
+NOP={'NOP':'111111'}
 
 ################################
 # Manejo de entrada del archivo
@@ -157,13 +157,15 @@ compilado.close()
 tag={'init':'0'}
 lineNbr = 0
 linea = archivo.readline()
+nroTags = 0
 while linea != "":
 	linea=linea.split(";")[0]  # Toma la linea y la divide en un array con ';' como delimitador, el primero siempre es el codigo.
 	if ":" in linea:
-		tag[linea.split(':')[0]] = str(lineNbr+1)
-		print "Hay dos puntos en linea ",lineNbr+1
+		tag[linea.split(':')[0]] = str(lineNbr-nroTags)
+		nroTags = nroTags + 1
 	lineNbr=lineNbr+1
 	linea = archivo.readline()
+	
 ############################################
 
 archivo.seek(0) # Vuelvo el puntero del archivo al principio
@@ -262,12 +264,13 @@ while linea != "":
 			else:
 			        print "Error linea", i
 		        	print linea
-		elif(linea[0].upper() in I4):
+######################## branches 
+		elif(linea[0].upper() in I4): 
 			if(len(linea)==4):
 			        compilado.write(I4[linea[0]])
 			        compilado.write(bin(int(linea[1]))[2:].zfill(5))
 			        compilado.write(bin(int(linea[2]))[2:].zfill(5))
-			        compilado.write(bin(int(linea[3]))[2:].zfill(16))
+			        compilado.write(bin(int(linea[3]))[2:].zfill(16))				
 			        compilado.write(",\n")
 			else:
 		        	print "Error linea", i

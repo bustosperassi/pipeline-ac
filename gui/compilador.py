@@ -114,7 +114,10 @@ J2={'JALR':'001001'}  # JALR rd,rs
                     # 000000rs00000rd00000001001
 # ------------------------------------------------------------------
 
+
+################################
 # Manejo de entrada del archivo
+################################
 
 if(len(sys.argv) == 2):
 	try:    
@@ -132,41 +135,62 @@ elif(len(sys.argv) == 1):
 	except:
 		print '[Parser] Error: No se puede abrir el archivo', sys.argv[1]
 		exit
+#####################################
+# Fin de manejo de entrada de archivo
+#####################################
 
 separadores=['\n','\t',' '] # Separadores de linea 
 
-i = 1    # Para obtener el numero de linea del error
+i = 1    # Para obtener el numero de linea por si hay error de sintaxis
 
+#################################################
 # Abro el archivo para sobreescribirlo si existe
+#################################################
+
 compilado = open("a.coe","w")
 compilado.write("memory_initialization_radix=2;\nmemory_initialization_vector=\n")
 compilado.close()
 
-# Comienzo el parseo.
-while True:
+##########################################
+# Localizar en el archivo tags para saltos
+##########################################
+tag={'init':'0'}
+lineNbr = 0
+linea = archivo.readline()
+while linea != "":
+	linea=linea.split(";")[0]  # Toma la linea y la divide en un array con ';' como delimitador, el primero siempre es el codigo.
+	if ":" in linea:
+		tag[linea.split(':')[0]] = str(lineNbr+1)
+		print "Hay dos puntos en linea ",lineNbr+1
+	lineNbr=lineNbr+1
 	linea = archivo.readline()
+############################################
+
+archivo.seek(0) # Vuelvo el puntero del archivo al principio
+
+#####################################
+# Comienzo el parseo de instrucciones
+#####################################
+linea = archivo.readline()
+while linea != "":
     	if not linea: break
     	linea=linea.split(";")[0]  # Toma la linea y la divide en un array con ';' como delimitador, el primero siempre es el codigo.
-   
     	while True:
         	try:
             		linea.remove('')
+			print linea
         	except:
             		break
     
     	linea=''.join(linea)
-  
+  	
     	i = 0
     	linea=linea.replace(")"," ")
     	linea=linea.replace("("," ")
 	linea=linea.replace(","," ")
-    	while True:
-        	try:
-            		linea.remove('')
-        	except:
-            		break
-
-        linea=linea.replace('$','')
+	linea=linea.replace('$','')
+	# En este punto estan eliminados todos los corchetes y comas que hay en la linea
+    	
     	for sep in separadores:
         	linea = ''.join(linea)
         	linea=linea.split(sep)
@@ -175,12 +199,18 @@ while True:
                 		linea.remove('')
             		except:
                 		break
-		
+	while True:
+        	try:
+            		linea.remove('')
+        	except:
+            		break
 	i+=1
 
     	compilado = open("a.coe","a")
     
     	if len(linea)!=0:
+		
+		# Comienza preguntando si es una instruccion tipo RT
         	if(linea[0].upper() in RT):
             		if(len(linea)==4):
                 		compilado.write("00000000000")
@@ -191,6 +221,7 @@ while True:
                 		compilado.write(",\n")
             		else:
                 		print "Error linea", i
+
         	elif(linea[0].upper() in RS):
             		if(len(linea)==4):
                			compilado.write("000000")
@@ -241,10 +272,10 @@ while True:
 			else:
 		        	print "Error linea", i
 		        	print linea
-		elif(linea[0].upper() in I5):
+		elif(linea[0].upper() in I5): # Esta es la instruccion de salto y se usa el diccionario tag para reemplazar el valor del nombre con el numero de linea
 			if(len(linea)==2):
-		        	compilado.write(I5[linea[0]])
-		        	compilado.write(bin(int(linea[1]))[2:].zfill(26))
+		        	compilado.write(I5[linea[0]])		
+		        	compilado.write(bin(int(tag[linea[1]]))[2:].zfill(26))
 		        	compilado.write(",\n")
 		    	else:
 		        	print "Error linea", i
@@ -270,9 +301,9 @@ while True:
 			        compilado.write(",\n")
 			else:
 			        print "Error linea", i
-			        print linea        
-		    
+			        print linea           
 	    	compilado.close()
+	linea = archivo.readline()		 
 	    
 compilado = open("a.coe","r")
 a = compilado.read()

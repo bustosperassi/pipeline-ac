@@ -56,9 +56,9 @@ module debug_unit(
 			end
 			
 			CONT1: begin
-				if(instruccion != 0) contador_fin <= 0;
+				if(instruccion != 32'b11111100000000000000000000000000) contador_fin <= 0;
 				else contador_fin <= contador_fin + 1'b1;
-				if(contador_fin == 5) begin
+				if(contador_fin == 4) begin
 					buffer <= send_data;
 					contador <= 172;
 					state <= SEND1;
@@ -89,7 +89,7 @@ module debug_unit(
 			
 			SEND1: begin
 					tx_start <= 1;
-					contador <= contador - 1;
+					contador <= contador - 1'b1;
 					state <= SEND2;
 			end
 
@@ -98,7 +98,7 @@ module debug_unit(
 					if(contador > 0) begin
 						buffer <= buffer >> 8;	
 						tx_start <= 1;
-						contador <= contador - 1;
+						contador <= contador - 1'b1;
 					end
 					else begin
 						state <= IDLE;

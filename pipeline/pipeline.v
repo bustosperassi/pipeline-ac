@@ -92,8 +92,6 @@ module pipeline(
 	 );
 	
 	/* Latch entre idecode e iexecute */
-	 wire [4:0] rs;
-	 wire [4:0] rt;
 	 wire [31:0] data1_ex;
 	 wire [31:0] data2_ex;
 	 wire [31:0] sign_extend_ex;
@@ -262,7 +260,7 @@ module pipeline(
 
 	hazard data_hazard_instance (
 		.instruction(instruction_reg[25:16]), 
-		.rt_ex(rt), 
+		.rt_ex(reg1_ex), 
 		.mem_to_reg_ex(mem_to_reg_ex), 
 		.stop(stop)
 	);
@@ -270,7 +268,7 @@ module pipeline(
 	assign instruccion = DR; 
 	assign pc = {1'b0, pc_out};
 	assign if_id = {1'b0, next_pc_reg, instruction_reg}; 
-	assign id_ex = {2'b0, alu_op_ex, 3'b0, reg_dst_ex, alu_src_ex, mem_write_ex, reg_write_ex, mem_to_reg_ex, data1_ex, data2_ex, sign_extend_ex, 3'b0, reg1_ex, 3'b0, reg2_ex, 3'b0, rs, 3'b0, rt};
+	assign id_ex = {2'b0, alu_op_ex, 3'b0, reg_dst_ex, alu_src_ex, mem_write_ex, reg_write_ex, mem_to_reg_ex, data1_ex, data2_ex, sign_extend_ex, 3'b0, reg1_ex, 3'b0, reg2_ex, 8'b0, 8'b0};
 	assign ex_m = {5'b0, mem_to_reg_m, reg_write_m, mem_write_m, alu_result_m, data2_m, 3'b0, dst_m};
 	assign m_wb = {6'b0, reg_write_in, mem_to_reg_wb, alu_result_wb, data_load_wb, 3'b0, WR};		
 

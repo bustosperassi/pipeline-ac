@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Mon Mar 10 21:06:21 ART 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=esqueleto.tex
+outputFile=document.pdf
+langSpell=en
+markDer=true
+srcDir=

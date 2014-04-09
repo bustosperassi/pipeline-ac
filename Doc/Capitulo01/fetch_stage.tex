@@ -1,7 +1,7 @@
-\chapter{Etapa de búsqueda}
+\section{Etapa de búsqueda}
 En esta etapa se realiza la búsqueda de instrucciones desde una memoria de 32 bits de ancho de palabra con 128 entradas, siendo entonces de 512 bytes. Usando el  \ac{pc} obtiene la instruccion y la saca hacia un latch para pasar a la etapa de ejecución. \cite{bib:Coad}
 
-\section{Introducción}
+\subsection{Introducción}
 La etapa de b\'usqueda de instrucci\'on tiene como entradas:
 \begin{itemize}
   \item \textbf{rst}: Vuelve a todos los registros a los valores iniciales. 
@@ -24,7 +24,7 @@ La etapa tiene como salidas:
 \label{fig:fetch}
 \end{figure}
 
-\section{Funcionamiento}
+\subsection{Funcionamiento}
 El \ac{pc} comienza de 0 y este valor entra en la memoria de instrucciones y en un modulo sumador. En la memoria, para que utilize la instrucci\'on ubicada en la posici\'on del mismo valor de contador de programa, en la entrada del m\'odulo sumador se aumenta en 1 el valor para poder avanzar en el pr\'oximo ciclo de clock a una nueva instrucci\'on. Las salidas de esta etapa son la instrucci\'on a ejecutar y el valor del contador de programa.  (ver Figura \ref{fig:fetchzoom})
 
 \begin{figure}[H]
@@ -34,7 +34,7 @@ El \ac{pc} comienza de 0 y este valor entra en la memoria de instrucciones y en 
 \label{fig:fetchzoom}
 \end{figure}
 
-\section{Multiplexor}
+\subsection{Multiplexor}
 
 El módulo multiplexor es binario, osea que solamente elige entre dos valores. En nuestro caso debe escoger entre el \ac{pc} que viene incrementado desde el modulo sumador o el que viene modificado por un salto desde la etapa de ejecución, ver código \ref{mux}. 
 
@@ -56,7 +56,7 @@ En la entrada del multiplexor entran 12 cables para que elija entre la parte alt
 
 El codigo del testbench se puede ver en el apéndice \ref{mux_test} donde se modifica el valor de \texttt{dec} y en los cambios que ocurren se reflejan en la figura \ref{fig:muxt}, en un primer momento \texttt{dec=0} entonces la salida nos da \texttt{0000010} al cambiar el valor pasa a \texttt{0001010}.
 
-\section{Incremento}
+\subsection{Incremento}
 El modulo sumador simplemente incrementa el \ac{pc}, el código se muestra en el apéndice \ref{sum}  tiene solamente una entrada que es un bus de 7 bits y este valor es incrementado dentro del m\'odulo. 
 
 
@@ -79,7 +79,7 @@ En el testbench contador de programa se va modificando de a uno, entonces la sal
 \end{figure}
 
 
-\section{Etapa de búsqueda con módulos integrados}
+\subsection{Etapa de búsqueda con módulos integrados}
 Finalmente generamos un modulo que integre los módulos anteriores generados y terminamos la etapa. El código de la etapa de búsqueda completo se puede ver en el apéndice \ref{fetch}. En este clock solamente el registro \ac{pc} cambiaría de valor. 
 
 \begin{figure}[H]

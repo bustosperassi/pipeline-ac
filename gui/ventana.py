@@ -151,6 +151,7 @@ class Ventana:
 	def setTextReg(self):
 		j = 171
 		a = 31
+		i = 0
 		for i in range(32):
 			suma = (ord(self.bytes[j]) << 24)+(ord(self.bytes[j-1]) << 16)+(ord(self.bytes[j-2]) << 8)+(ord(self.bytes[j-3]))
 			self.reg[a].set_text(str(suma))

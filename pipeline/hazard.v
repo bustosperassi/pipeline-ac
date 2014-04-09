@@ -27,8 +27,8 @@ module hazard(
 	
 	wire cond1, cond2;
 	
-	assign cond1 = instruction[9:5]~^rt_ex;
-	assign cond2 = instruction[4:0]~^rt_ex;
+	assign cond1 = instruction[9:5]~^(rt_ex);
+	assign cond2 = instruction[4:0]~^(rt_ex);
 	
 	always @ (mem_to_reg_ex) begin 
 		stop = (cond1 | cond2) & mem_to_reg_ex;

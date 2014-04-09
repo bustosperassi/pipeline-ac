@@ -1,42 +1,46 @@
 module uart_test
 	(
-	input wire clk, reset,
-	input wire rx,
-	input wire btn,
-	output wire tx,
-	output wire [3:0] an,
-	output wire [7:0] sseg, led
+	input wire clk,
+	input rst,
+	output tx,
+	output reg ledout
 	);
 
-	wire tx_full, rx_empty , btn_tick;
-	wire [7:0] rec_data, rec_data1;
+	wire tx_done;
+	reg [7:0] data = 8'h30;
+	reg [12:0] contador = 28'b000000000000000000000000000;
+	reg tx_start = 0; 
 
 	uart uart_unit( 
 		.clk(clk), 
-		.reset(reset), 
-		.rd_uart(btn_tick), 
-		.wr_uart(btn_tick), 
-		.rx(rx), 
-		.w_data(rec_data1),
-		.tx_full(tx_full),
-		.rx_empty(rx_empty),
-		.r_data(rec_data), 
-		.tx(tx));
-
-
-	debounce btn_db_unit( 
-		.clk(clk), 
-		.reset(reset), 
-		.sw(btn),
-		.db_level(), 
-		.db_tick(btn_tick)
-		);
-
-	assign rec_data1 = rec_data + 1'b1 ;
-	//	assign LED display
-	assign led = rec_data;
-	assign an = 4'b1110;
-	assign sseg = {1'b1, ~tx_full, 2'b11, ~rx_empty , 3'b111};
+		.rst(rst),
+		.tx_start(tx_start),
+		.tx_done_tick(tx_done),
+		.r_data(data),
+		.tx(tx)
+	);
+	
+	always @(posedge clk) begin
+		if (rst) begin
+			data = 8'h30;
+			ledout = 0;
+			contador = 0;
+		end
+		else begin
+			if (tx_done) begin
+				data = data + 1'b1;
+				ledout = ~ledout;
+			end
+			if (contador == 1) tx_start = ~tx_start; 
+			if (contador == 28'b010000000000000000000000000) begin
+				contador = 0;
+				tx_start = ~tx_start;
+				ledout = ~ledout;
+			end
+			
+		end
+		contador = contador + 1'b1;
+	end
 	
 endmodule
 

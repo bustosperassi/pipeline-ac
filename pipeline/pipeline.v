@@ -186,7 +186,7 @@ module pipeline(
 	mem_stage mem_instance (
 		.no_clk(~clk), //Conectado 
 		.mem_write(mem_write_m), //Conectado
-		.address(alu_result_m[4:0]), //Conectado 
+		.address(alu_result_m[6:0]), //Conectado 
 		.write_data(data2_m), //Conectado 
 		.data_out(data_out) //Conectado
 	);

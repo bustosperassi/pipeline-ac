@@ -1,21 +1,33 @@
-module mod_m_counter #(parameter N = 9 , M = 163)
-(
-input wire clk, reset,
-output wire max_tick,
-output wire [N-1:0] q
-);
+`timescale 1ns / 1ps
 
-	reg [N-1:0] r_reg;
-	wire [N-1:0] r_next;
+module mod_m_counter ( 
+	input clk, 
+	output reg tick
+	);
 
-	always @ ( posedge clk , posedge reset )
-		if(reset)
-			r_reg <= 0;
-		else
-			r_reg <= r_next;
+	reg [9:0] contador = 10'b0000000000;
 
-	assign r_next = (r_reg==(M-1)) ? 1'b0 : r_reg + 1'b1;
-	assign q = r_reg;
-	assign max_tick = (r_reg==(M-1)) ? 1'b1 : 1'b0;
+/*
+ *	clock 100Mhz
+ *	baud rate 19200
+ *	
+ *	Para obtener contador: vel_clock(Hz) /( baud_rate(b/s) * 16ticks )
+ *
+ *	contador = 325
+ */
+
+	always @ ( posedge clk )
+		begin
+			if ( contador == 652 )
+				begin
+					tick = 1;
+					contador = 0;
+				end
+			else
+				begin
+					contador = contador + 1'b1;
+					tick = 0;
+				end
+		end
+
 endmodule
-

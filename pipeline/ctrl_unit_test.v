@@ -26,11 +26,12 @@ module ctrl_unit_test;
 
 	// Inputs
 	reg [5:0] opcode;
+	reg clk;
+	reg rst;
+	reg ena;
 
 	// Outputs
-	wire Jump;
 	wire Branch;
-	wire MemRead;
 	wire MemWrite;
 	wire MemtoReg;
 	wire RegDst;
@@ -40,10 +41,11 @@ module ctrl_unit_test;
 
 	// Instantiate the Unit Under Test (UUT)
 	ctrl_unit uut (
-		.opcode(opcode), 
-		.Jump(Jump),
+		.clk(clk),
+		.rst(rst),
+		.ena(ena),
+		.opcode(opcode),
 		.Branch(Branch), 
-		.MemRead(MemRead), 
 		.MemWrite(MemWrite), 
 		.MemtoReg(MemtoReg), 
 		.RegDst(RegDst), 
@@ -55,54 +57,119 @@ module ctrl_unit_test;
 	initial begin
 		// Initialize Inputs
 		opcode = 0;
-
+		ena = 0;
+		rst = 1;
+		clk = 0;
 		// Wait 100 ns for global reset to finish
 		#100;
-        
-		// Add stimulus here
-		
+      rst = 0;
+		ena = 1;
+		clk = 1;
 		opcode = 6'b000000;  // tipo R
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b100000;  // LB
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b100001;  // LH
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b100011;  // LW
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b100111;  // LWU
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b100100;  // LBU
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b100101;  // LHU
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b101000;  // SB
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b101001;  // SH
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b101011;  // SLTU
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b001000;  // ADDI
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b001001;  // ADDIU
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b001100;  // ANDI
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b001101;  // ORI
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b001110;  // XORI
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b001111;  // LUI
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b001010;  // SLTI
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b001011;  // SLTIU
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b000100;  // BEQ
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b000101;  // BNE
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		opcode = 6'b000010;  // J
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		
 
 	end

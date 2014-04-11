@@ -10,6 +10,8 @@
 module sign_extended_test;
 
 	// Entradas
+	reg clk;
+	reg rst;
 	reg [15:0] offset;
 
 	// Salidas
@@ -17,16 +19,29 @@ module sign_extended_test;
 
 	// Instancia del modulo
 	sign_extended uut (
+		.clk(clk),
+		.rst(rst),
 		.offset(offset), 
 		.extension(extension)
 	);
 
 	initial begin
 		// Initialize Inputs
+		rst = 1;
+		clk = 0;
+		offset = 0;
+		#100;
+		rst = 0;
+		#100;
+		clk = 1;
 		offset = -32;
 		#100;
+		clk = 0;
+		#100;
+		clk = 1;
 		offset = 15;
 		#100;
+		clk = 0;
 		#100;
 		$stop;
 	end

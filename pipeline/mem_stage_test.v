@@ -11,33 +11,25 @@ module mem_stage_test;
 
 	// Inputs
 	reg no_clk;
-	reg branch;
-	reg zero;
 	reg mem_write;
-	reg [9:0] address;
+	reg [4:0] address;
 	reg [31:0] write_data;
 
 	// Outputs
 	wire [31:0] data_out;
-	wire pc_src;
 
 	// Instantiate the Unit Under Test (UUT)
 	mem_stage uut (
-		.no_clk(no_clk), 
-		.branch(branch), 
-		.zero(zero), 
+		.no_clk(no_clk),
 		.mem_write(mem_write), 
 		.address(address), 
 		.write_data(write_data), 
-		.data_out(data_out), 
-		.pc_src(pc_src)
+		.data_out(data_out)
 	);
 
 	initial begin
 		// Initialize Inputs
 		no_clk = 0;
-		branch = 0;
-		zero = 0;
 		mem_write = 0;
 		address = 1;
 		write_data = 0;
@@ -45,16 +37,12 @@ module mem_stage_test;
 		// Wait 100 ns for global reset to finish
 		#100;
       no_clk = 1;
-		branch = 1;
-		zero = 1;
 		mem_write = 0;
 		address = 2;
 		write_data = 0; 
 		
 		#100;
       no_clk = 0;
-		branch = 1;
-		zero = 0;
 		mem_write = 0;
 		address = 1;
 		write_data = 0;

@@ -25,7 +25,7 @@
 module hazard_test;
 
 	// Inputs
-	reg [31:0] instruction;
+	reg [9:0] instruction;
 	reg [4:0] rt_ex;
 	reg mem_to_reg_ex;
 
@@ -49,17 +49,17 @@ module hazard_test;
 		// Wait 100 ns for global reset to finish
 		#100;
       mem_to_reg_ex = 1;
-		instruction[25:21] = 4;
+		instruction[9:5] = 4;
 		rt_ex = 4;
 		#100;
-		instruction[20:16] = 3;
+		instruction[4:0] = 3;
 		rt_ex = 3;
 		#100;
-		instruction[20:16] = 3;
+		instruction[4:0] = 3;
 		rt_ex = 2;
 		mem_to_reg_ex = 1;
 		#100;
-		instruction[25:21] = 3;
+		instruction[9:5] = 3;
 		rt_ex = 2;
 		mem_to_reg_ex = 1;
 		// Add stimulus here

@@ -13,6 +13,7 @@
 module mux_test;
 
 	// Inputs
+	reg rst;
 	reg [5:0] msb;
 	reg [5:0] lsb;
 	reg dec;
@@ -22,6 +23,7 @@ module mux_test;
 	
 	// Instancia del modulo a testear
 	mux #(.nbits(6)) uut(
+		.rst(rst),
 		.msb(msb), 
 		.lsb(lsb), 
 		.out(out), 
@@ -30,6 +32,13 @@ module mux_test;
 
 	initial begin
 		// Inicializacion de entradas
+		rst = 1;
+		msb = 0;
+		lsb = 0;
+		dec = 0;
+		#100;
+		rst = 0;
+		#100;
 		msb = 7;
 		lsb = 2;
 		dec = 0;

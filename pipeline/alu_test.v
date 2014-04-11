@@ -25,30 +25,33 @@
 module alu_test;
 
 	// Inputs
+	reg rst;
 	reg [31:0] data1;
 	reg [31:0] data2;
 	reg [3:0] operation;
 
 	// Outputs
 	wire [31:0] alu_result;
-	wire zero;
 
 	// Instantiate the Unit Under Test (UUT)
 	alu uut (
+		.rst(rst),
 		.data1(data1), 
 		.data2(data2), 
 		.operation(operation), 
-		.alu_result(alu_result), 
-		.zero(zero)
+		.alu_result(alu_result)
 	);
 
 	initial begin
 		// Initialize Inputs
+		rst = 1;
+		#100;
+		
+		rst = 0;
 		data1 = 2;
 		data2 = 1;
 		operation = 4'b0010;
 
-		// Wait 100 ns for global reset to finish
 		#100; //Substract operatio
 		data1 = 2;
 		data2 = 2;

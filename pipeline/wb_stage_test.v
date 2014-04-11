@@ -16,6 +16,7 @@
 module wb_stage_test;
 
 	// Inputs
+	reg rst;
 	reg mem_to_reg;
 	reg [31:0] data_in;
 	reg [31:0] dir;
@@ -25,6 +26,7 @@ module wb_stage_test;
 
 	// Instantiate the Unit Under Test (UUT)
 	wb_stage uut (
+		.rst(rst),
 		.mem_to_reg(mem_to_reg), 
 		.data_in(data_in), 
 		.dir(dir), 
@@ -33,6 +35,13 @@ module wb_stage_test;
 
 	initial begin
 		// Initialize Inputs
+		rst = 1;
+		mem_to_reg = 0;
+		data_in = 0;
+		dir = 0;
+		#100;
+		rst = 0;
+		#100;
 		mem_to_reg = 0;
 		data_in = 32'b10101010101010101010101010101010;
 		dir = 1;

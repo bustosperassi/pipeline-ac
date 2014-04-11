@@ -1,40 +1,52 @@
 `timescale 1ns / 1ps
 
 ////////////////////////////////////////////////////////////////////////////////
-// Create Date:   13:46:05 11/30/2013
+// Company: 
+// Engineer:
+//
+// Create Date:   03:18:44 04/11/2014
 // Design Name:   decode_stage
-// Module Name:   decode_stage_test.v
+// Module Name:   /home/nico/pipeline-ac/pipeline/decode_stage_test.v
 // Project Name:  pipeline
 // Target Device:  
 // Tool versions:  
-// Description: Testbench de la etapa de decodificacion de la instruccion
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: decode_stage
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
 ////////////////////////////////////////////////////////////////////////////////
 
 module decode_stage_test;
 
 	// Inputs
 	reg clk;
+	reg rst;
+	reg ena;
+	reg stop;
 	reg reg_write_in;
 	reg [31:0] instruccion;
-	reg [31:0] WR;
+	reg [4:0] WR;
 	reg [31:0] WD;
 
 	// Outputs
 	wire [31:0] data1;
 	wire [31:0] data2;
 	wire [31:0] ext_sig;
-	wire branch;
-	wire mem_read;
-	wire mem_write;
-	wire mem_to_reg;
-	wire reg_dst;
-	wire reg_write_out;
-	wire alu_src;
-	wire [5:0] alu_op;
+	wire [11:0] palabra_salida;
+	wire [1023:0] registros;
 
 	// Instantiate the Unit Under Test (UUT)
 	decode_stage uut (
 		.clk(clk), 
+		.rst(rst), 
+		.ena(ena), 
+		.stop(stop), 
 		.reg_write_in(reg_write_in), 
 		.instruccion(instruccion), 
 		.WR(WR), 
@@ -42,18 +54,24 @@ module decode_stage_test;
 		.data1(data1), 
 		.data2(data2), 
 		.ext_sig(ext_sig), 
-		.branch(branch), 
-		.mem_read(mem_read), 
-		.mem_write(mem_write), 
-		.mem_to_reg(mem_to_reg), 
-		.reg_dst(reg_dst), 
-		.reg_write_out(reg_write_out), 
-		.alu_src(alu_src), 
-		.alu_op(alu_op)
+		.palabra_salida(palabra_salida), 
+		.registros(registros)
 	);
 
 	initial begin
 		// Initialize Inputs
+		clk = 0;
+		rst = 1;
+		ena = 0;
+		stop = 0;
+		reg_write_in = 0;
+		instruccion = 0;
+		WR = 0;
+		WD = 0;
+
+		#100;
+      rst = 0;
+		ena = 1;
 		clk = 0;
 		reg_write_in = 1;
 		// Tipo R         |  6  | 5  |  5 |  5 |    11   |

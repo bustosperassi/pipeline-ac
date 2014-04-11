@@ -25,6 +25,7 @@
 module mux4_test;
 
 	// Inputs
+	reg rst;
 	reg [31:0] in00;
 	reg [31:0] in01;
 	reg [31:0] in02;
@@ -36,6 +37,7 @@ module mux4_test;
 
 	// Instantiate the Unit Under Test (UUT)
 	mux4 uut (
+		.rst(rst),
 		.in00(in00), 
 		.in01(in01), 
 		.in02(in02), 
@@ -46,6 +48,17 @@ module mux4_test;
 
 	initial begin
 		// Initialize Inputs
+		
+		rst = 1;
+		in00 = 0;
+		in01 = 0;
+		in02 = 0;
+		in03 = 0;
+		signal = 0;
+		#100;
+		rst = 0;
+		#100;
+		
 		in00 = 1;
 		in01 = 2;
 		in02 = 3;

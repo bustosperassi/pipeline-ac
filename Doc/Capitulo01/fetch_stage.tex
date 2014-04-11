@@ -57,7 +57,7 @@ En la entrada del multiplexor entran 12 cables para que elija entre la parte alt
 El c\'odigo del testbench se puede ver en el apéndice \ref{mux_test} donde se modifica el valor de \texttt{dec} y en los cambios que ocurren se reflejan en la figura \ref{fig:muxt}, en un primer momento \texttt{dec=0} entonces la salida nos da \texttt{0000010} al cambiar el valor pasa a \texttt{0001010}.
 
 \subsection{Incremento}
-El m\'odulo sumador simplemente incrementa el \ac{pc}, el código se muestra en el apéndice \ref{sum}  tiene solamente una entrada que es un bus de 7 bits y este valor es incrementado dentro del m\'odulo. 
+El m\'odulo sumador simplemente incrementa el \texttt{pc}, el código se muestra en el apéndice \ref{sum}  tiene solamente una entrada que es un bus de 7 bits y este valor es incrementado dentro del m\'odulo. 
 
 
 \begin{figure}[H]
@@ -68,7 +68,7 @@ El m\'odulo sumador simplemente incrementa el \ac{pc}, el código se muestra en 
 \end{figure}
 
 
-En el testbench contador de programa se va modificando de a uno, entonces la salida que en este caso es \texttt{pc\_inc} y esta ingresa en el registro del \ac{PC}. 
+En el testbench contador de programa se va modificando de a uno, entonces la salida que en este caso es \texttt{pc\_inc} y esta ingresa en el registro del \texttt{PC}. 
 
 
 \begin{figure}[H]
@@ -80,7 +80,7 @@ En el testbench contador de programa se va modificando de a uno, entonces la sal
 
 
 \subsection{Etapa de búsqueda con módulos integrados}
-Finalmente generamos un m\'odulo que integre los módulos anteriores generados y terminamos la etapa. El código de la etapa de búsqueda completo se puede ver en el apéndice \ref{fetch}. En este clock solamente el registro \ac{pc} cambiaría de valor. 
+Finalmente generamos un m\'odulo que integre los módulos anteriores generados y terminamos la etapa. El código de la etapa de búsqueda completo se puede ver en el apéndice \ref{fetch}. En este clock solamente el registro \texttt{pc} cambiaría de valor. 
 
 \begin{figure}[H]
 \centering
@@ -90,6 +90,6 @@ Finalmente generamos un m\'odulo que integre los módulos anteriores generados y
 \end{figure}
 
 Para entender que hace esta etapa podemos ver los cambios en la figura \ref{fig:fetcht}, debemos comenzar viendo que \texttt{PC} no tiene ningún valor y es el que le ingresara en el clock a la memoria de instrucciones, \texttt{pc\_out} tampoco contiene ningún valor y este entra en el multiplexor, la memoria de instrucciones se puede ver en \ref{a.coe}.  
-En el primer clock ascendente como \texttt{dec} esta en uno, elige \texttt{pc\_mux} para escribir al \ac{pc} todos ceros o sea la primera direccion de memoria. El \ac{dr}  muestra  solo x porque en el clock anterior el \ac{pc} estaba en x y en la memoria no direcciona en ninguna posición valida. En el próximo clock ascendente ya el \ac{pc} contiene ceros por lo que automáticamente \texttt{pc\_out} va a tener el valor de \ac{PC} + 1, pero \texttt{dec} esta en 1 por lo que sigue eligiendo a \texttt{pc\_mux} que en el clock descendente anterior ya se le había aumentado el valor en 1 por lo que este valor va a ser ingresado en el próximo clock al \ac{pc} y \ac{dr} ya comienza a mostrar el primer valor de la memoria de instrucciones. Los siguientes clocks funcionan de la misma manera.
+En el primer clock ascendente como \texttt{dec} esta en uno, elige \texttt{pc\_mux} para escribir al \texttt{pc} todos ceros o sea la primera direccion de memoria. El \ac{dr}  muestra  solo x porque en el clock anterior el \ac{pc} estaba en x y en la memoria no direcciona en ninguna posición valida. En el próximo clock ascendente ya el \ac{pc} contiene ceros por lo que automáticamente \texttt{pc\_out} va a tener el valor de \texttt{PC} + 1, pero \texttt{dec} esta en 1 por lo que sigue eligiendo a \texttt{pc\_mux} que en el clock descendente anterior ya se le había aumentado el valor en 1 por lo que este valor va a ser ingresado en el próximo clock al \texttt{pc} y \ac{dr} ya comienza a mostrar el primer valor de la memoria de instrucciones. Los siguientes clocks funcionan de la misma manera.
 
 \lstinputlisting[label=a.coe, caption=Contenido de la memoria de instrucciones, captionpos=b]{Capitulo01/a.coe}

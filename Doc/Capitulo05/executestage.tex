@@ -8,7 +8,7 @@ Esta etapa se encarga de las operaciones entre los datos que vienen desde el lat
 \label{fig:fetch}
 \end{figure}
 
-Esta etapa se encarga de operar con los datos que se le presentan en la entrada, eligiendo la operacion que fue decodificada en la etapa anterior y pasando el resultado a la siguiente etapa.
+Esta etapa se encarga de operar con los datos que se le presentan en la entrada, eligiendo la operaci\'on que fue decodificada en la etapa anterior y pasando el resultado a la siguiente etapa.
 Tiene como entradas:
 
 \begin{itemize}
@@ -38,17 +38,17 @@ El control de la alu en detalle se muestra en la siguiente figura.
 Tiene como entradas:
 
 \begin{itemize}
-  \item \textbf{alu\_op}: opcode que entra a este m\'odulo para decodificar que operaci\'on debe realizar la ALU.
-  \item \textbf{ff}: entran 4 bits que provienen de la parte baja extensi\'on de signo y genera el opcode que utiliza la alu para ejecutar la operaci\'on.  
+  \item \textbf{alu\_op}: Opcode que entra a este m\'odulo para decodificar que operaci\'on debe realizar la alu.
+  \item \textbf{ff}: Entran 4 bits que provienen de la parte baja extensi\'on de signo y genera el opcode que utiliza la alu para ejecutar la operaci\'on.  
 \end{itemize}
 
 Y la salida:
 \begin{itemize}
-  \item \textbf{operation}: bus de 4 bits que ingresa a la alu para realizar la operaci\'on correspondiente.
+  \item \textbf{operation}: Bus de 4 bits que ingresa a la alu para realizar la operaci\'on correspondiente.
 \end{itemize}
 
 \subsection{ALU} 
-La ALU es el coraz\'on de esta etapa y es la que se encarga de sumar los operandos suministrados.
+La ALU es el coraz\'on de esta etapa y es la que se encarga de sumar ejecutar la operacion correspondiente a los operandos suministrados.
 
 \begin{figure}[H]
 \centering
@@ -63,13 +63,13 @@ Entradas:
   \item \textbf{data1}: Primer operando.
   \item \textbf{data2}: Segundo operando.
   \item operation: Operaci\'on a realizar con los operandos dentro del m\'odulo.
-  \item \textbf{rst}: Senal de reset del m\'odulo.
+  \item \textbf{rst}: Señal de reset del m\'odulo.
 \end{itemize}
 
 Salida:
 
 \begin{itemize}
-  \item \textbf{alu\_result}: 	resultado de la operaci\'on realizada entre los operandos.
+  \item \textbf{alu\_result}: Resultado de la operaci\'on realizada entre los operandos.
 \end{itemize}
 
 \begin{center}

@@ -6,7 +6,7 @@ La etapa de b\'usqueda de instrucci\'on tiene como entradas:
 \begin{itemize}
   \item \textbf{rst}: Vuelve a todos los registros a los valores iniciales. 
   \item \textbf{enbl}: Habilita la etapa.
-  \item \textbf{dec}: Entrada para la eleccion del contador del programa por si  hay algun salto.
+  \item \textbf{dec}: Entrada para la eleccion del contador del programa por si hay algun salto.
   \item \textbf{clk}: Clock de entrada a la etapa.
   \item \textbf{pc\_mux}: Bus que cuenta con el valor del contador de programa que se va a utilizar por si hay un salto.
 \end{itemize} 
@@ -25,7 +25,7 @@ La etapa tiene como salidas:
 \end{figure}
 
 \subsection{Funcionamiento}
-El \ac{pc} comienza de 0 y este valor entra en la memoria de instrucciones y en un m\'odulo sumador. En la memoria, para que utilize la instrucci\'on ubicada en la posici\'on del mismo valor de contador de programa, en la entrada del m\'odulo sumador se aumenta en 1 el valor para poder avanzar en el pr\'oximo ciclo de clock a una nueva instrucci\'on. Las salidas de esta etapa son la instrucci\'on a ejecutar y el valor del contador de programa.  (ver Figura \ref{fig:fetchzoom})
+El \ac{pc} comienza de 0 y este valor entra en la memoria de instrucciones y en un m\'odulo sumador. En la memoria, para que utilice la instrucci\'on ubicada en la posici\'on del mismo valor de contador de programa, en la entrada del m\'odulo sumador se aumenta en 1 el valor para poder avanzar en el pr\'oximo ciclo de clock a una nueva instrucci\'on. Las salidas de esta etapa son la instrucci\'on a ejecutar y el valor del contador de programa.  (ver Figura \ref{fig:fetchzoom})
 
 \begin{figure}[H]
 \centering
@@ -90,6 +90,6 @@ Finalmente generamos un m\'odulo que integre los módulos anteriores generados y
 \end{figure}
 
 Para entender que hace esta etapa podemos ver los cambios en la figura \ref{fig:fetcht}, debemos comenzar viendo que \texttt{PC} no tiene ningún valor y es el que le ingresara en el clock a la memoria de instrucciones, \texttt{pc\_out} tampoco contiene ningún valor y este entra en el multiplexor, la memoria de instrucciones se puede ver en \ref{a.coe}.  
-En el primer clock ascendente como \texttt{dec} esta en uno, elije \texttt{pc\_mux} para escribir al \ac{pc} todos ceros o sea la primera direccion de memoria. El \ac{dr}  muestra  solo x porque en el clock anterior el \ac{pc} estaba en x y en la memoria no direcciona en ninguna posición valida. En el próximo clock ascendente ya el \ac{pc} contiene ceros por lo que automáticamente \texttt{pc\_out} va a tener el valor de \ac{PC} + 1, pero \texttt{dec} esta en 1 por lo que sigue eligiendo a \texttt{pc\_mux} que en el clock descendente anterior ya se le había aumentado el valor en 1 por lo que este valor va a ser ingresado en el próximo clock al \ac{pc} y \ac{dr} ya comienza a mostrar el primer valor de la memoria de instrucciones. Los siguientes clocks funcionan de la misma manera.
+En el primer clock ascendente como \texttt{dec} esta en uno, elige \texttt{pc\_mux} para escribir al \ac{pc} todos ceros o sea la primera direccion de memoria. El \ac{dr}  muestra  solo x porque en el clock anterior el \ac{pc} estaba en x y en la memoria no direcciona en ninguna posición valida. En el próximo clock ascendente ya el \ac{pc} contiene ceros por lo que automáticamente \texttt{pc\_out} va a tener el valor de \ac{PC} + 1, pero \texttt{dec} esta en 1 por lo que sigue eligiendo a \texttt{pc\_mux} que en el clock descendente anterior ya se le había aumentado el valor en 1 por lo que este valor va a ser ingresado en el próximo clock al \ac{pc} y \ac{dr} ya comienza a mostrar el primer valor de la memoria de instrucciones. Los siguientes clocks funcionan de la misma manera.
 
 \lstinputlisting[label=a.coe, caption=Contenido de la memoria de instrucciones, captionpos=b]{Capitulo01/a.coe}

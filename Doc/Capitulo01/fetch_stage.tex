@@ -25,7 +25,7 @@ La etapa tiene como salidas:
 \end{figure}
 
 \subsection{Funcionamiento}
-El \ac{pc} comienza de 0 y este valor entra en la memoria de instrucciones y en un modulo sumador. En la memoria, para que utilize la instrucci\'on ubicada en la posici\'on del mismo valor de contador de programa, en la entrada del m\'odulo sumador se aumenta en 1 el valor para poder avanzar en el pr\'oximo ciclo de clock a una nueva instrucci\'on. Las salidas de esta etapa son la instrucci\'on a ejecutar y el valor del contador de programa.  (ver Figura \ref{fig:fetchzoom})
+El \ac{pc} comienza de 0 y este valor entra en la memoria de instrucciones y en un m\'odulo sumador. En la memoria, para que utilize la instrucci\'on ubicada en la posici\'on del mismo valor de contador de programa, en la entrada del m\'odulo sumador se aumenta en 1 el valor para poder avanzar en el pr\'oximo ciclo de clock a una nueva instrucci\'on. Las salidas de esta etapa son la instrucci\'on a ejecutar y el valor del contador de programa.  (ver Figura \ref{fig:fetchzoom})
 
 \begin{figure}[H]
 \centering
@@ -36,7 +36,7 @@ El \ac{pc} comienza de 0 y este valor entra en la memoria de instrucciones y en 
 
 \subsection{Multiplexor}
 
-El módulo multiplexor es binario, osea que solamente elige entre dos valores. En nuestro caso debe escoger entre el \ac{pc} que viene incrementado desde el modulo sumador o el que viene modificado por un salto desde la etapa de ejecución, ver código \ref{mux}. 
+El módulo multiplexor es binario, osea que solamente elige entre dos valores. En nuestro caso debe escoger entre el \ac{pc} que viene incrementado desde el m\'odulo sumador o el que viene modificado por un salto desde la etapa de ejecución, ver código \ref{mux}. 
 
 \begin{figure}[H]
 \centering
@@ -45,7 +45,7 @@ El módulo multiplexor es binario, osea que solamente elige entre dos valores. E
 \label{fig:muxmodule}
 \end{figure}
 
-En la entrada del multiplexor entran 12 cables para que elija entre la parte alta y la parte baja, dependiendo de si es 1 o 0. Como lo programamos cuando \texttt{dec} esta en uno elige el \ac{pc}  que viene incrementado en el otro caso elige el que esta modificado por la etapa de ejecución.
+En la entrada del multiplexor entran 12 cables para que elija entre la parte alta y la parte baja, dependiendo de si es 1 o 0. Como lo programamos cuando \texttt{dec} est\'a en uno elige el \ac{pc}  que viene incrementado en el otro caso elige el que esta modificado por la etapa de ejecución.
 
 \begin{figure}[H]
 \centering
@@ -54,10 +54,10 @@ En la entrada del multiplexor entran 12 cables para que elija entre la parte alt
 \label{fig:muxt}
 \end{figure}
 
-El codigo del testbench se puede ver en el apéndice \ref{mux_test} donde se modifica el valor de \texttt{dec} y en los cambios que ocurren se reflejan en la figura \ref{fig:muxt}, en un primer momento \texttt{dec=0} entonces la salida nos da \texttt{0000010} al cambiar el valor pasa a \texttt{0001010}.
+El c\'odigo del testbench se puede ver en el apéndice \ref{mux_test} donde se modifica el valor de \texttt{dec} y en los cambios que ocurren se reflejan en la figura \ref{fig:muxt}, en un primer momento \texttt{dec=0} entonces la salida nos da \texttt{0000010} al cambiar el valor pasa a \texttt{0001010}.
 
 \subsection{Incremento}
-El modulo sumador simplemente incrementa el \ac{pc}, el código se muestra en el apéndice \ref{sum}  tiene solamente una entrada que es un bus de 7 bits y este valor es incrementado dentro del m\'odulo. 
+El m\'odulo sumador simplemente incrementa el \ac{pc}, el código se muestra en el apéndice \ref{sum}  tiene solamente una entrada que es un bus de 7 bits y este valor es incrementado dentro del m\'odulo. 
 
 
 \begin{figure}[H]
@@ -80,7 +80,7 @@ En el testbench contador de programa se va modificando de a uno, entonces la sal
 
 
 \subsection{Etapa de búsqueda con módulos integrados}
-Finalmente generamos un modulo que integre los módulos anteriores generados y terminamos la etapa. El código de la etapa de búsqueda completo se puede ver en el apéndice \ref{fetch}. En este clock solamente el registro \ac{pc} cambiaría de valor. 
+Finalmente generamos un m\'odulo que integre los módulos anteriores generados y terminamos la etapa. El código de la etapa de búsqueda completo se puede ver en el apéndice \ref{fetch}. En este clock solamente el registro \ac{pc} cambiaría de valor. 
 
 \begin{figure}[H]
 \centering

@@ -24,7 +24,7 @@ Las entradas son:
 
 Esta etapa contiene m\'odulos que son fundamentales para su funcionamiento, la etapa m\'as en detalle se puede ver en la figura \ref{fig:decodedetail}, estos m\'odulos son la unidad de control, el banco de registros, la unidad de extensi\'on de signo y un multiplexor.
 
-\begin{figure}[H]
+\begin{figure}[H] 
 \centering
 \includegraphics[scale=0.7]{img/decode_stage_inside}
 \caption{Detalle etapa de decodificaci\'on}
@@ -105,6 +105,16 @@ Este m\'odulo se encarga, en caso de que la senal de stop est\'e activada, de re
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{img/multiplexor_inside}
-\caption{Multiplexor de senales de la unidad de control}
+\caption{Multiplexor de señales de la unidad de control}
 \label{fig:sign_extended}
+\end{figure}
+
+\subsection{Multiplexores de corto}
+Las salidas de datos del banco de registros se conectan cada una a un multiplexor. Estos multiplexores trabajan con la unidad de cortocircuito para evitar los riesgos de lectura despues de escritura frente a las etapas de ejecucion, memoria y escritura.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/cortos}
+\caption{Multiplexores de cortocircuito}
+\label{fig:corto}
 \end{figure}

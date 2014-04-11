@@ -26,6 +26,7 @@ module latch_ex_test;
 
 	// Inputs
 	reg clk;
+	reg rst;
 	reg alu_src;
 	reg [5:0] alu_op;
 	reg reg_dst;
@@ -38,6 +39,7 @@ module latch_ex_test;
 	// Instantiate the Unit Under Test (UUT)
 	latch_ex uut (
 		.clk(clk), 
+		.rst(rst),
 		.alu_src(alu_src), 
 		.alu_op(alu_op), 
 		.reg_dst(reg_dst), 
@@ -48,12 +50,17 @@ module latch_ex_test;
 
 	initial begin
 		// Initialize Inputs
+		rst = 1;
 		clk = 0;
 		alu_src = 0;
 		alu_op = 0;
 		reg_dst = 0;
 
 		// Wait 100 ns for global reset to finish
+		#100;
+		
+		rst = 0;
+		
 		#100;
         
 		clk = 0;

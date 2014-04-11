@@ -4,7 +4,7 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   19:39:34 11/28/2013
+// Create Date:   17:00:26 04/11/2014
 // Design Name:   latch_id_ex
 // Module Name:   /home/nico/pipeline-ac/pipeline/latch_id_ex_test.v
 // Project Name:  pipeline
@@ -23,34 +23,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module latch_id_ex_test;
- 
+
 	// Inputs
 	reg [5:0] alu_op;
 	reg reg_dst;
 	reg alu_src;
-	reg branch;
 	reg mem_write;
-	reg mem_read;
 	reg reg_write;
 	reg mem_to_reg;
-	reg [7:0] pc_next;
 	reg [31:0] data1;
 	reg [31:0] data2;
 	reg [31:0] sign_extend;
 	reg [4:0] reg1;
 	reg [4:0] reg2;
 	reg clk;
+	reg rst;
 
 	// Outputs
 	wire [5:0] alu_op_reg;
 	wire reg_dst_reg;
 	wire alu_src_reg;
-	wire branch_reg;
 	wire mem_write_reg;
-	wire mem_read_reg;
 	wire reg_write_reg;
 	wire mem_to_reg_reg;
-	wire [7:0] pc_next_reg;
 	wire [31:0] data1_reg;
 	wire [31:0] data2_reg;
 	wire [31:0] sign_extend_reg;
@@ -62,27 +57,22 @@ module latch_id_ex_test;
 		.alu_op(alu_op), 
 		.reg_dst(reg_dst), 
 		.alu_src(alu_src), 
-		.branch(branch), 
 		.mem_write(mem_write), 
-		.mem_read(mem_read), 
 		.reg_write(reg_write), 
 		.mem_to_reg(mem_to_reg), 
-		.pc_next(pc_next), 
 		.data1(data1), 
 		.data2(data2), 
 		.sign_extend(sign_extend), 
 		.reg1(reg1), 
 		.reg2(reg2), 
 		.clk(clk), 
+		.rst(rst), 
 		.alu_op_reg(alu_op_reg), 
 		.reg_dst_reg(reg_dst_reg), 
 		.alu_src_reg(alu_src_reg), 
-		.branch_reg(branch_reg), 
 		.mem_write_reg(mem_write_reg), 
-		.mem_read_reg(mem_read_reg), 
 		.reg_write_reg(reg_write_reg), 
 		.mem_to_reg_reg(mem_to_reg_reg), 
-		.pc_next_reg(pc_next_reg), 
 		.data1_reg(data1_reg), 
 		.data2_reg(data2_reg), 
 		.sign_extend_reg(sign_extend_reg), 
@@ -95,59 +85,54 @@ module latch_id_ex_test;
 		alu_op = 0;
 		reg_dst = 0;
 		alu_src = 0;
-		branch = 0;
 		mem_write = 0;
-		mem_read = 0;
 		reg_write = 0;
 		mem_to_reg = 0;
-		pc_next = 0;
 		data1 = 0;
 		data2 = 0;
 		sign_extend = 0;
 		reg1 = 0;
 		reg2 = 0;
 		clk = 0;
+		rst = 1;
 
+		// Wait 100 ns for global reset to finish
 		#100;
-        
-		alu_op = 31;
+		rst = 0;
+      #100;
+		
+		alu_op = 1;
 		reg_dst = 1;
 		alu_src = 1;
-		branch = 1;
 		mem_write = 1;
-		mem_read = 1;
 		reg_write = 1;
 		mem_to_reg = 1;
-		pc_next = 1;
-		data1 = 1;
-		data2 = 1;
-		sign_extend = 1;
-		reg1 = 1;
+		data1 = 5;
+		data2 = 4;
+		sign_extend = 3;
+		reg1 = 2;
 		reg2 = 1;
-		clk = 0;
-		#100;
 		clk = 1;
+		
 		#100;
-      clk = 0;
+		
+		clk = 0;
+		
+		#100;
+		
 		alu_op = 0;
 		reg_dst = 0;
 		alu_src = 0;
-		branch = 0;
 		mem_write = 0;
-		mem_read = 0;
 		reg_write = 0;
 		mem_to_reg = 0;
-		pc_next = 0;
 		data1 = 0;
 		data2 = 0;
 		sign_extend = 0;
 		reg1 = 0;
 		reg2 = 0;
-		#100;
 		clk = 1;
-		#100;
-		clk = 0;
-		#100;
+		
 	end
       
 endmodule

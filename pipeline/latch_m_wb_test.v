@@ -46,7 +46,8 @@ module latch_m_wb_test;
 		.alu_result(alu_result), 
 		.data_load(data_load), 
 		.dst(dst), 
-		.clk(clk), 
+		.clk(clk),
+		.rst(rst),
 		.reg_write_reg(reg_write_reg), 
 		.mem_to_reg_reg(mem_to_reg_reg), 
 		.alu_result_reg(alu_result_reg), 
@@ -62,8 +63,12 @@ module latch_m_wb_test;
 		data_load = 0;
 		dst = 0;
 		clk = 0;
+		rst = 1;
+		
+		#100;
+		rst = 0;
+		#100;
 
-		// Wait 100 ns for global reset to finish
 		#100;
 		reg_write = 1;
 		mem_to_reg = 1;

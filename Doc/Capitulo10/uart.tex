@@ -24,9 +24,9 @@ La etapa tiene como salidas:
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{Capitulo01/fetchstage}
-\caption{Etapa de búsqueda}
-\label{fig:fetch}
+\includegraphics[scale=0.35]{img/debug_unit}
+\caption{Unidad de debug}
+\label{fig:debugunit}
 \end{figure}
 
 \subsection{Funcionamiento}
@@ -50,3 +50,13 @@ El m\'odulo funciona con una m\'aquina de estados. En un comienzo se est\'a espe
 
 \subsection{Generador de Baudios}
 El Generador de Baudios genera una señal con una frecuencia menor a la del clock. Para hacer esto tiene un contador que al alcanzar un valor l\'imite levanta la señal de tick. El l\'imite se calcula con la siguiente f\'ormula: FrecClk/(BaudRate*16) donde la FrecClk = 100 MHz y el Baud Rate es 9600.
+
+\subsection{GUI}
+Como modo adicional, agregamos una interfaz grafica para la vista de los datos que entrega la UART, esta se encarga de obtener los datos desde la placa y de all\'i parsearlos para mostrarlos en la interfaz grafica de manera que facilite la visualizaci\'on. La interfaz se muestra en la figura siguiente:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{img/pipelinegui}
+\caption{Interfaz grafica para debbuguear}
+\label{fig:latchifid}
+\end{figure}

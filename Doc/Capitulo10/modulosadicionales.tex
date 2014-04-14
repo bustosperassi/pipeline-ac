@@ -1,5 +1,6 @@
 \section{M\'odulos adicionales}
-Los m\'odulos adicionales son los encargados de dar funcionalidades al pipeline que hacen que mejoren su rendimiento.
+Los m\'odulos adicionales son los encargados de dar funcionalidades al pipeline que hacen que mejore su rendimiento.
+
 \subsection{Unidad de cortocircuito}
 M\'odulo que se encarga de detectar si la instrucci\'on siguiente es dependiente de datos de la instrucci\'on anterior, es decir, si el resultado de la instrucci\'on es necesario por las instrucciones siguientes. En ausencia de este m\'odulo hay riesgos de lectura despues de escritura (LDE). En la figura \ref{fig:fwd} se muestra el m\'odulo.
 
@@ -29,7 +30,7 @@ Las salidas del m\'odulo son:
 
 \subsection{Detector de riesgo}
 
-Este m\'odulo se encarga de actuar en la etapa de decodificaci\'on impidiendo la carga y lectura de una nueva instrucci\'on. Para que se de este caso, la instrucci\'on en la etapa de ejecuci\'on debe ser del tipo load y el registro de destino del load debe coincidir con el registro de la siguiente intrucci\'on. Si se dan estas condiciones, entonces existe riesgo y es necesario parar el pipeline insertando una burbuja. El m\'odulo se muestra en la figura \ref{fig:datahazard}.
+Este m\'odulo se encarga de actuar en la etapa de decodificaci\'on, impidiendo la carga y lectura de una nueva instrucci\'on. Para que se de este caso, la instrucci\'on en la etapa de ejecuci\'on debe ser del tipo load y el registro de destino del load debe coincidir con el registro de la siguiente intrucci\'on. Si se dan estas condiciones, entonces existe riesgo y es necesario parar el pipeline insertando una burbuja. El m\'odulo se muestra en la figura \ref{fig:datahazard}.
 
 \begin{figure}[H]
 \centering

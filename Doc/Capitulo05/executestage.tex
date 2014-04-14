@@ -1,5 +1,5 @@
 \section{Etapa de Ejecuci\'on}
-Esta etapa se encarga de las operaciones entre los datos que vienen desde el latch, como se ve en la figura 
+Esta etapa se encarga de las operaciones entre los datos que vienen desde el latch, como se ve en la figura siguiente:
 
 \begin{figure}[H]
 \centering
@@ -15,11 +15,11 @@ Tiene como entradas:
   \item \textbf{alu\_op}: Bus de 6 bits que lleva los datos para que la unidad de control de la alu se encargue de elegir que operacion ejecutar.	
   \item \textbf{data1}: Datos que entran a la alu para ser procesados.
   \item \textbf{data2}: Datos que entran en el mux1 para elegir contra sign\_extend y tambien sale directamente hacia el latch.
-  \item \textbf{reg1}: entra a mux\_2 para elegir contra reg2 segun la senal reg\_dst para conocer cual de los registros se va a escribir en el banco de registros en la etapa de escritura.
-  \item \textbf{reg2}: entra a mux\_2 para elegir contra reg1 seg\'un la senal reg\_dst para conocer cual de los registros se va a escribir en el banco de registros en la etapa de escritura. 	
+  \item \textbf{reg1}: Bus de 5 bits que entra a mux\_2 para elegir contra reg2 segun la senal reg\_dst para conocer cual de los registros se va a escribir en el banco de registros en la etapa de escritura.
+  \item \textbf{reg2}: Bus de 5 bits que entra a mux\_2 para elegir contra reg1 seg\'un la senal reg\_dst para conocer cual de los registros se va a escribir en el banco de registros en la etapa de escritura. 	
   \item \textbf{sign\_extend}: Extensi\'on de signo que entra en el multiplexor mux\_1 para elegir contra data2 y entrar a la alu para operar.
-  \item \textbf{alu\_src}: Senal que elige entre data2 y sign\_extend en el mux\_1
-  \item \textbf{reg\_dst}: Senal que elige entre uno de los dos registros en mux\_2 que entran a la etapa para conocer cual se escribe en la etapa de escritura.
+  \item \textbf{alu\_src}: Señal que elige entre data2 y sign\_extend en el mux\_1
+  \item \textbf{reg\_dst}: Señal que elige entre uno de los dos registros en mux\_2 que entran a la etapa para conocer cual se escribe en la etapa de escritura.
   \item \textbf{rst}: Reinicio del m\'odulo. 
 \end{itemize}
 

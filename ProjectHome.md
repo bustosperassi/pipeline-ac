@@ -1,0 +1,2 @@
+Utilizando verilog, se desarrolla un proyecto para la entrega de un trabajo final de la materia arquitectura de computadoras 2012.
+El proyecto consiste en la construcción de un pipeline de 4 ó 5 etapas capaz de decodificar un código previamente cargado y que este sea capaz de procesarlo, llegando hasta la ejecución, por último con fines de evaluación y testing sería probarlo en una fpga.
